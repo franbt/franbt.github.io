@@ -1,1 +1,1 @@
-#### Francisco José Bermejo Tarifa [Diseño Gráfico - Equipo: Croquetivos]
+### Francisco José Bermejo Tarifa [Diseño Gráfico - Equipo: Croquetivos]
