@@ -1,0 +1,7 @@
+<div id=sidebar>
+  <ul>
+    {% for dept in site.departments %}
+        <li><a href="{{ dept.url }}">{{ dept.name }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
