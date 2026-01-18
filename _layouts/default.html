@@ -13,10 +13,11 @@
     <![endif]-->
     {% include head-custom.html %}
   </head>
+  
   <body>
     <div class="wrapper">
-      <header>
-        
+      <
+        header>  
         <h1 class="header">{{ site.title | default: site.github.repository_name }}</h1>
         <p class="header">{{ site.description | default: site.github.project_tagline }}</p>
         
@@ -25,8 +26,7 @@
           <li><a href="{{ dept.url }}">{{ dept.name }}</a></li>
           {% endfor %}
         </ul>
-        
-      </header>
+        </header>
       
       <section>
         
@@ -37,7 +37,10 @@
       <footer>
         <p><small>Licencia <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPLv3</a></small></p>
       </footer>
+      
     </div>
+    {% include sidebar.html %}
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
   </body>
+  
 </html>
