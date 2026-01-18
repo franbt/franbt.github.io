@@ -44,16 +44,13 @@
   border-bottom: none !important;
   color: inherit; /* optional: makes the link use the heading color */
 }
-
 .tree-children {
   display: none;
   margin-left: 1rem;
 }
-
-.tree-item.open .tree-children {
+.tree-item.open > .tree-children {
   display: block;
 }
-
 .tree-toggle {
   background: none;
   border: none;
