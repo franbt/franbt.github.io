@@ -1,9 +1,15 @@
 <div id=sidebar>
     <h1 class="h1_sidebar">{{ site.title | default: site.github.repository_name }}</h1>
     <h2 class="h2_sidebar">{{ site.description | default: site.github.project_tagline }}</h2>
-  <ul>
+  <ul class="tree">
     {% for dept in site.departments %}
-        <li><a href="{{ dept.url }}">{{ dept.name }}</a></li>
+      <li class="tree-item">
+        <button class="tree-toggle">{{ dept.name }}</button>
+        <ul class="tree-children">
+          <li><a href="{{ dept.url }}">Overview</a></li>
+          <!-- Add more sub-items if you want -->
+        </ul>
+      </li>
     {% endfor %}
   </ul>
 </div>
