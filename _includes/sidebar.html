@@ -1,4 +1,8 @@
 <div id=sidebar>
+  <header>
+    <h1 class="header">{{ site.title | default: site.github.repository_name }}</h1>
+    <p class="header">{{ site.description | default: site.github.project_tagline }}</p>
+  </header>
   <ul>
     {% for dept in site.departments %}
         <li><a href="{{ dept.url }}">{{ dept.name }}</a></li>
