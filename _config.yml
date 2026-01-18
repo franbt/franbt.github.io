@@ -43,7 +43,7 @@ departments:
           - title: Hacer torre por grupos (B)
             url: /dinamizacion/hacer_torre_grupo_b
             
-       - name: Supuesto 2
-         pages:
-           - title: Supuesto 2
-             url: /dinamizacion/supuesto_2/supuesto_2
+      - name: Supuesto 2
+        pages:
+          - title: Supuesto 2
+            url: /dinamizacion/supuesto_2/supuesto_2
