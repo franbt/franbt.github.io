@@ -63,3 +63,11 @@
   width: 100%;
 }
 
+.tree-toggle::before {
+  content: "▶ ";
+}
+
+.tree-item.open > .tree-toggle::before {
+  content: "▼ ";
+}
+
