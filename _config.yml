@@ -47,3 +47,19 @@ departments:
         pages:
           - title: Supuesto 2
             url: /dinamizacion/supuesto_2/supuesto_2
+            
+  - name: Turismo
+    subjects:
+      - name: Ribera del Marco
+        pages:
+          - title: Localización
+            url: /turismo/ribera_del_marco/localizacion
+          - title: Historia
+            url: /turismo/ribera_del_marco/historia
+          - title: Potencial
+            url: /turismo/ribera_del_marco/potencial
+
+      - name: Supuesto 2
+        pages:
+          - title: Supuesto 2
+            url: /turismo/supuesto_2/supuesto_2
