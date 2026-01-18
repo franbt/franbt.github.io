@@ -6,8 +6,16 @@
       <li class="tree-item">
         <button class="tree-toggle">{{ dept.name }}</button>
         <ul class="tree-children">
-          <li><a href="{{ dept.url }}">Overview</a></li>
-          <!-- Add more sub-items if you want -->
+          {% for subject in dept.subjects %}
+            <li class="tree-item">
+              <button class="tree-toggle">{{ subject.name }}</button>
+              <ul class="tree-children">
+                {% for page in subject.pages %}
+                  <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% endfor %}
         </ul>
       </li>
     {% endfor %}
