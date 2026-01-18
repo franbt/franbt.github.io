@@ -19,7 +19,7 @@ departments:
       - name: Supuesto 2
         pages:
           - title: Supuesto 2
-            url: /disn/supuesto_2 
+            url: /disn/supuesto_2/supuesto_2
 
   - name: Jardinería
     subjects:
@@ -33,7 +33,7 @@ departments:
        - name: Supuesto 2
          pages:
            - title: Supuesto 2
-             url: /jardineria/supuesto_2
+             url: /jardineria/supuesto_2/supuesto_2
 
   - name: Dinamización
     subjects:
@@ -47,7 +47,7 @@ departments:
        - name: Supuesto 2
          pages:
            - title: Supuesto 2
-             url: /dinamizacion/supuesto_2 
+             url: /dinamizacion/supuesto_2/supuesto_2
              
   - name: Turismo
     subjects:
@@ -63,4 +63,4 @@ departments:
       - name: Supuesto 2
         pages:
           - title: Supuesto 2
-            url: /turismo/supuesto_2
+            url: /turismo/supuesto_2/supuesto_2
