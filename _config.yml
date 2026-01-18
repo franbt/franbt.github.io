@@ -3,3 +3,13 @@ description: Transversales
 show_downloads: true
 google_analytics:
 theme: jekyll-theme-dinky
+
+departments:
+  - name: Diseño
+    url: /disn
+  - name: Jardinería
+    url: /jardineria
+  - name: Dinamización
+    url: /dinamización
+  - name: Turismo
+    url: /turismo
