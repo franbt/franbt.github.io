@@ -3,7 +3,11 @@
 
 @import "jekyll-theme-dinky";
 .wrapper {
-  outline: 2px solid #333; // thickness + color
-  outline-offset: 0;
-  background: linear-gradient(to bottom, #f4f4f4, #e0e0e0);
+  /* your overrides here if needed */
+}
+#sidebar {
+  background-color: #f4f4f4;
+  outline: 2px solid #333;
+  padding: 1rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
