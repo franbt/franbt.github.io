@@ -5,11 +5,62 @@ google_analytics:
 theme: jekyll-theme-dinky
 
 departments:
-  - name: Diseño
-    url: /disn
+   - name: Diseño
+    subjects:
+      - name: Mercadotécnia
+        pages:
+          - title: Descripción de Marca
+            url: /disn/mercadotecnia/descripcion_marca
+          - title: Objetivos
+            url: /disn/mercadotecnia/objetivos
+          - title: Público Objetivo y DAFO
+            url: /disn/mercadotecnia/publ_obj_dafo
+
+      - name: Supuesto 2
+        pages:
+          - title: Supuesto 2
+            url: /disn/supuesto_2 
+
   - name: Jardinería
-    url: /jardineria
+    subjects:
+      - name: Sostenibilidad y ecología
+        pages:
+          - title: Sostenibilidad del suelo
+            url: /jardinería/sostenibilidad_del_suelo
+          - title: Ecología del suelo
+            url: /jardinería/ecología_del_suelo
+            
+       - name: Supuesto 2
+         pages:
+           - title: Supuesto 2
+             url: /jardineria/supuesto_2
+
   - name: Dinamización
-    url: /dinamizacion
+    subjects:
+      - name: Trabajo en grupo
+        pages:
+          - title: Hacer torre por grupos (A)
+            url: /dinamizacion/hacer_torre_grupo_a
+          - title: Hacer torre por grupos (B)
+            url: /dinamizacion/hacer_torre_grupo_b
+            
+       - name: Supuesto 2
+         pages:
+           - title: Supuesto 2
+             url: /dinamizacion/supuesto_2 
+             
   - name: Turismo
-    url: /turismo
+    subjects:
+      - name: Ribera del Marco
+        pages:
+          - title: Localización
+            url: /turismo/ribera_del_marco/localizacion
+          - title: Historia
+            url: /turismo/ribera_del_marco/historia
+          - title: Potencial
+            url: /turismo/ribera_del_marco/potencial
+
+      - name: Supuesto 2
+        pages:
+          - title: Supuesto 2
+            url: /turismo/supuesto_2
