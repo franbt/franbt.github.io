@@ -23,10 +23,6 @@
           {% for dept in site.departments %}
           <li><a href="{{ dept.url }}">{{ dept.name }}</a></li>
         </ul>
-
-        {% if site.github.is_project_page %}
-          <p class="header">This project is maintained by <a class="header name" href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></p>
-        {% endif %}
         
       </header>
 
