@@ -1,4 +1,7 @@
---- layout: default 
-title: Jardinería 
---- # Jardinería
+--- 
+layout: default 
+title: Jardinería
+---
+
+# Jardinería
 Your content here.
