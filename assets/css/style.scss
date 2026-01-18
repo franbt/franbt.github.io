@@ -16,12 +16,16 @@
 }
 .h1_sidebar {
   text-decoration: none;
+  border: none !important; 
+  border-bottom: none !important;
   color: black;
   font-size: 1.4rem;
   margin-bottom: 1rem;
 }
 .h2_sidebar {
   text-decoration: none;
+  border: none !important; 
+  border-bottom: none !important;
   color: black;
   font-size: 1.2rem;
   margin-top: 1rem;
@@ -29,9 +33,13 @@
 }
 .h1_sidebar a {
   text-decoration: none;
+  border: none !important; 
+  border-bottom: none !important;
   color: inherit; /* optional: makes the link use the heading color */
 }
 .h2_sidebar a {
   text-decoration: none;
+  border: none !important; 
+  border-bottom: none !important;
   color: inherit; /* optional: makes the link use the heading color */
 }
