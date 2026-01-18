@@ -25,9 +25,9 @@ departments:
       - name: Sostenibilidad y ecología
         pages:
           - title: Sostenibilidad del suelo
-            url: /jardinería/sostenibilidad_del_suelo
+            url: /jardineria/sostenibilidad_del_suelo
           - title: Ecología del suelo
-            url: /jardinería/ecología_del_suelo
+            url: /jardineria/ecología_del_suelo
             
       - name: Supuesto 2
         pages:
