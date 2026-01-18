@@ -43,3 +43,23 @@
   border-bottom: none !important;
   color: inherit; /* optional: makes the link use the heading color */
 }
+
+.tree-children {
+  display: none;
+  margin-left: 1rem;
+}
+
+.tree-item.open .tree-children {
+  display: block;
+}
+
+.tree-toggle {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+  width: 100%;
+}
+
