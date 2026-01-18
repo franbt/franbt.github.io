@@ -33,3 +33,17 @@ departments:
         pages:
           - title: Supuesto 2
             url: /jardineria/supuesto_2/supuesto_2
+            
+  - name: Dinamización
+    subjects:
+      - name: Trabajo en grupo
+        pages:
+          - title: Hacer torre por grupos (A)
+            url: /dinamizacion/hacer_torre_grupo_a
+          - title: Hacer torre por grupos (B)
+            url: /dinamizacion/hacer_torre_grupo_b
+            
+       - name: Supuesto 2
+         pages:
+           - title: Supuesto 2
+             url: /dinamizacion/supuesto_2/supuesto_2
