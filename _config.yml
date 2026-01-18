@@ -20,3 +20,16 @@ departments:
         pages:
           - title: Supuesto 2
             url: /disn/supuesto_2/supuesto_2
+      - name: Jardinería
+        subjects:
+          - name: Sostenibilidad y ecología
+            pages:
+              - title: Sostenibilidad del suelo
+                url: /jardinería/sostenibilidad_del_suelo
+              - title: Ecología del suelo
+                url: /jardinería/ecología_del_suelo
+            
+          - name: Supuesto 2
+            pages:
+              - title: Supuesto 2
+                url: /jardineria/supuesto_2/supuesto_2
