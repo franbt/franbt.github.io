@@ -5,7 +5,7 @@ google_analytics:
 theme: jekyll-theme-dinky
 
 departments:
-   - name: Diseño
+  - name: Diseño
     subjects:
       - name: Mercadotécnia
         pages:
