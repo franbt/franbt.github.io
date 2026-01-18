@@ -20,10 +20,8 @@
         <p class="header">{{ site.description | default: site.github.project_tagline }}</p>
 
         <ul>
-          <li><a href="/jardineria">Jardinería</a></li> 
-          <li><a href="/dinamización">Dinamización</a></li> 
-          <li><a href="/turismo">Turismo</a></li> 
-          <li><a href="/disn">Diseño</a></li>
+          {% for dept in site.departments %}
+          <li><a href="{{ dept.url }}">{{ dept.name }}</a></li>
         </ul>
 
         {% if site.github.is_project_page %}
