@@ -29,8 +29,12 @@ scene.add(light);
 
 const loader = new GLTFLoader();
 loader.load("terrain.glb", (gltf) => {
-  console.log("Loaded:", gltf);
-  scene.add(gltf.scene);
+  const terrain = gltf.scene;
+  scene.add(terrain);
+  terrain.traverse((obj) => { 
+    if (obj.isMesh && obj.name.includes("building")) {
+      obj.material = new THREE.MeshStandardMaterial({
+        color: 0xF0EEE9, // cloud dancer }); } });
 });
 
 function animate() {
