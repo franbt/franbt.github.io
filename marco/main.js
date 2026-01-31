@@ -20,7 +20,7 @@ light.position.set(200, 300, 200);
 scene.add(light);
 
 const loader = new GLTFLoader();
-loader.load('CC_listening_ruliads.glb', (gltf) => {
+loader.load('terrain.glb', (gltf) => {
   console.log('Loaded:', gltf);
   const terrain = gltf.scene;
   scene.add(terrain);
