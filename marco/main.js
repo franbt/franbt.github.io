@@ -27,8 +27,7 @@ scene.add(sun);
 const light = new THREE.AmbientLight(0xffffff, 0.3);
 scene.add(light);
 
-loader.load("terrain.glb", (gltf) => { 
-  const terrain = gltf.scene; scene.add(terrain); // Compute bounding box 
+loader.load("terrain.glb", (gltf) => {const terrain = gltf.scene; scene.add(terrain); // Compute bounding box 
   const box = new THREE.Box3().setFromObject(terrain); 
   const center = box.getCenter(new THREE.Vector3()); 
   const size = box.getSize(new THREE.Vector3()); // Position camera so the whole terrain fits 
