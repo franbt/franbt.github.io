@@ -20,9 +20,12 @@ document.body.appendChild(renderer.domElement);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.target.set(0, 0, 0);
 
-const light = new THREE.DirectionalLight(0xffffff, 1);
-light.position.set(200, 300, 200);
-scene.add(light);
+const sun = new THREE.DirectionalLight(0xffffff, 1.2); 
+sun.position.set(300, 400, 200); 
+scene.add(sun);
+
+const light = new THREE.AmbientLight(0xffffff, 0.3);
+scene.add(ambient);
 
 const loader = new GLTFLoader();
 loader.load("terrain.glb", (gltf) => {
