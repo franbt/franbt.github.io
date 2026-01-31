@@ -25,7 +25,7 @@ sun.position.set(300, 400, 200);
 scene.add(sun);
 
 const light = new THREE.AmbientLight(0xffffff, 0.3);
-scene.add(ambient);
+scene.add(light);
 
 const loader = new GLTFLoader();
 loader.load("terrain.glb", (gltf) => {
