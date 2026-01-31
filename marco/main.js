@@ -28,13 +28,15 @@ const light = new THREE.AmbientLight(0xffffff, 0.3);
 scene.add(light);
 
 loader.load("terrain.glb", (gltf) => { 
-  const terrain = gltf.scene; scene.add(terrain); terrain.traverse((obj) => {
-    if (obj.isMesh && obj.name.includes("building")) {
-      obj.material = new THREE.MeshStandardMaterial({
-        color: 0xF0EEE9, // soft red 
-        }); 
-    } 
-  }); 
+  const terrain = gltf.scene; scene.add(terrain); // Compute bounding box 
+  const box = new THREE.Box3().setFromObject(terrain); 
+  const center = box.getCenter(new THREE.Vector3()); 
+  const size = box.getSize(new THREE.Vector3()); // Position camera so the whole terrain fits 
+  const maxDim = Math.max(size.x, size.y, size.z); 
+  const distance = maxDim * 1.5; 
+  camera.position.set(center.x + distance, center.y + distance, center.z + distance); 
+  controls.target.copy(center); 
+  controls.update(); 
 });
 
 function animate() {
