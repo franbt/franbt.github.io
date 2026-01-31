@@ -27,16 +27,10 @@ scene.add(sun);
 const light = new THREE.AmbientLight(0xffffff, 0.3);
 scene.add(light);
 
-const loader.load("terrain.glb", (gltf) => { 
-  const terrain = gltf.scene; 
-  scene.add(terrain); 
-  terrain.traverse((obj) => { 
-    if (obj.isMesh && obj.name.includes("building")) {
-      obj.material = new THREE.MeshStandardMaterial({
-        color: 0xff5555, // soft red 
-        }); 
-    } 
-  }); 
+const loader = new GLTFLoader(); 
+loader.load("terrain.glb", (gltf) => { 
+  console.log("Loaded:", gltf); 
+  scene.add(gltf.scene); 
 });
 
 function animate() {
