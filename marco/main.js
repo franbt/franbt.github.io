@@ -27,14 +27,14 @@ scene.add(sun);
 const light = new THREE.AmbientLight(0xffffff, 0.3);
 scene.add(light);
 
-const loader = new GLTFLoader();
-loader.load("terrain.glb", (gltf) => {
-  const terrain = gltf.scene;
-  scene.add(terrain);
-  terrain.traverse((obj) => { 
+loader.load("terrain.glb", (gltf) => { 
+  const terrain = gltf.scene; scene.add(terrain); terrain.traverse((obj) => {
     if (obj.isMesh && obj.name.includes("building")) {
       obj.material = new THREE.MeshStandardMaterial({
-        color: 0xF0EEE9, // cloud dancer }); } });
+        color: 0xF0EEE9, // soft red 
+        }); 
+    } 
+  }); 
 });
 
 function animate() {
