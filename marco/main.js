@@ -1,11 +1,16 @@
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.164/build/three.module.js';
-import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.164/examples/jsm/loaders/GLTFLoader.js';
-import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.164/examples/jsm/controls/OrbitControls.js';
+import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xbfd1e5);
 
-const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 5000);
+const camera = new THREE.PerspectiveCamera(
+  60,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  5000
+);
 camera.position.set(200, 200, 200);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -20,10 +25,9 @@ light.position.set(200, 300, 200);
 scene.add(light);
 
 const loader = new GLTFLoader();
-loader.load('terrain.glb', (gltf) => {
-  console.log('Loaded:', gltf);
-  const terrain = gltf.scene;
-  scene.add(terrain);
+loader.load("terrain.glb", (gltf) => {
+  console.log("Loaded:", gltf);
+  scene.add(gltf.scene);
 });
 
 function animate() {
@@ -33,7 +37,7 @@ function animate() {
 }
 animate();
 
-window.addEventListener('resize', () => {
+window.addEventListener("resize", () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
