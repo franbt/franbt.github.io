@@ -3,11 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <title>Terrain Viewer</title>
+
+  <!-- Import map -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.164/build/three.module.js",
+      "three/examples/jsm/loaders/GLTFLoader.js":
+        "https://cdn.jsdelivr.net/npm/three@0.164/examples/jsm/loaders/GLTFLoader.js",
+      "three/examples/jsm/controls/OrbitControls.js":
+        "https://cdn.jsdelivr.net/npm/three@0.164/examples/jsm/controls/OrbitControls.js"
+    }
+  }
+  </script>
+
   <style>
     body { margin: 0; overflow: hidden; }
     canvas { display: block; }
   </style>
 </head>
+
 <body>
   <script type="module" src="main.js"></script>
 </body>
