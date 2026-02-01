@@ -9,8 +9,7 @@ const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 5000);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.shadowMap.enabled = true; 
-light.castShadow = true; 
+renderer.shadowMap.enabled = true;
 object.castShadow = true; 
 object.receiveShadow = true;
 renderer.toneMappingExposure = 0.7;
@@ -20,11 +19,13 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.target.set(0, 0, 0);
 
 const sun = new THREE.DirectionalLight(0xffffff, 0.6);
+sun.castShadow = true;
 sun.color.setRGB(1, 0.95, 0.9);
 sun.position.set(300, 400, 200); 
 scene.add(sun);
 
 const light = new THREE.AmbientLight(0xffffff, 0.05);
+light.castShadow = true; 
 scene.add(light);
 
 const loader = new GLTFLoader(); 
@@ -39,6 +40,12 @@ loader.load("terrain.glb", (gltf) => {
   camera.position.copy(cam.position); 
   camera.quaternion.copy(cam.quaternion);
   camera.updateProjectionMatrix();
+  gltf.scene.traverse((obj) => { 
+    if (obj.isMesh) { 
+      obj.castShadow = true; 
+      obj.receiveShadow = true; 
+    } 
+  });
   scene.add(gltf.scene); 
 });
 
