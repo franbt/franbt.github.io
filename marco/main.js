@@ -16,10 +16,17 @@ document.body.appendChild(renderer.domElement);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.target.set(0, 0, 0);
 
-const sun = new THREE.DirectionalLight(0xffffff, 0.6);
+const sun = new THREE.DirectionalLight(0xffffff, 0.5); 
+sun.position.set(80, 120, 60); 
+sun.color.setRGB(1, 0.95, 0.9); 
 sun.castShadow = true;
-sun.color.setRGB(1, 0.95, 0.9);
-sun.position.set(300, 400, 200); 
+sun.shadow.camera.left = -500; 
+sun.shadow.camera.right = 500; 
+sun.shadow.camera.top = 500; 
+sun.shadow.camera.bottom = -500; 
+sun.shadow.camera.near = 1; 
+sun.shadow.camera.far = 1000; 
+sun.shadow.mapSize.set(2048, 2048);
 scene.add(sun);
 
 const light = new THREE.AmbientLight(0xffffff, 0.05);
