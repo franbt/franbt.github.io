@@ -25,8 +25,7 @@ sun.shadow.camera.right = 500;
 sun.shadow.camera.top = 500; 
 sun.shadow.camera.bottom = -500; 
 sun.shadow.camera.near = 1; 
-sun.shadow.camera.far = 1000; 
-sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.camera.far = 1000;
 scene.add(sun);
 
 const light = new THREE.AmbientLight(0xffffff, 0.05);
