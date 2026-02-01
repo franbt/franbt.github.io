@@ -11,8 +11,10 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   5000
 );
-camera.position.set(819, 461, 448);
-camera.rotation.set(44.26, -0.000004, 72.8);
+
+const cam = gltf.scene.getObjectByName("Camera");
+camera.position.copy(cam.position);
+camera.quaternion.copy(cam.quaternion);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
