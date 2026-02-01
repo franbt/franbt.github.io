@@ -34,8 +34,6 @@ loader.load("terrain.glb", (gltf) => {
   scene.add(gltf.scene); 
 });
 
-gltf.scene.traverse(obj => { if (obj.isMesh && obj.name.includes("building")) { if (isInsideAOI(obj.position)) { obj.material.color.set(0xF0EDE5); // Cloud Dancer } else { obj.material.color.set(0xcccccc); // neutral } } });
-
 function animate() {
   requestAnimationFrame(animate);
   controls.update();
