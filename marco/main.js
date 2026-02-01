@@ -9,16 +9,22 @@ const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 5000);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.shadowMap.enabled = true; 
+light.castShadow = true; 
+object.castShadow = true; 
+object.receiveShadow = true;
+renderer.toneMappingExposure = 0.7;
 document.body.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.target.set(0, 0, 0);
 
-const sun = new THREE.DirectionalLight(0xffffff, 1.2); 
+const sun = new THREE.DirectionalLight(0xffffff, 0.6);
+sun.color.setRGB(1, 0.95, 0.9);
 sun.position.set(300, 400, 200); 
 scene.add(sun);
 
-const light = new THREE.AmbientLight(0xffffff, 0.3);
+const light = new THREE.AmbientLight(0xffffff, 0.05);
 scene.add(light);
 
 const loader = new GLTFLoader(); 
