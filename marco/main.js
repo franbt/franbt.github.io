@@ -17,7 +17,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.target.set(0, 0, 0);
 
 const sun = new THREE.DirectionalLight(0xffffff, 0.5); 
-sun.position.set(80, 120, 60); 
+sun.position.set(-150, 200, 120); 
 sun.color.setRGB(1, 0.95, 0.9); 
 sun.castShadow = true;
 sun.shadow.camera.left = -500; 
