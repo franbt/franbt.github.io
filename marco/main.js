@@ -12,10 +12,6 @@ const camera = new THREE.PerspectiveCamera(
   5000
 );
 
-const cam = gltf.scene.getObjectByName("Camera");
-camera.position.copy(cam.position);
-camera.quaternion.copy(cam.quaternion);
-
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
@@ -32,7 +28,9 @@ scene.add(light);
 
 const loader = new GLTFLoader(); 
 loader.load("terrain.glb", (gltf) => { 
-  console.log("Loaded:", gltf); 
+  const cam = gltf.scene.getObjectByName("Camera");
+  camera.position.copy(cam.position);
+  camera.quaternion.copy(cam.quaternion);
   scene.add(gltf.scene); 
 });
 
