@@ -10,8 +10,6 @@ const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 5000);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
-object.castShadow = true; 
-object.receiveShadow = true;
 renderer.toneMappingExposure = 0.7;
 document.body.appendChild(renderer.domElement);
 
