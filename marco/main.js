@@ -23,7 +23,6 @@ sun.castShadow = true;
 scene.add(sun);
 
 const light = new THREE.AmbientLight(0xffffff, 0.05);
-light.castShadow = true; 
 scene.add(light);
 
 const loader = new GLTFLoader(); 
