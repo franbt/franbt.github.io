@@ -28,13 +28,7 @@ scene.add(light);
 
 const loader = new GLTFLoader(); 
 loader.load("terrain.glb", (gltf) => { 
-  const cam = gltf.scene.getObjectByName("Camera");
-  camera.left = cam.left; 
-  camera.right = cam.right; 
-  camera.top = cam.top; 
-  camera.bottom = cam.bottom; 
-  camera.near = cam.near; 
-  camera.far = cam.far; 
+  const cam = gltf.scene.getObjectByName("Camera"); 
   camera.position.copy(cam.position); 
   camera.quaternion.copy(cam.quaternion);
   camera.updateProjectionMatrix();
