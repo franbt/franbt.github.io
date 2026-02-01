@@ -32,18 +32,7 @@ loader.load("terrain.glb", (gltf) => {
   camera.far = cam.far; 
   camera.position.copy(cam.position); 
   camera.quaternion.copy(cam.quaternion);
-  camera.zoom = 1 / 1644.0;
   camera.updateProjectionMatrix();
-  const shiftX_pixels = 0.03 * width; 
-  const shiftY_pixels = -0.08 * height;
-  camera.setViewOffset( 
-    width, 
-    height, 
-    shiftX_pixels, 
-    shiftY_pixels, 
-    width, 
-    height 
-  );
   scene.add(gltf.scene); 
 });
 
