@@ -12,6 +12,7 @@ const camera = new THREE.PerspectiveCamera(
   5000
 );
 camera.position.set(819, 461, 448);
+camera.rotation.set(44.26, -0.000004, 72.8);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -32,6 +33,8 @@ loader.load("terrain.glb", (gltf) => {
   console.log("Loaded:", gltf); 
   scene.add(gltf.scene); 
 });
+
+gltf.scene.traverse(obj => { if (obj.isMesh && obj.name.includes("building")) { if (isInsideAOI(obj.position)) { obj.material.color.set(0xF0EDE5); // Cloud Dancer } else { obj.material.color.set(0xcccccc); // neutral } } });
 
 function animate() {
   requestAnimationFrame(animate);
