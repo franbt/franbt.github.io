@@ -20,12 +20,6 @@ const sun = new THREE.DirectionalLight(0xffffff, 0.5);
 sun.position.set(-150, 200, 120); 
 sun.color.setRGB(1, 0.95, 0.9); 
 sun.castShadow = true;
-sun.shadow.camera.left = -500; 
-sun.shadow.camera.right = 500; 
-sun.shadow.camera.top = 500; 
-sun.shadow.camera.bottom = -500; 
-sun.shadow.camera.near = 1; 
-sun.shadow.camera.far = 1000;
 scene.add(sun);
 
 const light = new THREE.AmbientLight(0xffffff, 0.05);
