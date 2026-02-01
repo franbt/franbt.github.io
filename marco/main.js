@@ -48,7 +48,9 @@ loader.load("terrain.glb", (gltf) => {
   gltf.scene.traverse((obj) => { 
     if (obj.isMesh) { 
       obj.castShadow = true; 
-      obj.receiveShadow = true; 
+      obj.receiveShadow = true;
+      obj.material.flatShading = true; 
+      obj.material.needsUpdate = true;
     } 
   });
   gltf.scene.traverse((obj) => { 
