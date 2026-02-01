@@ -51,6 +51,12 @@ loader.load("terrain.glb", (gltf) => {
       obj.receiveShadow = true; 
     } 
   });
+  gltf.scene.traverse((obj) => { 
+    if (obj.isMesh && obj.material) {
+      obj.material.roughness = 0.9; 
+      obj.material.metalness = 0.0; 
+    } 
+  });
   scene.add(gltf.scene); 
 });
 
