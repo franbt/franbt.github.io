@@ -16,7 +16,7 @@ document.body.appendChild(renderer.domElement);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.target.set(0, 0, 0);
 
-const sun = new THREE.DirectionalLight(0xffffff, 0.5); 
+const sun = new THREE.DirectionalLight(0xffffff, 3); 
 sun.position.set(-150, 200, 120); 
 sun.color.setRGB(1, 0.95, 0.9); 
 sun.castShadow = true;
