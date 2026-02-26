@@ -14,6 +14,28 @@ const camera = new THREE.PerspectiveCamera(
   5000
 );
 
+camera.position.set(300, 300, 300);
+camera.lookAt(0, 0, 0);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+
+// Zoom limits
+controls.minDistance = 80;
+controls.maxDistance = 1500;
+
+// Vertical rotation limits
+controls.minPolarAngle = Math.PI * 0.15;
+controls.maxPolarAngle = Math.PI * 0.45;
+
+// Smooth movement
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+
+// Allow panning
+controls.enablePan = true;
+controls.screenSpacePanning = false;
+
+
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
