@@ -7,7 +7,7 @@ scene.background = new THREE.Color(0xbfd1e5);
 
 //const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 5000);
 
-const camera = new THREE.PerspectiveCamera(
+/* const camera = new THREE.PerspectiveCamera(
   45,
   window.innerWidth / window.innerHeight,
   0.1,
@@ -16,6 +16,7 @@ const camera = new THREE.PerspectiveCamera(
 
 camera.position.set(300, 300, 300);
 camera.lookAt(0, 0, 0);
+*/
 
 const controls = new OrbitControls(camera, renderer.domElement);
 
