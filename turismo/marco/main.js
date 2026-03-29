@@ -191,16 +191,26 @@ function onMouseMove(event) {
 
 function onWindowResize() {
     const aspect = window.innerWidth / window.innerHeight;
-
-    // Maintain vertical frustum height while adjusting horizontal for aspect ratio
-    camera.left = -initialFrustumHeight * aspect / 2;
-    camera.right = initialFrustumHeight * aspect / 2;
-    camera.top = initialFrustumHeight / 2;
-    camera.bottom = -initialFrustumHeight / 2;
+    
+    // Improved resize logic:
+    // If landscape (aspect > 1), keep vertical height constant.
+    // If portrait (aspect < 1), keep horizontal width constant to avoid "too narrow" feeling.
+    if (aspect > 1) {
+        camera.left = -initialFrustumHeight * aspect / 2;
+        camera.right = initialFrustumHeight * aspect / 2;
+        camera.top = initialFrustumHeight / 2;
+        camera.bottom = -initialFrustumHeight / 2;
+    } else {
+        camera.left = -initialFrustumHeight / 2;
+        camera.right = initialFrustumHeight / 2;
+        camera.top = (initialFrustumHeight / aspect) / 2;
+        camera.bottom = -(initialFrustumHeight / aspect) / 2;
+    }
 
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
+
 
 
 function animate(time) {

@@ -12,7 +12,7 @@ body {
 
 #canvas-container {
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
 }
 
 #loading {
@@ -37,7 +37,7 @@ body {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     pointer-events: none;
     /* Let clicks pass through to the 3D canvas natively */
     z-index: 5;
@@ -282,13 +282,14 @@ body {
 
     #detail-panel {
         top: auto;
-        bottom: 25px; /* Stick to bottom */
+        bottom: calc(30px + env(safe-area-inset-bottom)); /* Increase spacing for safe area */
         left: 50%;
         width: calc(100% - 40px);
-        max-height: 45vh;
+        max-height: 48dvh; /* slightly more height if possible */
         overflow-y: auto;
         z-index: 20;
         transform: translateX(-50%); /* Centering */
+        padding-bottom: calc(20px + env(safe-area-inset-bottom)); /* Internal padding for button visibility */
     }
 
 
