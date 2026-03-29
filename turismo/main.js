@@ -1,0 +1,327 @@
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
+
+let scene, camera, renderer, controls;
+
+// Flight Animation State
+let isAnimating = false;
+let animStartTime = 0;
+let animDuration = 1500; // ms
+let startCamPos = new THREE.Vector3();
+let startTarget = new THREE.Vector3();
+let startZoom = 1;
+let endCamPos = new THREE.Vector3();
+let endTarget = new THREE.Vector3();
+let endZoom = 1;
+
+let initialCamPos = new THREE.Vector3();
+let initialTarget = new THREE.Vector3();
+let initialZoom = 1;
+let initialNear = 0.1;
+let initialFar = 50000;
+
+const landmarks = [
+    { name: "Charca del Marco", apunt: "Origen del caudal de la Rivera del Marco", desc: "También llamada 'Fuente del Rey', procede de la filtración de agua del Calerizo y llega a través de un sifón natural. Sus aguas transcurren de sureste a noreste por la Ribera.", titu: "Municipal", type: "Acuífero", target: { x: 600, y: 25, z: 800 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Fuente Fría", apunt: "Fuente Municipal", desc: "The deep basin carved by centuries of flowing water.", titu: "Municipal", type: "Fuente", target: { x: 329, y: 30, z: 202 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Fuente Concejo", apunt: "Fuente Municipal", desc: "Remnants of an civilization long past.", titu: "Municipal", type: "Fuente", target: { x: 219, y: 20, z: -221 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Fuente Rocha", apunt: "Fuente Municipal", desc: "A massive subterranean entrance partially obscured.", titu: "Municipal", type: "Fuente", target: { x: 378, y: 20, z: -459 }, offset: { x: 0, y: 0, z: 0 }, zoom: 5 },
+    { name: "Abrevaderos del Vadillo", apunt: "Abrevaderos", desc: "Vast expanses of flat, grassy terrain.", titu: "Municipal", type: "Abrevaderos", target: { x: 515, y: 20, z: -1165 }, offset: { x: 0, y: 15, z: 30 }, zoom: 3 }
+];
+
+let initialFrustumHeight = 1000;
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+const terrainObjects = [];
+
+function init() {
+    const container = document.getElementById('canvas-container');
+
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xbfd1e5);
+
+    camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 50000);
+    camera.position.set(0, 100, 200);
+
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.0;
+    container.appendChild(renderer.domElement);
+
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.minPolarAngle = 0.1; // Prevent looking completely straight down (which causes a 180° zenith flip)
+    controls.maxPolarAngle = 1.2; // Restrict vertical tilt so you don't see past the terrain edge into the void
+    controls.minDistance = 5;
+    controls.maxDistance = 5000;
+
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+    scene.add(ambientLight);
+
+    const dirLight = new THREE.DirectionalLight(0xffffff, 2.8);
+    // Lat: 39.4765 N configures the sun's elevation. At mid-afternoon, the sun is roughly South-West.
+    // Setting up a mathematically accurate Spherical proxy for those coordinates to cast authentic shadows:
+    // x = West (-), y = Altitude (+), z = South (+)
+    dirLight.position.set(-2269, 3535, 2708);
+    dirLight.castShadow = true;
+    dirLight.shadow.camera.top = 5000;
+    dirLight.shadow.camera.bottom = -5000;
+    dirLight.shadow.camera.left = -5000;
+    dirLight.shadow.camera.right = 5000;
+    dirLight.shadow.camera.near = 0.5;
+    dirLight.shadow.camera.far = 20000;
+    dirLight.shadow.bias = -0.0005;
+    dirLight.shadow.mapSize.width = 4096;
+    dirLight.shadow.mapSize.height = 4096;
+    scene.add(dirLight);
+
+    const loader = new GLTFLoader();
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.164/examples/jsm/libs/draco/');
+    loader.setDRACOLoader(dracoLoader);
+
+    const loadingElem = document.getElementById('loading');
+
+    loader.load(
+        'terrain.glb',
+        function (gltf) {
+            const model = gltf.scene;
+
+            const cam = gltf.scene.getObjectByName("Camera");
+            if (cam) {
+                camera.left = cam.left; camera.right = cam.right;
+                camera.top = cam.top; camera.bottom = cam.bottom;
+                camera.near = cam.near; camera.far = cam.far;
+                camera.position.copy(cam.position);
+                camera.quaternion.copy(cam.quaternion);
+                camera.updateProjectionMatrix();
+
+                // Save initial height to handle resizing
+                initialFrustumHeight = cam.top - cam.bottom;
+            } else {
+                initialFrustumHeight = 2; // default if no camera in GLTF
+            }
+
+            initialNear = camera.near;
+            initialFar = camera.far;
+
+            model.traverse((child) => {
+                if (child.isMesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                    if (child.material) {
+                        child.material.roughness = 0.9;
+                        child.material.metalness = 0.0;
+                    }
+                    terrainObjects.push(child);
+                }
+            });
+
+            scene.add(model);
+
+            // Save initial view after camera matches GLTF
+            initialCamPos.copy(camera.position);
+            initialTarget.copy(controls.target);
+            initialZoom = camera.zoom;
+            setupUI();
+
+            loadingElem.style.opacity = '0';
+            setTimeout(() => loadingElem.style.display = 'none', 500);
+        },
+        function (xhr) {
+            if (xhr.total > 0) {
+                loadingElem.innerText = `Loading terrain... ${Math.round(xhr.loaded / xhr.total * 100)}%`;
+            } else {
+                loadingElem.innerText = `Loading terrain... ${(xhr.loaded / 1024 / 1024).toFixed(2)} MB`;
+            }
+        },
+        function (error) {
+            console.error('An error happened', error);
+            loadingElem.innerText = 'Error loading model. Check console.';
+            loadingElem.style.background = 'rgba(255, 0, 0, 0.7)';
+        }
+    );
+
+    window.addEventListener('resize', onWindowResize);
+    window.addEventListener('mousemove', onMouseMove);
+
+    animate();
+}
+
+function onMouseMove(event) {
+    // UI Elements
+    const crossX = document.getElementById('crosshair-x');
+    const crossY = document.getElementById('crosshair-y');
+    const tooltip = document.getElementById('coords-tooltip');
+    const coordX = document.getElementById('coord-x');
+    const coordY = document.getElementById('coord-y');
+
+    // Update Crosshair Position
+    crossX.style.top = event.clientY + 'px';
+    crossY.style.left = event.clientX + 'px';
+
+    // Calculate Mouse Raycasting
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(terrainObjects);
+
+    if (intersects.length > 0) {
+        const point = intersects[0].point;
+
+        // Show Tooltip & Update Values
+        tooltip.style.opacity = '1';
+        tooltip.style.left = (event.clientX + 20) + 'px';
+        tooltip.style.top = (event.clientY + 20) + 'px';
+
+        coordX.innerText = point.x.toFixed(2);
+        coordY.innerText = point.z.toFixed(2); // Using Z for the second map coordinate
+    } else {
+        tooltip.style.opacity = '0';
+    }
+}
+
+
+function onWindowResize() {
+    const aspect = window.innerWidth / window.innerHeight;
+
+    // Maintain vertical frustum height while adjusting horizontal for aspect ratio
+    camera.left = -initialFrustumHeight * aspect / 2;
+    camera.right = initialFrustumHeight * aspect / 2;
+    camera.top = initialFrustumHeight / 2;
+    camera.bottom = -initialFrustumHeight / 2;
+
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+
+function animate(time) {
+    requestAnimationFrame(animate);
+
+    if (isAnimating) {
+        let alpha = (time - animStartTime) / animDuration;
+        if (alpha >= 1) {
+            alpha = 1;
+            isAnimating = false;
+            controls.enabled = true; // give back control
+        }
+
+        // Two-phase cinematic macro sequence: 
+        // 1. Move position overhead mostly during 0.0 - 0.7
+        // 2. Zoom the lens mostly during 0.3 - 1.0 (getting closer as a macro detail)
+
+        let moveAlpha = Math.min(Math.max(alpha / 0.7, 0), 1);
+        let zoomAlpha = Math.min(Math.max((alpha - 0.3) / 0.7, 0), 1);
+
+        // Smoothstep both
+        const smoothMove = moveAlpha * moveAlpha * (3 - 2 * moveAlpha);
+        const smoothZoom = zoomAlpha * zoomAlpha * (3 - 2 * zoomAlpha);
+
+        camera.position.lerpVectors(startCamPos, endCamPos, smoothMove);
+        controls.target.lerpVectors(startTarget, endTarget, smoothMove);
+        camera.zoom = THREE.MathUtils.lerp(startZoom, endZoom, smoothZoom);
+        camera.updateProjectionMatrix();
+    }
+
+    // Extend frustum vastly and dynamically inverse-proportionally to prevent physical clipping in macro mode
+    let zoomRatio = camera.zoom / (initialZoom || 1);
+    camera.near = -100000; // An orthographic camera can use massive negative near planes to prevent slicing anything behind the camera plane!
+    camera.far = 100000 / zoomRatio; // scale far relative to zoom without shrinking it into the model
+    camera.updateProjectionMatrix();
+
+    controls.update();
+    renderer.render(scene, camera);
+}
+
+function setupUI() {
+    const hoverCard = document.getElementById('hover-card');
+    const hoverTitle = document.getElementById('hover-title');
+    const hoverDesc = document.getElementById('hover-desc');
+
+    const detailPanel = document.getElementById('detail-panel');
+    const detailTitle = document.getElementById('detail-title');
+    const detailDesc = document.getElementById('detail-desc');
+    const detailTitu = document.getElementById('detail-titu');
+    const detailType = document.getElementById('detail-type');
+
+    document.querySelectorAll('.landmark-btn').forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+            // Prevent hover card from overlapping detail panel on mobile / small screens
+            if (!detailPanel.classList.contains('hidden') && window.innerHeight < 600) {
+                hoverCard.classList.add('hidden');
+                return;
+            }
+
+            const data = landmarks[btn.dataset.id];
+            hoverTitle.innerText = data.name;
+            hoverDesc.innerText = data.apunt;
+
+            hoverCard.classList.remove('hidden');
+
+            const cardWidth = 220;
+            let leftPos = e.clientX - cardWidth / 2;
+            // Prevent overflow
+            leftPos = Math.max(10, Math.min(leftPos, window.innerWidth - cardWidth - 10));
+
+            hoverCard.style.left = leftPos + 'px';
+            hoverCard.style.top = (e.clientY + 35) + 'px'; /* generous vertical gap below the top nav buttons */
+        });
+
+
+        btn.addEventListener('mouseleave', () => {
+            hoverCard.classList.add('hidden');
+        });
+
+        btn.addEventListener('click', () => {
+            const data = landmarks[btn.dataset.id];
+
+            detailTitle.innerText = data.name;
+            detailDesc.innerText = data.desc;
+            detailTitu.innerText = data.titu;
+            detailType.innerText = data.type;
+            detailPanel.classList.remove('hidden');
+
+            flyTo(
+                new THREE.Vector3(data.offset.x, data.offset.y, data.offset.z),
+                new THREE.Vector3(data.target.x, data.target.y, data.target.z),
+                data.zoom
+            );
+        });
+    });
+
+    document.getElementById('close-panel-btn').addEventListener('click', () => {
+        detailPanel.classList.add('hidden');
+        flyTo(initialCamPos, initialTarget, initialZoom);
+    });
+
+    document.getElementById('reset-view-btn').addEventListener('click', () => {
+        detailPanel.classList.add('hidden');
+        flyTo(initialCamPos, initialTarget, initialZoom);
+    });
+}
+
+function flyTo(camPos, targetPos, targetZoom = 1) {
+    if (!initialCamPos.lengthSq() && !initialCamPos.x) return; // not initialized
+    controls.enabled = false; // freeze user interaction during flight
+
+    startCamPos.copy(camera.position);
+    startTarget.copy(controls.target);
+    startZoom = camera.zoom;
+
+    endCamPos.copy(camPos);
+    endTarget.copy(targetPos);
+    endZoom = targetZoom;
+
+    animStartTime = performance.now();
+    isAnimating = true;
+}
+
+init();
