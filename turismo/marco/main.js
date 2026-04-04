@@ -45,7 +45,7 @@ function init() {
     scene.background = new THREE.Color(0xbfd1e5);
 
     camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 50000);
-    camera.position.set(0, 100, 200);
+    camera.position.set(0, 200, 200);
 
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -263,7 +263,7 @@ function animate(time) {
 function createLandmarkMarkers() {
     landmarks.forEach((landmark, index) => {
         // Create a 3D sphere marker at the landmark's target position
-        const markerGeometry = new THREE.OctahedronGeometry(8, 0); // Adjust size as needed
+        const markerGeometry = new THREE.OctahedronGeometry(16, 0); // Adjust size as needed
         const markerMaterial = new THREE.MeshStandardMaterial({
             color: 0xffff00, // Orange color - change to your preference
             emissive: 0xffff00,
