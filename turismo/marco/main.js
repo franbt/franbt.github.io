@@ -273,7 +273,7 @@ function createLandmarkMarkers() {
         });
         
         const markerMesh = new THREE.Mesh(markerGeometry, markerMaterial);
-        markerMesh.position.set(landmark.target.x, landmark.target.y + 20, landmark.target.z);
+        markerMesh.position.set(landmark.target.x, landmark.target.y + 2, landmark.target.z);
         markerMesh.castShadow = true;
         markerMesh.receiveShadow = true;
         scene.add(markerMesh);
