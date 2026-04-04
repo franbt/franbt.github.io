@@ -34,6 +34,9 @@ let initialFrustumHeight = 1000;
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 const terrainObjects = [];
+// Add this near the top with other global variables (around line 36):
+const markers = [];
+const markerLabels = [];
 
 function init() {
     const container = document.getElementById('canvas-container');
@@ -129,6 +132,9 @@ function init() {
             initialCamPos.copy(camera.position);
             initialTarget.copy(controls.target);
             initialZoom = camera.zoom;
+            // Call createLandmarkMarkers() in the model loading callback (after setupUI()):
+            // Around line 132, add this:
+            createLandmarkMarkers();
             setupUI();
 
             loadingElem.style.opacity = '0';
@@ -247,10 +253,76 @@ function animate(time) {
     camera.far = 100000 / zoomRatio; // scale far relative to zoom without shrinking it into the model
     camera.updateProjectionMatrix();
 
+    // In the animate() function, add this call (around line 250, before controls.update()):
+    updateMarkerLabels();
     controls.update();
     renderer.render(scene, camera);
 }
 
+// Add this new function before setupUI() (around line 254):
+function createLandmarkMarkers() {
+    landmarks.forEach((landmark, index) => {
+        // Create a 3D sphere marker at the landmark's target position
+        const markerGeometry = new THREE.SphereGeometry(15, 32, 32); // Adjust size as needed
+        const markerMaterial = new THREE.MeshStandardMaterial({
+            color: 0xff6b35, // Orange color - change to your preference
+            emissive: 0xff6b35,
+            emissiveIntensity: 0.6,
+            metalness: 0.3,
+            roughness: 0.4,
+        });
+        
+        const markerMesh = new THREE.Mesh(markerGeometry, markerMaterial);
+        markerMesh.position.set(landmark.target.x, landmark.target.y + 20, landmark.target.z);
+        markerMesh.castShadow = true;
+        markerMesh.receiveShadow = true;
+        scene.add(markerMesh);
+        markers.push({ mesh: markerMesh, landmark: landmark, index: index });
+
+        // Create an HTML banner for the marker
+        const banner = document.createElement('div');
+        banner.className = 'landmark-banner';
+        banner.innerText = landmark.name;
+        banner.style.cssText = `
+            position: fixed;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            pointer-events: none;
+            white-space: nowrap;
+            display: none;
+            z-index: 100;
+            border: 2px solid #ff6b35;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        `;
+        document.body.appendChild(banner);
+        markerLabels.push({ element: banner, worldPos: markerMesh.position, index: index });
+    });
+}
+function updateMarkerLabels() {
+    markerLabels.forEach(label => {
+        const vector = new THREE.Vector3();
+        vector.copy(label.worldPos);
+        vector.project(camera);
+
+        // Convert to screen coordinates
+        const x = (vector.x * 0.5 + 0.5) * window.innerWidth;
+        const y = (-vector.y * 0.5 + 0.5) * window.innerHeight;
+
+        // Only show if in front of camera
+        if (vector.z < 1) {
+            label.element.style.left = (x - label.element.offsetWidth / 2) + 'px';
+            label.element.style.top = (y - 40) + 'px'; // 40px above the marker
+            label.element.style.display = 'block';
+        } else {
+            label.element.style.display = 'none';
+        }
+    });
+}
+        
 function setupUI() {
     const hoverCard = document.getElementById('hover-card');
     const hoverTitle = document.getElementById('hover-title');
