@@ -23,7 +23,7 @@ let initialNear = 0.1;
 let initialFar = 50000;
 
 const landmarks = [
-    { name: "Charca del Marco", apunt: "Origen del caudal de la Rivera del Marco", desc: "También llamada 'Fuente del Rey', procede de la filtración de agua del Calerizo y llega a través de un sifón natural. Sus aguas transcurren de sureste a noreste por la Ribera.", titu: "Municipal", type: "Acuífero", target: { x: 600, y: 25, z: 800 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Charca del Marco", apunt: "Origen del caudal de la Rivera del Marco", desc: "También llamada 'Fuente del Rey', procede de la filtración de agua del Calerizo y llega a través de un sifón natural. Sus aguas transcurren de sureste a noreste por la Ribera.", titu: "Municipal", type: "Acuífero", target: { x: 616, y: 25, z: 861 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
     { name: "Fuente Fría", apunt: "Fuente Municipal", desc: "The deep basin carved by centuries of flowing water.", titu: "Municipal", type: "Fuente", target: { x: 329, y: 30, z: 202 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
     { name: "Fuente Concejo", apunt: "Fuente Municipal", desc: "Remnants of an civilization long past.", titu: "Municipal", type: "Fuente", target: { x: 219, y: 20, z: -221 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
     { name: "Fuente Rocha", apunt: "Fuente Municipal", desc: "A massive subterranean entrance partially obscured.", titu: "Municipal", type: "Fuente", target: { x: 378, y: 20, z: -459 }, offset: { x: 0, y: 0, z: 0 }, zoom: 5 },
