@@ -263,10 +263,10 @@ function animate(time) {
 function createLandmarkMarkers() {
     landmarks.forEach((landmark, index) => {
         // Create a 3D sphere marker at the landmark's target position
-        const markerGeometry = new THREE.SphereGeometry(15, 32, 32); // Adjust size as needed
+        const markerGeometry = new THREE.OctahedronGeometry(8, 0); // Adjust size as needed
         const markerMaterial = new THREE.MeshStandardMaterial({
-            color: 0xff6b35, // Orange color - change to your preference
-            emissive: 0xff6b35,
+            color: 0xffff00, // Orange color - change to your preference
+            emissive: 0xffff00,
             emissiveIntensity: 0.6,
             metalness: 0.3,
             roughness: 0.4,
