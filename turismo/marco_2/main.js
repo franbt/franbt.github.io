@@ -27,7 +27,7 @@ const landmarks = [
     { name: "Fuente Fría", apunt: "Fuente Municipal", desc: "La Fuente Fría se encuentra en el Centro-Casco Antiguo de Cáceres, situada específicamente detrás del antiguo monasterio de San Franci", target: { x: 0, y: 0, z: 0 }, zoom: 1 },
     { name: "Fuente Concejo", apunt: "Fuente Municipal", doc: "docs/fuente_concejo.pdf", desc: "La Fuente Concejo es considerada la fuente más importante de la ciudad de Cáceres.  Fue ordenada const", target: { x: 0, y: 0, z: 0 }, zoom: 1 },
     { name: "Fuente Rocha", apunt: "Fuente Municipal", desc: "Fuente Rocha es un monumento de estilo neomudéjar situado en el casco antiguo de Cáceres, específicamente en la Calle Concordia.  Aunqu", target: { x: 0, y: 0, z: 0 }, zoom: 1 },
-    { name: "Fuente Aguas Vivas", apunt: "Origen del caudal de la Rivera del Marco", desc: "También llamada 'Fuente del Rey', procede de la filtración de agua del Calerizo y llega a través de un si", target: { x: 0, y: 0, z: 0 }, zoom: 1 },
+    { name: "Fuente Aguas Vivas", apunt: "Origen del caudal de la Rivera del Marco", desc: "También llamada 'Fuente del Rey', procede de la filtración de agua del Calerizo y llega a través de un si", target: { x: 0, y: 0, z: 0 }, zoom: 1 }
 ];
 
 let initialFrustumHeight = 1000;
