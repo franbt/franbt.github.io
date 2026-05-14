@@ -23,11 +23,11 @@ let initialNear = 0.1;
 let initialFar = 50000;
 
 const landmarks = [
-    { name: "Charca del Marco", apunt: "Origen del caudal de la Rivera del Marco", desc: "También llamada 'Fuente del Rey', procede de la filtración de agua del Calerizo y llega a través de un sifón natural. Sus aguas transcurren de sureste a noreste por la Ribera.", titu: "Municipal", type: "Acuífero", target: { x: 558, y: 0, z: 1654 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
-    { name: "Fuente Fría", apunt: "Fuente Municipal", desc: "La Fuente Fría se encuentra en el Centro-Casco Antiguo de Cáceres, situada específicamente detrás del antiguo monasterio de San Francisco.  Es un punto de interés turístico y patrimonial destacado por la excelente calidad de sus aguas.Los vecinos de Cáceres siguen acudiendo a ella para abastecerse de agua.", titu: "Municipal", type: "Fuente", target: { x: 329, y: 30, z: 202 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
-    { name: "Fuente Concejo", apunt: "Fuente Municipal", desc: "La Fuente Concejo es considerada la fuente más importante de la ciudad de Cáceres.  Fue ordenada construir por D. Alfonso Golfín a finales del siglo XV y destaca por un escudo real labrado en piedra, datado en el reinado de Juan II. La estructura cuenta con un depósito cubierto por una bóveda sostenida por seis arcos que dan hacia la Ribera del Marco, una explanada que históricamente servía como lugar de reunión.  Para acceder a ella desde la Ciudad Monumental, la puerta más cercana es el Arco del Cristo.", titu: "Municipal", type: "Fuente", target: { x: 219, y: 20, z: -221 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
-    { name: "Fuente Rocha", apunt: "Fuente Municipal", desc: "Fuente Rocha es un monumento de estilo neomudéjar situado en el casco antiguo de Cáceres, específicamente en la Calle Concordia.  Aunque su caudal nunca fue abundante, esta fuente tuvo gran importancia histórica al abastecer a los vecinos de la Barriada de San Marquino hasta la década de 1950.", titu: "Municipal", type: "Fuente", target: { x: 378, y: 20, z: -459 }, offset: { x: 0, y: 0, z: 0 }, zoom: 5 },
-    { name: "Fuente Aguas Vivas", apunt: "Origen del caudal de la Rivera del Marco", desc: "También llamada 'Fuente del Rey', procede de la filtración de agua del Calerizo y llega a través de un sifón natural. Sus aguas transcurren de sureste a noreste por la Ribera.", titu: "Municipal", type: "Acuífero", target: { x: 616, y: 0, z: 861 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Charca del Marco", apunt: "Origen del caudal de la Rivera del Marco", desc: "También llamada 'Fuente del Rey', procede de la filtración de agua del Calerizo y llega a través de un sif", target: { x: 0, y: 0, z: 0 }, zoom: 1 },
+    { name: "Fuente Fría", apunt: "Fuente Municipal", desc: "La Fuente Fría se encuentra en el Centro-Casco Antiguo de Cáceres, situada específicamente detrás del antiguo monasterio de San Franci", target: { x: 0, y: 0, z: 0 }, zoom: 1 },
+    { name: "Fuente Concejo", apunt: "Fuente Municipal", doc: "docs/fuente_concejo.pdf", desc: "La Fuente Concejo es considerada la fuente más importante de la ciudad de Cáceres.  Fue ordenada const", target: { x: 0, y: 0, z: 0 }, zoom: 1 },
+    { name: "Fuente Rocha", apunt: "Fuente Municipal", desc: "Fuente Rocha es un monumento de estilo neomudéjar situado en el casco antiguo de Cáceres, específicamente en la Calle Concordia.  Aunqu", target: { x: 0, y: 0, z: 0 }, zoom: 1 },
+    { name: "Fuente Aguas Vivas", apunt: "Origen del caudal de la Rivera del Marco", desc: "También llamada 'Fuente del Rey', procede de la filtración de agua del Calerizo y llega a través de un si", target: { x: 0, y: 0, z: 0 }, zoom: 1 },
 ];
 
 let initialFrustumHeight = 1000;
@@ -357,21 +357,27 @@ function createLandmarkMarkers() {
             const detailDesc = document.getElementById('detail-desc');
             const detailTitu = document.getElementById('detail-titu');
             const detailType = document.getElementById('detail-type');
+            const detailedInfoBtn = document.getElementById('detailed-info-btn');
 
             detailTitle.innerText = landmark.name;
             detailDesc.innerText = landmark.desc;
-            detailTitu.innerText = landmark.titu;
-            detailType.innerText = landmark.type;
+            detailTitu.innerText = landmark.titu || '';
+            detailType.innerText = landmark.type || '';
             
+            // Show or hide the detailed info button based on whether a doc exists
             if (landmark.doc) {
-                const pdfModal = document.getElementById('pdf-modal');
-                const pdfFrame = document.getElementById('pdf-frame');
-                pdfFrame.src = landmark.doc;
-                pdfModal.classList.remove('hidden');
-                detailPanel.classList.add('hidden');
+                detailedInfoBtn.style.display = 'block';
+                detailedInfoBtn.onclick = () => {
+                    const pdfModal = document.getElementById('pdf-modal');
+                    const pdfFrame = document.getElementById('pdf-frame');
+                    pdfFrame.src = landmark.doc;
+                    pdfModal.classList.remove('hidden');
+                };
             } else {
-                detailPanel.classList.remove('hidden');
+                detailedInfoBtn.style.display = 'none';
             }
+
+            detailPanel.classList.remove('hidden');
 
             // Calculate the view offset to maintain the original camera angle
             const viewOffset = new THREE.Vector3().subVectors(initialCamPos, initialTarget);
