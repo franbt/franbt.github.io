@@ -23,13 +23,26 @@ let initialNear = 0.1;
 let initialFar = 50000;
 
 const landmarks = [
-    { name: "Charca del Marco", apunt: "Origen del caudal de la Rivera del Marco", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/OASIS-NATURAL.pdf", desc: "También llamada 'Fuente del Rey', procede de la filtración de agua del Calerizo y llega a través de un sifón natural. Sus aguas transcurren de sureste a noreste por la Ribera.", titu: "Municipal", type: "Acuífero", target: { x: 624, y: 0, z: 1644 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
-    { name: "Fuente Aguas Vivas", apunt: "Fuente Municipal", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/FUENTE-DE-AGUAS-VIVAS-.pdf", desc: "La Fuente de Aguas Vivas es una construcción medieval del siglo XIV situada fuera de la muralla, junto al antiguo camino de Plasencia, lo que explica su frecuente uso por caminantes y viajeros.", titu: "Municipal", type: "Acuífero", target: { x: -1144, y: 0, z: -1465 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
-    { name: "Fuente Fría", apunt: "Fuente Municipal", doc: "", desc: "La Fuente Fría se encuentra en el Centro-Casco Antiguo de Cáceres, situada específicamente detrás del antiguo monasterio de San Francisco.  Es un punto de interés turístico y patrimonial destacado por la excelente calidad de sus aguas.Los vecinos de Cáceres siguen acudiendo a ella para abastecerse de agua.", titu: "Municipal", type: "Fuente", target: { x: 329, y: 30, z: 202 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
-    { name: "Fuente Concejo", apunt: "Fuente Municipal", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/FUENTE-CONCEJO.pdf", desc: "La Fuente Concejo es considerada la fuente más importante de la ciudad de Cáceres.  Fue ordenada construir por D. Alfonso Golfín a finales del siglo XV y destaca por un escudo real labrado en piedra, datado en el reinado de Juan II. La estructura cuenta con un depósito cubierto por una bóveda sostenida por seis arcos que dan hacia la Ribera del Marco, una explanada que históricamente servía como lugar de reunión.  Para acceder a ella desde la Ciudad Monumental, la puerta más cercana es el Arco del Cristo.", titu: "Municipal", type: "Fuente", target: { x: 219, y: 20, z: -221 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
-    { name: "Fuente Rocha", apunt: "Fuente Municipal", doc: "", desc: "Fuente Rocha es un monumento de estilo neomudéjar situado en el casco antiguo de Cáceres, específicamente en la Calle Concordia.  Aunque su caudal nunca fue abundante, esta fuente tuvo gran importancia histórica al abastecer a los vecinos de la Barriada de San Marquino hasta la década de 1950.", titu: "Municipal", type: "Fuente", target: { x: 378, y: 20, z: -459 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
-    { name: "Huertos", apunt: "Huertos Municipales", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/HUERTOS.pdf", desc: "Los Huertos de la Ribera del Marco constituyen un elemento de gran relevancia histórica, ambiental y social dentro del paisaje tradicional de Cáceres. Estos huertos, ligados desde antiguo al aprovechamiento del agua del arroyo del Marco, representan un ejemplo singular de agricultura de ribera integrada en un entorno urbano, manteniendo prácticas agrícolas tradicionales adaptadas al medio natural.", titu: "Municipal", type: "Huertos", target: { x: 294, y: 20, z: -616 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
-    { name: "Huertos", apunt: "Huertos Municipales", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/HUERTOS.pdf", desc: "Los Huertos de la Ribera del Marco constituyen un elemento de gran relevancia histórica, ambiental y social dentro del paisaje tradicional de Cáceres. Estos huertos, ligados desde antiguo al aprovechamiento del agua del arroyo del Marco, representan un ejemplo singular de agricultura de ribera integrada en un entorno urbano, manteniendo prácticas agrícolas tradicionales adaptadas al medio natural.", titu: "Municipal", type: "Huertos", target: { x: 680, y: 20, z: -1466 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Charca del Marco", apunt: "Origen del caudal de la Rivera del Marco", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/OASIS-NATURAL.pdf", desc: "También llamada 'Fuente del Rey', procede de la filtración de agua del Calerizo y llega a través de un sifón natural. Sus aguas transcurren de sureste a noreste por la Ribera.", titu: "Ribera del Marco", type: "Acuífero", target: { x: 624, y: 0, z: 1644 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Ribera del Marco", apunt: "Recorrido del acuífero.", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/VIDA-VEGETAL.pdf", desc: "El entorno de la Ribera del Marco en Cáceres es una zona de gran valor ecológico y paisajístico, caracterizada por la presencia de un arroyo con vegetación de ribera que contrasta con el entorno urbano.", titu: "Ribera del Marco", type: "Arroyo", target: { x: 653, y: 0, z: 596 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Fuente Aguas Vivas", apunt: "Fuente Municipal", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/FUENTE-DE-AGUAS-VIVAS-.pdf", desc: "La Fuente de Aguas Vivas es una construcción medieval del siglo XIV situada fuera de la muralla, junto al antiguo camino de Plasencia, lo que explica su frecuente uso por caminantes y viajeros.", titu: "Aguas Vivas", type: "Fuente", target: { x: -1144, y: 0, z: -1465 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Fuente Fría", apunt: "Fuente Municipal", doc: "", desc: "La Fuente Fría se encuentra en el Centro-Casco Antiguo de Cáceres, situada específicamente detrás del antiguo monasterio de San Francisco.  Es un punto de interés turístico y patrimonial destacado por la excelente calidad de sus aguas.Los vecinos de Cáceres siguen acudiendo a ella para abastecerse de agua.", titu: "Ribera del Marco", type: "Fuente", target: { x: 329, y: 30, z: 202 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Fuente Concejo", apunt: "Fuente Municipal", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/FUENTE-CONCEJO.pdf", desc: "La Fuente Concejo es considerada la fuente más importante de la ciudad de Cáceres.  Fue ordenada construir por D. Alfonso Golfín a finales del siglo XV y destaca por un escudo real labrado en piedra, datado en el reinado de Juan II. La estructura cuenta con un depósito cubierto por una bóveda sostenida por seis arcos que dan hacia la Ribera del Marco, una explanada que históricamente servía como lugar de reunión.  Para acceder a ella desde la Ciudad Monumental, la puerta más cercana es el Arco del Cristo.", titu: "Ribera del Marco", type: "Fuente", target: { x: 219, y: 20, z: -221 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Fuente Rocha", apunt: "Fuente Municipal", doc: "", desc: "Fuente Rocha es un monumento de estilo neomudéjar situado en el casco antiguo de Cáceres, específicamente en la Calle Concordia.  Aunque su caudal nunca fue abundante, esta fuente tuvo gran importancia histórica al abastecer a los vecinos de la Barriada de San Marquino hasta la década de 1950.", titu: "Ribera del Marco", type: "Fuente", target: { x: 378, y: 20, z: -459 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Huertos de San Jorge", apunt: "Huertos Municipales", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/HUERTOS.pdf", desc: "Los Huertos de la Ribera del Marco constituyen un elemento de gran relevancia histórica, ambiental y social dentro del paisaje tradicional de Cáceres. Estos huertos, ligados desde antiguo al aprovechamiento del agua del arroyo del Marco, representan un ejemplo singular de agricultura de ribera integrada en un entorno urbano, manteniendo prácticas agrícolas tradicionales adaptadas al medio natural.", titu: "Ribera del Marco", type: "Huertos", target: { x: 373, y: 20, z: -714 }, pinLength: 55, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Huertos de los Carvajales", apunt: "Huertos Municipales", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/HUERTOS.pdf", desc: "Los Huertos de la Ribera del Marco constituyen un elemento de gran relevancia histórica, ambiental y social dentro del paisaje tradicional de Cáceres. Estos huertos, ligados desde antiguo al aprovechamiento del agua del arroyo del Marco, representan un ejemplo singular de agricultura de ribera integrada en un entorno urbano, manteniendo prácticas agrícolas tradicionales adaptadas al medio natural.", titu: "Ribera del Marco", type: "Huertos", target: { x: 680, y: 20, z: -1466 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Fuente de Los Cisnes", apunt: "Fuente Municipal", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/FUENTE-DE-LOS-CISNES-Y-FUENTE-DE-LOS-TRITONES-.pdf", desc: "Fuente de Los Cisnes", titu: "Paseo de Cánovas", type: "Fuente", target: { x: -949, y: 20, z: 90 }, pinLength: 35, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Fuente de los Tritones", apunt: "Fuente Municipal", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/FUENTE-DE-LOS-CISNES-Y-FUENTE-DE-LOS-TRITONES-.pdf", desc: "Fuente de los Tritones", titu: "Paseo de Cánovas", type: "Fuente", target: { x: -817, y: 20, z: -134 }, pinLength: 56, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Fuente Luminosa", apunt: "Fuente Municipal", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/FUENTE-LUMINOSA-.pdf", desc: "Fuente ornamental y punto de referencia de la Avda.de España en el centro urbano de Cáceres, situada junto al Paseo de Cánovas.", titu: "Paseo de Cánovas", type: "Fuente", target: { x: -767, y: 20, z: -223 }, pinLength: 78, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Fuente de las Ninfas", apunt: "Fuente Municipal", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/FUENTE-DE-LAS-NINFAS.pdf", desc: "Esta fuente forma parte del conjunto escultórico y ornamental del Parque del Rodeo.", titu: "Parque del Rodeo", type: "Fuente", target: { x: -257, y: 20, z: 664 }, pinLength: 35, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Parque del Rodeo", apunt: "Parque Municipal", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/Feria-del-ganado-El-Rodeo.pdf", desc: "El nombre “Rodeo” hace referencia a su uso histórico: desde finales del siglo XIX hasta los años 70 del siglo XX, fue el recinto donde se celebraban ferias de ganado.", titu: "Parque del Rodeo", type: "Parque", target: { x: -158, y: 20, z: 478 }, pinLength: 56, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Fuente Hinche", apunt: "Fuente Municipal", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/HINCHE.pdf", desc: "Situada en el viejo Camino de Fuente Hinche, documentos del siglo XVIII nos informan de las propiedades medicinales de sus aguas y sus usos.", titu: "Parque del Principe", type: "Fuente", target: { x: -1789, y: 20, z: -918 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Fuente de la Madrila", apunt: "Fuente Municipal", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/FUENTE-DE-LA-MADRILA.pdf", desc: "La Fuente de la Madrila se sitúa frente al paseo central del Parque del Príncipe.", titu: "Parque del Principe", type: "Fuente", target: { x: -1378, y: 20, z: -768 }, pinLength: 68, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Parque del Principe", apunt: "Parque Municipal", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/Historia.pdf", desc: "El Parque del Príncipe de Cáceres, en pleno centro urbano, es el principal pulmón verde de la ciudad. Es uno de los parques más utilizados por los cacereños/as, el más icónico y amplio de la ciudad, y una visita obligada para turistas.", titu: "Parque del Principe", type: "Parque", target: { x: -1421, y: 20, z: -549 }, pinLength: 56, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "La Estufa Fría", apunt: "Invernadero Municipal", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/Visitar-la-estufa-fria.pdf", desc: "La Estufa Fría de Cáceres, también conocida como Estufa del Parque del Príncipe, es un invernadero que alberga una valiosa colección de plantas tropicales y subtropicales. Se encuentra en el Parque del Príncipe, uno de los espacios verdes más importantes de la ciudad.", titu: "Parque del Principe", type: "Invernadero", target: { x: -1504, y: 20, z: -271 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Fuente del Santuario Virgen de la Montaña", apunt: "Fuente Municipal", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/FUENTE-DEL-SANTUARIO-VIRGEN-DE-LA-MONTANA-.pdf", desc: "La fuente que se encuentra junto al Santuario de la Virgen de la Montaña es una fuente moderna destinada a agua potable para los visitantes y peregrinos que suben hasta el santuario.", titu: "Santuario Virgen de la Montaña", type: "Fuente", target: { x: 2073, y: 20, z: 1134 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Fuente del Corcho", apunt: "Fuente Municipal", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/CORCHO.pdf", desc: "La Fuente del Corcho (o del Corchito, quizá es de las fuentes más desconocidas por los cacereños", titu: "Santuario Virgen de la Montaña", type: "Fuente", target: { x: 1171, y: 20, z: -198 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
+    { name: "Fuente del Foro de los Balbos", apunt: "Fuente Municipal", doc: "https://olimpo2.up-cife.com/wp-content/uploads/2026/01/FUENTE-DEL-FORO-DE-LOS-BALBOS-Caceres.pdf", desc: "La Fuente del Foro de los Balbos es una fuente ornamental situada en el Foro de los Balbos, también conocido como Atrio del Corregidor, junto a la Plaza Mayor y la muralla de Cáceres. ", titu: "Plaza Mayor", type: "Fuente", target: { x: -141, y: 20, z: -641 }, offset: { x: 0, y: 0, z: 0 }, zoom: 3 },
 ];
 
 let initialFrustumHeight = 1000;
@@ -189,9 +202,45 @@ function init() {
     );
 
     window.addEventListener('resize', onWindowResize);
+    window.addEventListener('mousemove', onMouseMove);
 
     animate();
 }
+
+function onMouseMove(event) {
+    // UI Elements
+    const crossX = document.getElementById('crosshair-x');
+    const crossY = document.getElementById('crosshair-y');
+    const tooltip = document.getElementById('coords-tooltip');
+    const coordX = document.getElementById('coord-x');
+    const coordY = document.getElementById('coord-y');
+
+    // Update Crosshair Position
+    crossX.style.top = event.clientY + 'px';
+    crossY.style.left = event.clientX + 'px';
+
+    // Calculate Mouse Raycasting
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(terrainObjects);
+
+    if (intersects.length > 0) {
+        const point = intersects[0].point;
+
+        // Show Tooltip & Update Values
+        tooltip.style.opacity = '1';
+        tooltip.style.left = (event.clientX + 20) + 'px';
+        tooltip.style.top = (event.clientY + 20) + 'px';
+
+        coordX.innerText = point.x.toFixed(2);
+        coordY.innerText = point.z.toFixed(2); // Using Z for the second map coordinate
+    } else {
+        tooltip.style.opacity = '0';
+    }
+}
+
 
 function onWindowResize() {
     const aspect = window.innerWidth / window.innerHeight;
@@ -308,11 +357,17 @@ function createLandmarkMarkers() {
             openLandmark(index);
         });
 
-        document.body.appendChild(banner);
+        if (landmark.pinLength !== undefined) {
+            banner.style.setProperty('--pin-length', landmark.pinLength + 'px');
+        }
+
+        document.getElementById('ui-layer').appendChild(banner);
         markerLabels.push({ element: banner, worldPos: markerSprite.position, index: index });
     });
 }
 function updateMarkerLabels() {
+    const visibleLabels = [];
+
     markerLabels.forEach(label => {
         const vector = new THREE.Vector3();
         vector.copy(label.worldPos);
@@ -324,12 +379,25 @@ function updateMarkerLabels() {
 
         // Only show if in front of camera
         if (vector.z < 1) {
+            const landmarkData = landmarks[label.index];
+            const pinLen = landmarkData.pinLength !== undefined ? landmarkData.pinLength : 40;
+
             label.element.style.left = (x - label.element.offsetWidth / 2) + 'px';
-            label.element.style.top = (y - 40 - label.element.offsetHeight) + 'px';
+            label.element.style.top = (y - pinLen - label.element.offsetHeight) + 'px';
             label.element.style.display = 'block';
+
+            visibleLabels.push({ label: label, depth: vector.z });
         } else {
             label.element.style.display = 'none';
         }
+    });
+
+    // Sort by depth (descending: furthest first)
+    visibleLabels.sort((a, b) => b.depth - a.depth);
+
+    // Assign z-index dynamically based on distance to camera
+    visibleLabels.forEach((item, index) => {
+        item.label.element.style.zIndex = index + 1;
     });
 }
 

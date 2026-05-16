@@ -114,6 +114,7 @@ body {
     position: absolute;
     top: 20px;
     right: 20px;
+    z-index: 1000 !important;
 }
 
 .primary-btn {
@@ -156,6 +157,7 @@ body {
     background: rgb(88, 88, 88);
     transform: translateX(0);
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+    z-index: 1000 !important;
 }
 
 #detail-panel.hidden {
@@ -372,7 +374,7 @@ body {
         max-height: 48dvh;
         /* slightly more height if possible */
         overflow-y: auto;
-        z-index: 20;
+        z-index: 1000 !important;
         transform: translateX(-50%);
         /* Centering */
         padding-bottom: calc(20px + env(safe-area-inset-bottom));
@@ -391,13 +393,64 @@ body {
     }
 }
 
+/* CAD Crosshair & Coordinate Tooltip */
+#crosshair-x,
+#crosshair-y {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.4);
+    pointer-events: none;
+    /* Let clicks pass through */
+    z-index: 100;
+}
 
+#crosshair-x {
+    width: 100vw;
+    height: 1px;
+    top: -10px;
+    /* Hide initially */
+    left: 0;
+}
 
+#crosshair-y {
+    width: 1px;
+    height: 100vh;
+    top: 0;
+    left: -10px;
+    /* Hide initially */
+}
 
+#coords-tooltip {
+    position: absolute;
+    pointer-events: none;
+    z-index: 101;
+    background: rgba(14, 171, 67, 0.8);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    /* Use monospaced for numbers */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.coords-label {
+    opacity: 0.7;
+    margin-right: 4px;
+}
+
+.coords-val {
+    color: #fff;
+}
 
 /* Landmark Banners */
 .landmark-banner {
-    position: fixed;
+    position: absolute;
     background: rgba(255, 255, 255, 1);
     color: black;
     padding: 6px 10px;
@@ -408,7 +461,6 @@ body {
     cursor: pointer;
     white-space: nowrap;
     display: none;
-    z-index: 100;
     border: 2px solid #208644;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
@@ -420,7 +472,8 @@ body {
     left: 50%;
     transform: translateX(-50%);
     width: 2px;
-    height: 40px;
+    height: var(--pin-length, 40px);
     background-color: #208644;
     pointer-events: none;
+    z-index: -1;
 }

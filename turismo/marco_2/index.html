@@ -31,34 +31,17 @@
     </div>
 
     <!-- UI Overlay Layer -->
-    <div id="ui-layer">
-        <!-- Floating Reset Button -->
-        <button id="reset-view-btn" class="glass-btn primary-btn">Restablecer Vista</button>
+    <div id="ui-layer" style="z-index: 5;">
+        <!-- CAD Cursor Crosshair -->
+        <div id="crosshair-x"></div>
+        <div id="crosshair-y"></div>
 
-        <!-- Detailed Side Panel (Hidden by default) -->
-        <div id="detail-panel" class="glass-panel hidden">
-            <h2 id="detail-title">Landmark Title</h2>
-            <p id="detail-desc">Full landmark description goes here.</p>
-            <div id="detail-extra-info">
-                <span>Tipo: <strong id="detail-type">Unknown</strong></span>
-                <span>Titularidad: <strong id="detail-titu">Unknown</strong></span>
-            </div>
-            <button id="open-pdf-btn" class="glass-btn primary-btn"
-                style="width: 100%; margin-bottom: 10px; display: none;">Información detallada</button>
-            <div class="panel-nav-buttons" style="display: flex; justify-content: space-between; gap: 10px;">
-                <button id="prev-landmark-btn" class="glass-btn" title="localización previa"
-                    style="flex: 1; font-weight: bold;">&lt;</button>
-                <button id="close-panel-btn" class="glass-btn" title="salir"
-                    style="flex: 1; font-weight: bold;">X</button>
-                <button id="next-landmark-btn" class="glass-btn" title="siguiente localización"
-                    style="flex: 1; font-weight: bold;">&gt;</button>
-            </div>
+        <!-- Map Coordinates Tooltip -->
+        <div id="coords-tooltip">
+            <span class="coords-label">X:</span><span id="coord-x" class="coords-val">0.00</span>
+            <span class="coords-label" style="margin-left: 10px;">Y:</span><span id="coord-y"
+                class="coords-val">0.00</span>
         </div>
-
-
-
-
-
 
         <!-- Watermark -->
         <div id="watermark">Francisco José Bermejo Tarifa - Diseño Gráfico Olimpo II - 2026</div>
@@ -67,8 +50,32 @@
 
     <div id="canvas-container"></div>
 
+    <!-- UI Overlay Top Layer (Guaranteed to be above map labels) -->
+    <!-- Floating Reset Button -->
+    <button id="reset-view-btn" class="glass-btn primary-btn" style="z-index: 9999 !important;">Restablecer Vista</button>
+
+    <!-- Detailed Side Panel (Hidden by default) -->
+    <div id="detail-panel" class="glass-panel hidden" style="z-index: 9999 !important;">
+        <h2 id="detail-title">Landmark Title</h2>
+        <p id="detail-desc">Full landmark description goes here.</p>
+        <div id="detail-extra-info">
+            <span>Tipo: <strong id="detail-type">Unknown</strong></span>
+            <span>Demarcación: <strong id="detail-titu">Unknown</strong></span>
+        </div>
+        <button id="open-pdf-btn" class="glass-btn primary-btn"
+            style="width: 100%; margin-bottom: 10px; display: none;">Información detallada</button>
+        <div class="panel-nav-buttons" style="display: flex; justify-content: space-between; gap: 10px;">
+            <button id="prev-landmark-btn" class="glass-btn" title="localización previa"
+                style="flex: 1; font-weight: bold;">&lt;</button>
+            <button id="close-panel-btn" class="glass-btn" title="salir"
+                style="flex: 1; font-weight: bold;">X</button>
+            <button id="next-landmark-btn" class="glass-btn" title="siguiente localización"
+                style="flex: 1; font-weight: bold;">&gt;</button>
+        </div>
+    </div>
+
     <!-- PDF Frame Modal (Moved outside ui-layer to cover map labels) -->
-    <div id="pdf-modal" class="hidden">
+    <div id="pdf-modal" class="hidden" style="z-index: 10000 !important;">
         <button id="close-pdf-btn" class="glass-btn">X</button>
         <iframe id="pdf-frame" src=""></iframe>
     </div>
