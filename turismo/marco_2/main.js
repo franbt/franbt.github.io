@@ -347,7 +347,7 @@ function createLandmarkMarkers() {
                 if (expandedGroups.has(landmark.titu)) {
                     expandedGroups.delete(landmark.titu);
                     updateMarkersVisibility();
-
+                    
                     // If the current landmark is in this collapsed group, close the panel and reset view
                     if (currentLandmarkIndex !== -1 && landmarks[currentLandmarkIndex].titu === landmark.titu) {
                         const detailPanel = document.getElementById('detail-panel');
@@ -356,6 +356,7 @@ function createLandmarkMarkers() {
                         flyTo(initialCamPos, initialTarget, initialZoom);
                     }
                 } else {
+                    expandedGroups.clear();
                     expandedGroups.add(landmark.titu);
                     updateMarkersVisibility();
                     openLandmark(index);
@@ -474,8 +475,6 @@ function setupUI() {
     document.getElementById('close-panel-btn').addEventListener('click', () => {
         detailPanel.classList.add('hidden');
         currentLandmarkIndex = -1;
-        expandedGroups.clear();
-        updateMarkersVisibility();
         flyTo(initialCamPos, initialTarget, initialZoom);
     });
 
@@ -498,17 +497,13 @@ function setupUI() {
     document.getElementById('reset-view-btn').addEventListener('click', () => {
         detailPanel.classList.add('hidden');
         currentLandmarkIndex = -1;
-        expandedGroups.clear();
-        updateMarkersVisibility();
         flyTo(initialCamPos, initialTarget, initialZoom);
     });
 
     document.getElementById('close-pdf-btn').addEventListener('click', () => {
         pdfModal.classList.add('hidden');
         pdfFrame.src = '';
-        expandedGroups.clear();
-        updateMarkersVisibility();
-        flyTo(initialCamPos, initialTarget, initialZoom);
+        detailPanel.classList.remove('hidden');
     });
 }
 
