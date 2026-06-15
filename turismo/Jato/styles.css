@@ -751,6 +751,7 @@ body {
 }
 
 @media (max-width: 768px) {
+    /* Header mobile adjustments */
     .inst-header {
         height: 65px;
         /* Fits only top row (65px) on mobile */
@@ -760,12 +761,30 @@ body {
         display: none;
     }
 
+    .header-logo {
+        gap: 8px;
+    }
+
+    .logo-icon {
+        height: 32px;
+    }
+
+    .logo-hashtag {
+        font-size: 1.2rem;
+    }
+
+    .header-cta .btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+    }
+
+    /* Container and slide scaling */
     .presentation-container {
         margin-top: 0;
     }
 
     .slide-content-overlay {
-        padding: 80px 3% 95px 3%;
+        padding: 75px 3% 85px 3%;
     }
 
     .header-nav {
@@ -773,16 +792,159 @@ body {
         /* Menú colapsado en pantallas móviles */
     }
 
+    /* Scrollable and compact mobile cards */
     .category-card {
-        padding: 1.5rem;
+        padding: 1.2rem;
+        gap: 1.2rem;
+        width: 95%;
+        max-height: calc(100vh - 160px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .category-title {
+        font-size: clamp(1.4rem, 5vw, 1.8rem);
+        text-align: center;
+    }
+
+    .description {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    .category-details {
+        padding-top: 0.8rem;
+    }
+
+    .category-details h3 {
+        text-align: center;
+        margin-bottom: 0.8rem;
     }
 
     .details-grid {
         grid-template-columns: 1fr;
-        gap: 0.8rem;
+        gap: 0.6rem;
+    }
+
+    .details-grid li {
+        padding-left: 8px;
+        gap: 0.15rem;
+        font-size: 0.8rem;
+    }
+
+    .details-grid li strong {
+        font-size: 0.85rem;
+    }
+
+    .category-actions {
+        display: flex;
+        justify-content: center;
+        margin-top: 0.5rem;
     }
 
     .cover-card {
-        padding: 2.5rem 1.5rem;
+        padding: 2rem 1rem;
+        max-width: 95%;
     }
+
+    .cover-card .main-title {
+        font-size: clamp(1.6rem, 7vw, 2.2rem);
+    }
+
+    .cover-card .description {
+        font-size: 0.95rem;
+    }
+
+    /* Mobile Footer adjustments to fit all 6 logos on one line */
+    .inst-footer {
+        height: 60px;
+    }
+
+    .footer-logos-container {
+        gap: 12px;
+        padding: 0 10px;
+    }
+
+    .footer-logo-img {
+        height: 16px !important;
+    }
+
+    .footer-logo-img:nth-child(1) { height: 26px !important; }
+    .footer-logo-img:nth-child(2) { height: 22px !important; }
+    .footer-logo-img:nth-child(3) { height: 14px !important; }
+    .footer-logo-img:nth-child(4) { height: 10px !important; }
+    .footer-logo-img:nth-child(5) { height: 16px !important; }
+    .footer-logo-img:nth-child(6) { height: 16px !important; }
+}
+
+/* Landscape/Short Screen Adjustments */
+@media (max-height: 600px) {
+    .slide-content-overlay {
+        padding: 70px 2% 80px 2%;
+    }
+
+    .category-card {
+        padding: 1rem;
+        gap: 1rem;
+        max-height: calc(100vh - 130px);
+    }
+
+    .category-title {
+        font-size: 1.4rem;
+    }
+
+    .description {
+        font-size: 0.9rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .category-details {
+        padding-top: 0.6rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .category-details h3 {
+        margin-bottom: 0.4rem;
+    }
+
+    .details-grid {
+        gap: 0.5rem;
+    }
+
+    .details-grid li {
+        font-size: 0.75rem;
+    }
+
+    .inst-footer {
+        height: 50px;
+    }
+
+    .footer-logo-img {
+        height: 12px !important;
+    }
+    .footer-logo-img:nth-child(1) { height: 22px !important; }
+    .footer-logo-img:nth-child(2) { height: 18px !important; }
+}
+
+/* Small screen mobile phone tweaks */
+@media (max-width: 480px) {
+    .logo-hashtag {
+        font-size: 1.0rem;
+    }
+
+    .logo-icon {
+        height: 28px;
+    }
+
+    .footer-logos-container {
+        gap: 8px;
+    }
+
+    .footer-logo-img {
+        height: 12px !important;
+    }
+    .footer-logo-img:nth-child(1) { height: 20px !important; }
+    .footer-logo-img:nth-child(2) { height: 16px !important; }
 }
