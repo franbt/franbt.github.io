@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESCÁCERES #es+QTurismo - Análisis Gráfico Jato 2026 - OlimpoII - Diseño Gráfico - Francisco José Bermejo
+        Tarifa
+    </title>
+    <meta name="description"
+        content="Presentación institucional interactiva de la I Feria Nacional del Folklore. Descubra nuestras categorías culturales: danzas, artesanías, gastronomía, tradiciones orales y música tradicional.">
+    <!-- Google Fonts: serif 'Cinzel' for headers, sans-serif 'Plus Jakarta Sans' for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=3.1">
+</head>
+
+<body>
+
+    <!-- Header Institucional -->
+    <header class="inst-header" id="main-header">
+        <div class="header-container">
+            <!-- Fila Superior: Logo/Hashtag y CTA -->
+            <div class="header-row-top">
+                <div class="header-logo">
+                    <img src="assets/logo_es_caceres.svg" alt="Cáceres Logo" class="logo-icon">
+                    <div class="logo-text">
+                        <span class="logo-hashtag">#es+QTurismo</span>
+                    </div>
+                </div>
+                <div class="header-cta">
+                    <a href="#contacto" class="btn btn-outline">Jato 2026</a>
+                </div>
+            </div>
+
+            <!-- Fila Inferior: Menú de Navegación de Categorías -->
+            <div class="header-row-bottom">
+                <nav class="header-nav" id="category-nav">
+                    <ul>
+                        <li><button class="nav-link active" data-slide="0">Inicio</button></li>
+                        <li><button class="nav-link" data-slide="1">Identidad Visual</button></li>
+                        <li><button class="nav-link" data-slide="2">Stand y Espacios</button></li>
+                        <li><button class="nav-link" data-slide="3">Productos Gráficos</button></li>
+                        <li><button class="nav-link" data-slide="4">Comunicación Visual</button></li>
+                        <li><button class="nav-link" data-slide="5">Propuesta Gráfica</button></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container representing the Horizontal Presentation -->
+    <main class="presentation-container">
+        <div class="slider-wrapper" id="slider-wrapper">
+
+            <!-- Slide 0: Cover / Bienvenida -->
+            <section class="slide slide-cover active" id="slide-0" data-index="0"
+                style="--slide-accent: var(--color-gold);">
+                <!-- Fullscreen Background Image -->
+                <div class="slide-bg-container">
+                    <div class="placeholder-image cover-img-placeholder has-image" style="background-image: url('assets/background_slides.png');"></div>
+                </div>
+
+                <!-- Centered Glassmorphic Text Card -->
+                <div class="slide-content-overlay">
+                    <div class="cover-card">
+                        <span class="pre-title">Catálogo Oficial de Exposición</span>
+                        <h1 class="main-title">Encuentros de oportunidades <br>en el medio rural.</h1>
+                        <p class="description">
+                            Un recorrido institucional a través de las manifestaciones culturales vivas que tejen la
+                            identidad colectiva de nuestra nación. Este catálogo reúne cinco categorías esenciales
+                            protegidas como patrimonio nacional.
+                        </p>
+                        <div class="cover-actions">
+                            <button class="btn btn-primary btn-next-slide">Iniciar Recorrido</button>
+                            <a href="#documentacion" class="btn btn-outline">Plan Nacional</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 1: Danzas Tradicionales (Accent: Red) -->
+            <section class="slide" id="slide-1" data-index="1" style="--slide-accent: var(--color-red);">
+                <!-- Fullscreen Background Image -->
+                <div class="slide-bg-container">
+                    <div class="placeholder-image cover-img-placeholder has-image" style="background-image: url('assets/background_slides.png');"></div>
+                </div>
+
+                <!-- Horizontally Oriented Content Card -->
+                <div class="slide-content-overlay">
+                    <div class="category-card">
+                        <!-- Left side of the card: Title & Index -->
+                        <div class="card-left">
+                            <div class="slide-meta">
+                                <span class="category-index">Categoría 01</span>
+                                <span class="accent-badge badge-red">Patrimonio Vivo</span>
+                            </div>
+                            <h2 class="category-title">Danzas y Bailes <br><span
+                                    class="accent-text">Tradicionales</span></h2>
+                        </div>
+
+                        <!-- Right side of the card: Description & Aspects Grid -->
+                        <div class="card-right">
+                            <p class="description">
+                                El cuerpo y el movimiento como registros históricos de ritos de fertilidad, devoción
+                                religiosa y sincretismo cultural. Bailes folclóricos transmitidos de generación en
+                                generación que expresan el alma de la región.
+                            </p>
+                            <div class="category-details">
+                                <h3>Aspectos Clave</h3>
+                                <ul class="details-grid">
+                                    <li>
+                                        <strong>Expresividad Corporal:</strong>
+                                        <span>Máscaras detalladas, pasos rituales y coreografías ancestrales.</span>
+                                    </li>
+                                    <li>
+                                        <strong>Vestuario Festivo:</strong>
+                                        <span>Trajes bordados a mano con hilos metálicos y ornamentos.</span>
+                                    </li>
+                                    <li>
+                                        <strong>Contexto Ritual:</strong>
+                                        <span>Celebraciones patronales, solsticios e hitos de cosecha.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="category-actions">
+                                <button class="btn btn-primary">Registros Coreográficos</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 2: Artesanías y Oficios (Accent: Gold) -->
+            <section class="slide" id="slide-2" data-index="2" style="--slide-accent: var(--color-gold);">
+                <!-- Fullscreen Background Image -->
+                <div class="slide-bg-container">
+                    <div class="placeholder-image cover-img-placeholder has-image" style="background-image: url('assets/background_slides.png');"></div>
+                </div>
+
+                <!-- Horizontally Oriented Content Card -->
+                <div class="slide-content-overlay">
+                    <div class="category-card">
+                        <!-- Left side of the card: Title & Index -->
+                        <div class="card-left">
+                            <div class="slide-meta">
+                                <span class="category-index">Categoría 02</span>
+                                <span class="accent-badge badge-gold">Técnicas Ancestrales</span>
+                            </div>
+                            <h2 class="category-title">Artesanías y <br><span class="accent-text">Oficios
+                                    Tradicionales</span></h2>
+                        </div>
+
+                        <!-- Right side of the card: Description & Aspects Grid -->
+                        <div class="card-right">
+                            <p class="description">
+                                La transformación de materiales locales (arcilla, fibras vegetales, maderas nobles y
+                                metales) en piezas de arte popular utilitario y ornamental. Cada objeto porta una firma
+                                comunitaria inconfundible.
+                            </p>
+                            <div class="category-details">
+                                <h3>Aspectos Clave</h3>
+                                <ul class="details-grid">
+                                    <li>
+                                        <strong>Materias Primas:</strong>
+                                        <span>Selección de arcillas y tintes extraídos de plantas silvestres.</span>
+                                    </li>
+                                    <li>
+                                        <strong>Técnicas Geométricas:</strong>
+                                        <span>Telares de cintura, cestería en espiral y filigrana.</span>
+                                    </li>
+                                    <li>
+                                        <strong>Simbología Gráfica:</strong>
+                                        <span>Iconografía que relata la cosmogonía y la historia.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="category-actions">
+                                <button class="btn btn-primary">Galería de Maestros</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 3: Gastronomía Típica (Accent: Orange) -->
+            <section class="slide" id="slide-3" data-index="3" style="--slide-accent: var(--color-orange);">
+                <!-- Fullscreen Background Image -->
+                <div class="slide-bg-container">
+                    <div class="placeholder-image cover-img-placeholder has-image" style="background-image: url('assets/background_slides.png');"></div>
+                </div>
+
+                <!-- Horizontally Oriented Content Card -->
+                <div class="slide-content-overlay">
+                    <div class="category-card">
+                        <!-- Left side of the card: Title & Index -->
+                        <div class="card-left">
+                            <div class="slide-meta">
+                                <span class="category-index">Categoría 03</span>
+                                <span class="accent-badge badge-orange">Soberanía Alimentaria</span>
+                            </div>
+                            <h2 class="category-title">Gastronomía y <br><span class="accent-text">Arte Culinario
+                                    Típico</span></h2>
+                        </div>
+
+                        <!-- Right side of the card: Description & Aspects Grid -->
+                        <div class="card-right">
+                            <p class="description">
+                                La cocina tradicional como crisol cultural y despensa de saberes. Fusión de ingredientes
+                                nativos y técnicas de cocción lentas en hornos de barro que configuran un patrimonio
+                                sensorial inigualable.
+                            </p>
+                            <div class="category-details">
+                                <h3>Aspectos Clave</h3>
+                                <ul class="details-grid">
+                                    <li>
+                                        <strong>Ingredientes Nativos:</strong>
+                                        <span>Variedades criollas de maíz, ajíes y hierbas aromáticas.</span>
+                                    </li>
+                                    <li>
+                                        <strong>Cocina de Barro:</strong>
+                                        <span>Uso ritual de leña y ollas curadas que definen el sabor.</span>
+                                    </li>
+                                    <li>
+                                        <strong>Recetas Festivas:</strong>
+                                        <span>Platos ceremoniales especiales para solsticios y fiestas.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="category-actions">
+                                <button class="btn btn-primary">Recetario Nacional</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: Leyendas y Tradiciones Orales (Accent: Turquoise/Teal) -->
+            <section class="slide" id="slide-4" data-index="4" style="--slide-accent: var(--color-turquoise);">
+                <!-- Fullscreen Background Image -->
+                <div class="slide-bg-container">
+                    <div class="placeholder-image cover-img-placeholder has-image" style="background-image: url('assets/background_slides.png');"></div>
+                </div>
+
+                <!-- Horizontally Oriented Content Card -->
+                <div class="slide-content-overlay">
+                    <div class="category-card">
+                        <!-- Left side of the card: Title & Index -->
+                        <div class="card-left">
+                            <div class="slide-meta">
+                                <span class="category-index">Categoría 04</span>
+                                <span class="accent-badge badge-turquoise">Memoria Oral</span>
+                            </div>
+                            <h2 class="category-title">Leyendas y <br><span class="accent-text">Tradiciones
+                                    Orales</span></h2>
+                        </div>
+
+                        <!-- Right side of the card: Description & Aspects Grid -->
+                        <div class="card-right">
+                            <p class="description">
+                                La palabra hablada, el mito cosmogónico y la leyenda urbana como guardianes de la moral
+                                colectiva, el respeto a la naturaleza y el registro de eventos históricos locales
+                                explicados de forma fantástica.
+                            </p>
+                            <div class="category-details">
+                                <h3>Aspectos Clave</h3>
+                                <ul class="details-grid">
+                                    <li>
+                                        <strong>Mitología Regional:</strong>
+                                        <span>Cuentos de guardianes de ríos y bosques que dictan balance.</span>
+                                    </li>
+                                    <li>
+                                        <strong>Técnicas de Voz:</strong>
+                                        <span>Oratoria comunitaria, coplas satíricas y romances heredados.</span>
+                                    </li>
+                                    <li>
+                                        <strong>Preservación Activa:</strong>
+                                        <span>Archivo digital de voces y registro de lenguas originarias.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="category-actions">
+                                <button class="btn btn-primary">Escuchar Archivos</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: Música e Instrumentos (Accent: Yellow) -->
+            <section class="slide" id="slide-5" data-index="5" style="--slide-accent: var(--color-yellow);">
+                <!-- Fullscreen Background Image -->
+                <div class="slide-bg-container">
+                    <div class="placeholder-image cover-img-placeholder has-image" style="background-image: url('assets/background_slides.png');"></div>
+                </div>
+
+                <!-- Horizontally Oriented Content Card -->
+                <div class="slide-content-overlay">
+                    <div class="category-card">
+                        <!-- Left side of the card: Title & Index -->
+                        <div class="card-left">
+                            <div class="slide-meta">
+                                <span class="category-index">Categoría 05</span>
+                                <span class="accent-badge badge-yellow">Sonoridad Histórica</span>
+                            </div>
+                            <h2 class="category-title">Música e <br><span class="accent-text">Instrumentos
+                                    Autóctonos</span></h2>
+                        </div>
+
+                        <!-- Right side of the card: Description & Aspects Grid -->
+                        <div class="card-right">
+                            <p class="description">
+                                La vibración de las flautas de caña, tambores rituales de cuero curtido e instrumentos
+                                de cuerda mestizos. Ritmos característicos que acompañan desde el luto hasta los
+                                carnavales más alegres del calendario folclórico.
+                            </p>
+                            <div class="category-details">
+                                <h3>Aspectos Clave</h3>
+                                <ul class="details-grid">
+                                    <li>
+                                        <strong>Organología Nátiva:</strong>
+                                        <span>Clasificación de vientos de caña, percusión y cuerdas.</span>
+                                    </li>
+                                    <li>
+                                        <strong>Melodías Criollas:</strong>
+                                        <span>Escalas pentatónicas e híbridos armónicos barrocos.</span>
+                                    </li>
+                                    <li>
+                                        <strong>Luthería Joven:</strong>
+                                        <span>Talleres activos de construcción y conservación de partituras.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="category-actions">
+                                <button class="btn btn-primary">Auditorio Digital</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Bottom Sponsor Logos / Institutional Footer -->
+    <footer class="inst-footer">
+        <div class="footer-logos-container">
+            <img src="assets/iconos/1_UPicono_ccc_blanco.svg" alt="Universidad Popular" class="footer-logo-img">
+            <img src="assets/iconos/2_CCCicono_ccc_blanco.svg" alt="Cáceres Patrimonio de la Humanidad" class="footer-logo-img">
+            <img src="assets/iconos/3_Juntaicono_ccc_blanco.svg" alt="Junta de Extremadura" class="footer-logo-img">
+            <img src="assets/iconos/4_Sexpeicono_ccc_blanco.svg" alt="SEXPE" class="footer-logo-img">
+            <img src="assets/iconos/5_Sepeicono_ccc_blanco.svg" alt="SEPE" class="footer-logo-img">
+            <img src="assets/iconos/6_Olimpicono_ccc_blanco.svg" alt="Olimpo II" class="footer-logo-img">
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
