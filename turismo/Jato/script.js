@@ -130,6 +130,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnNextPropuesta = document.getElementById('propuesta-next');
     const propuestaThumbButtons = document.querySelectorAll('#propuesta-thumbnails .thumb-btn');
 
+    // GALERÍA: DESFILE JATO 2026
+    let currentDesfileIndex = 0;
+    const desfileItems = [
+        'assets/desfile/item_1.jpg',
+        'assets/desfile/item_2.jpg',
+        'assets/desfile/item_3.jpg',
+        'assets/desfile/item_4.jpg',
+        'assets/desfile/item_5.jpg',
+        'assets/desfile/item_6.jpg',
+        'assets/desfile/item_7.jpg',
+        'assets/desfile/item_8.jpg',
+        'assets/desfile/item_9.jpg',
+        'assets/desfile/item_10.jpg'
+    ];
+
+    // SELECTORES DE LA GALERÍA DESFILE JATO 2026
+    const desfileModal = document.getElementById('desfile-modal');
+    const btnOpenDesfile = document.getElementById('btn-desfile');
+    const btnCloseDesfile = document.getElementById('desfile-close');
+    const desfileMainImg = document.getElementById('desfile-main-img');
+    const btnPrevDesfile = document.getElementById('desfile-prev');
+    const btnNextDesfile = document.getElementById('desfile-next');
+    const desfileThumbButtons = document.querySelectorAll('#desfile-thumbnails .thumb-btn');
+
     // Inicializar indicador del total
     if (totalNumSpan) {
         totalNumSpan.textContent = String(totalSlides - 1).padStart(2, '0'); // Muestra 05
@@ -243,6 +267,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     showCommItem(currentCommIndex + 1);
                 } else if (activeGallery === 'propuesta-grafica') {
                     showPropuestaItem(currentPropuestaIndex + 1);
+                } else if (activeGallery === 'desfile') {
+                    showDesfileItem(currentDesfileIndex + 1);
                 }
             } else if (e.key === 'ArrowLeft') {
                 if (activeGallery === 'visual-identity') {
@@ -257,6 +283,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     showCommItem(currentCommIndex - 1);
                 } else if (activeGallery === 'propuesta-grafica') {
                     showPropuestaItem(currentPropuestaIndex - 1);
+                } else if (activeGallery === 'desfile') {
+                    showDesfileItem(currentDesfileIndex - 1);
                 }
             } else if (e.key === 'Escape') {
                 if (activeGallery === 'visual-identity') {
@@ -271,6 +299,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     closeComm();
                 } else if (activeGallery === 'propuesta-grafica') {
                     closePropuesta();
+                } else if (activeGallery === 'desfile') {
+                    closeDesfile();
                 }
             }
             return; // Bloquea la navegación de diapositivas de fondo
@@ -817,6 +847,87 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             const index = parseInt(btn.getAttribute('data-index'), 10);
             showPropuestaItem(index);
+        });
+    });
+
+    // FUNCIONES DE LA GALERÍA: DESFILE JATO 2026
+    function openDesfile() {
+        if (!desfileModal) return;
+        desfileModal.classList.add('active');
+        desfileModal.setAttribute('aria-hidden', 'false');
+        activeGallery = 'desfile';
+        showDesfileItem(0);
+    }
+
+    function closeDesfile() {
+        if (!desfileModal) return;
+        desfileModal.classList.remove('active');
+        desfileModal.setAttribute('aria-hidden', 'true');
+        activeGallery = null;
+    }
+
+    function showDesfileItem(index) {
+        if (!desfileMainImg) return;
+        
+        // Enlazar índice circularmente
+        if (index < 0) index = desfileItems.length - 1;
+        if (index >= desfileItems.length) index = 0;
+        
+        currentDesfileIndex = index;
+        const itemSrc = desfileItems[currentDesfileIndex];
+        
+        // Efecto visual de transición
+        desfileMainImg.classList.add('changing');
+        
+        setTimeout(() => {
+            desfileMainImg.src = itemSrc;
+            desfileMainImg.alt = `Desfile Item ${currentDesfileIndex + 1}`;
+            desfileMainImg.classList.remove('changing');
+        }, 150);
+
+        // Actualizar miniaturas
+        desfileThumbButtons.forEach((btn, idx) => {
+            if (idx === currentDesfileIndex) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    // EVENT LISTENERS DE LA GALERÍA: DESFILE JATO 2026
+    if (btnOpenDesfile) {
+        btnOpenDesfile.addEventListener('click', openDesfile);
+    }
+
+    if (btnCloseDesfile) {
+        btnCloseDesfile.addEventListener('click', closeDesfile);
+    }
+
+    if (desfileModal) {
+        desfileModal.addEventListener('click', (e) => {
+            if (e.target === desfileModal) {
+                closeDesfile();
+            }
+        });
+    }
+
+    if (btnPrevDesfile) {
+        btnPrevDesfile.addEventListener('click', () => {
+            showDesfileItem(currentDesfileIndex - 1);
+        });
+    }
+
+    if (btnNextDesfile) {
+        btnNextDesfile.addEventListener('click', () => {
+            showDesfileItem(currentDesfileIndex + 1);
+        });
+    }
+
+    desfileThumbButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const index = parseInt(btn.getAttribute('data-index'), 10);
+            showDesfileItem(index);
         });
     });
 

@@ -32,7 +32,7 @@
                     <span class="logo-hashtag">#es+QTurismo</span>
                 </div>
                 <div class="header-cta">
-                    <a href="#contacto" class="btn btn-outline">Jato 2026</a>
+                    <button class="btn btn-outline" id="btn-desfile">Jato 2026</button>
                 </div>
             </div>
 
@@ -555,6 +555,69 @@
                     </button>
                     <button class="thumb-btn" data-index="4" aria-label="Ver Imagen 5">
                         <img src="assets/propuesta/robot.jpg" alt="Miniatura Imagen 5">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Desfile Jato 2026 -->
+    <div id="desfile-modal" class="modal-overlay" aria-hidden="true" role="dialog">
+        <div class="modal-container">
+            <button class="modal-close" id="desfile-close" aria-label="Cerrar galería">&times;</button>
+            
+            <!-- Contenido de la Galería -->
+            <div class="gallery-content">
+                <!-- Visor Principal -->
+                <div class="gallery-viewer">
+                    <button class="gallery-nav-btn prev" id="desfile-prev" aria-label="Imagen anterior">
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                        </svg>
+                    </button>
+                    
+                    <div class="gallery-image-wrapper">
+                        <img id="desfile-main-img" src="assets/desfile/item_1.jpg" alt="Desfile Jato 2026 - Item 1">
+                    </div>
+                    
+                    <button class="gallery-nav-btn next" id="desfile-next" aria-label="Siguiente imagen">
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Tiras de Miniaturas -->
+                <div class="gallery-thumbnails" id="desfile-thumbnails">
+                    <button class="thumb-btn active" data-index="0" aria-label="Ver Imagen 1">
+                        <img src="assets/desfile/item_1.jpg" alt="Miniatura Imagen 1">
+                    </button>
+                    <button class="thumb-btn" data-index="1" aria-label="Ver Imagen 2">
+                        <img src="assets/desfile/item_2.jpg" alt="Miniatura Imagen 2">
+                    </button>
+                    <button class="thumb-btn" data-index="2" aria-label="Ver Imagen 3">
+                        <img src="assets/desfile/item_3.jpg" alt="Miniatura Imagen 3">
+                    </button>
+                    <button class="thumb-btn" data-index="3" aria-label="Ver Imagen 4">
+                        <img src="assets/desfile/item_4.jpg" alt="Miniatura Imagen 4">
+                    </button>
+                    <button class="thumb-btn" data-index="4" aria-label="Ver Imagen 5">
+                        <img src="assets/desfile/item_5.jpg" alt="Miniatura Imagen 5">
+                    </button>
+                    <button class="thumb-btn" data-index="5" aria-label="Ver Imagen 6">
+                        <img src="assets/desfile/item_6.jpg" alt="Miniatura Imagen 6">
+                    </button>
+                    <button class="thumb-btn" data-index="6" aria-label="Ver Imagen 7">
+                        <img src="assets/desfile/item_7.jpg" alt="Miniatura Imagen 7">
+                    </button>
+                    <button class="thumb-btn" data-index="7" aria-label="Ver Imagen 8">
+                        <img src="assets/desfile/item_8.jpg" alt="Miniatura Imagen 8">
+                    </button>
+                    <button class="thumb-btn" data-index="8" aria-label="Ver Imagen 9">
+                        <img src="assets/desfile/item_9.jpg" alt="Miniatura Imagen 9">
+                    </button>
+                    <button class="thumb-btn" data-index="9" aria-label="Ver Imagen 10">
+                        <img src="assets/desfile/item_10.jpg" alt="Miniatura Imagen 10">
                     </button>
                 </div>
             </div>

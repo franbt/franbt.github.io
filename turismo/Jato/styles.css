@@ -1189,7 +1189,8 @@ body {
 #foro-main-img,
 #veletas-main-img,
 #comm-main-img,
-#propuesta-main-img {
+#propuesta-main-img,
+#desfile-main-img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
@@ -1203,7 +1204,8 @@ body {
 #foro-main-img.changing,
 #veletas-main-img.changing,
 #comm-main-img.changing,
-#propuesta-main-img.changing {
+#propuesta-main-img.changing,
+#desfile-main-img.changing {
     opacity: 0;
     transform: scale(0.98);
 }
