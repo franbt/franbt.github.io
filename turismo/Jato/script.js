@@ -111,6 +111,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnNextComm = document.getElementById('comm-next');
     const commThumbButtons = document.querySelectorAll('#comm-thumbnails .thumb-btn');
 
+    // GALERÍA: PROPUESTA GRÁFICA
+    let currentPropuestaIndex = 0;
+    const propuestaItems = [
+        'assets/propuesta/cereza.jpg',
+        'assets/propuesta/escaleras.jpg',
+        'assets/propuesta/gorros.jpg',
+        'assets/propuesta/jarram.jpg',
+        'assets/propuesta/robot.jpg'
+    ];
+
+    // SELECTORES DE LA GALERÍA PROPUESTA GRÁFICA
+    const propuestaModal = document.getElementById('propuesta-modal');
+    const btnOpenPropuesta = document.getElementById('btn-propuesta-grafica');
+    const btnClosePropuesta = document.getElementById('propuesta-close');
+    const propuestaMainImg = document.getElementById('propuesta-main-img');
+    const btnPrevPropuesta = document.getElementById('propuesta-prev');
+    const btnNextPropuesta = document.getElementById('propuesta-next');
+    const propuestaThumbButtons = document.querySelectorAll('#propuesta-thumbnails .thumb-btn');
+
     // Inicializar indicador del total
     if (totalNumSpan) {
         totalNumSpan.textContent = String(totalSlides - 1).padStart(2, '0'); // Muestra 05
@@ -222,6 +241,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     showVeletasItem(currentVeletasIndex + 1);
                 } else if (activeGallery === 'comm-audiovisual') {
                     showCommItem(currentCommIndex + 1);
+                } else if (activeGallery === 'propuesta-grafica') {
+                    showPropuestaItem(currentPropuestaIndex + 1);
                 }
             } else if (e.key === 'ArrowLeft') {
                 if (activeGallery === 'visual-identity') {
@@ -234,6 +255,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     showVeletasItem(currentVeletasIndex - 1);
                 } else if (activeGallery === 'comm-audiovisual') {
                     showCommItem(currentCommIndex - 1);
+                } else if (activeGallery === 'propuesta-grafica') {
+                    showPropuestaItem(currentPropuestaIndex - 1);
                 }
             } else if (e.key === 'Escape') {
                 if (activeGallery === 'visual-identity') {
@@ -246,6 +269,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     closeVeletas();
                 } else if (activeGallery === 'comm-audiovisual') {
                     closeComm();
+                } else if (activeGallery === 'propuesta-grafica') {
+                    closePropuesta();
                 }
             }
             return; // Bloquea la navegación de diapositivas de fondo
@@ -711,6 +736,87 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             const index = parseInt(btn.getAttribute('data-index'), 10);
             showCommItem(index);
+        });
+    });
+
+    // FUNCIONES DE LA GALERÍA: PROPUESTA GRÁFICA
+    function openPropuesta() {
+        if (!propuestaModal) return;
+        propuestaModal.classList.add('active');
+        propuestaModal.setAttribute('aria-hidden', 'false');
+        activeGallery = 'propuesta-grafica';
+        showPropuestaItem(0);
+    }
+
+    function closePropuesta() {
+        if (!propuestaModal) return;
+        propuestaModal.classList.remove('active');
+        propuestaModal.setAttribute('aria-hidden', 'true');
+        activeGallery = null;
+    }
+
+    function showPropuestaItem(index) {
+        if (!propuestaMainImg) return;
+        
+        // Enlazar índice circularmente
+        if (index < 0) index = propuestaItems.length - 1;
+        if (index >= propuestaItems.length) index = 0;
+        
+        currentPropuestaIndex = index;
+        const itemSrc = propuestaItems[currentPropuestaIndex];
+        
+        // Efecto visual de transición
+        propuestaMainImg.classList.add('changing');
+        
+        setTimeout(() => {
+            propuestaMainImg.src = itemSrc;
+            propuestaMainImg.alt = `Propuesta Gráfica Item ${currentPropuestaIndex + 1}`;
+            propuestaMainImg.classList.remove('changing');
+        }, 150);
+
+        // Actualizar miniaturas
+        propuestaThumbButtons.forEach((btn, idx) => {
+            if (idx === currentPropuestaIndex) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    // EVENT LISTENERS DE LA GALERÍA: PROPUESTA GRÁFICA
+    if (btnOpenPropuesta) {
+        btnOpenPropuesta.addEventListener('click', openPropuesta);
+    }
+
+    if (btnClosePropuesta) {
+        btnClosePropuesta.addEventListener('click', closePropuesta);
+    }
+
+    if (propuestaModal) {
+        propuestaModal.addEventListener('click', (e) => {
+            if (e.target === propuestaModal) {
+                closePropuesta();
+            }
+        });
+    }
+
+    if (btnPrevPropuesta) {
+        btnPrevPropuesta.addEventListener('click', () => {
+            showPropuestaItem(currentPropuestaIndex - 1);
+        });
+    }
+
+    if (btnNextPropuesta) {
+        btnNextPropuesta.addEventListener('click', () => {
+            showPropuestaItem(currentPropuestaIndex + 1);
+        });
+    }
+
+    propuestaThumbButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const index = parseInt(btn.getAttribute('data-index'), 10);
+            showPropuestaItem(index);
         });
     });
 

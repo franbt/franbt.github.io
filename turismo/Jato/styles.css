@@ -1188,7 +1188,8 @@ body {
 #plaza-main-img,
 #foro-main-img,
 #veletas-main-img,
-#comm-main-img {
+#comm-main-img,
+#propuesta-main-img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
@@ -1201,7 +1202,8 @@ body {
 #plaza-main-img.changing,
 #foro-main-img.changing,
 #veletas-main-img.changing,
-#comm-main-img.changing {
+#comm-main-img.changing,
+#propuesta-main-img.changing {
     opacity: 0;
     transform: scale(0.98);
 }

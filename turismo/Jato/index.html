@@ -188,7 +188,8 @@
                         <div class="card-right">
                             <p class="description">
                                 Los productos gráficos eran variados y cada stand tenía varios formatos. Sobre todo
-                                había mapas, libretos de actividades, dípticos, trípticos, flyers y material de
+                                había mapas, libretos de actividades, dípticos, trípticos, flyers, tarjetas de contacto
+                                y material de
                                 merchandising como bolsas de tela, gorras bolígrafos y pulseras.
                             </p>
                         </div>
@@ -223,7 +224,8 @@
                             </p>
 
                             <div class="category-actions">
-                                <button class="btn btn-primary" id="btn-comm-audiovisual">Comunicación Audiovisual</button>
+                                <button class="btn btn-primary" id="btn-comm-audiovisual">Comunicación
+                                    Audiovisual</button>
                             </div>
                         </div>
                     </div>
@@ -243,40 +245,20 @@
                     <div class="category-card">
                         <!-- Left side of the card: Title & Index -->
                         <div class="card-left">
-                            <div class="slide-meta">
-                                <span class="category-index">Categoría 05</span>
-                                <span class="accent-badge badge-yellow">Sonoridad Histórica</span>
-                            </div>
-                            <h2 class="category-title">Música e <br><span class="accent-text">Instrumentos
-                                    Autóctonos</span></h2>
+                            <h2 class="category-title">Propuesta Visual</h2>
                         </div>
 
                         <!-- Right side of the card: Description & Aspects Grid -->
                         <div class="card-right">
                             <p class="description">
-                                La vibración de las flautas de caña, tambores rituales de cuero curtido e instrumentos
-                                de cuerda mestizos. Ritmos característicos que acompañan desde el luto hasta los
-                                carnavales más alegres del calendario folclórico.
+                                La propuesta visual se trata de integrar el logotipo de ESCÁCERES y el hastag
+                                #es+Qturismo en imagenes obtenidas de las propias dinámicas del evento.
+                                Proponiendo una imagen activa de participación y de esta manera disfrutar aún más del
+                                entorno de la ciudad con su gente.
+                                El material gráfico sería optimo para utilizarse en formatos digitales e impresos.
                             </p>
-                            <div class="category-details">
-                                <h3>Aspectos Clave</h3>
-                                <ul class="details-grid">
-                                    <li>
-                                        <strong>Organología Nátiva:</strong>
-                                        <span>Clasificación de vientos de caña, percusión y cuerdas.</span>
-                                    </li>
-                                    <li>
-                                        <strong>Melodías Criollas:</strong>
-                                        <span>Escalas pentatónicas e híbridos armónicos barrocos.</span>
-                                    </li>
-                                    <li>
-                                        <strong>Luthería Joven:</strong>
-                                        <span>Talleres activos de construcción y conservación de partituras.</span>
-                                    </li>
-                                </ul>
-                            </div>
                             <div class="category-actions">
-                                <button class="btn btn-primary">Auditorio Digital</button>
+                                <button class="btn btn-primary" id="btn-propuesta-grafica">Propuesta Gráfica</button>
                             </div>
                         </div>
                     </div>
@@ -487,28 +469,28 @@
     <div id="comm-modal" class="modal-overlay" aria-hidden="true" role="dialog">
         <div class="modal-container">
             <button class="modal-close" id="comm-close" aria-label="Cerrar galería">&times;</button>
-            
+
             <!-- Contenido de la Galería -->
             <div class="gallery-content">
                 <!-- Visor Principal -->
                 <div class="gallery-viewer">
                     <button class="gallery-nav-btn prev" id="comm-prev" aria-label="Imagen anterior">
                         <svg viewBox="0 0 24 24" width="24" height="24">
-                            <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                            <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
                         </svg>
                     </button>
-                    
+
                     <div class="gallery-image-wrapper">
                         <img id="comm-main-img" src="assets/comm/item_1.png" alt="Comunicación Audiovisual - Item 1">
                     </div>
-                    
+
                     <button class="gallery-nav-btn next" id="comm-next" aria-label="Siguiente imagen">
                         <svg viewBox="0 0 24 24" width="24" height="24">
-                            <path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                            <path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
                         </svg>
                     </button>
                 </div>
-                
+
                 <!-- Tiras de Miniaturas -->
                 <div class="gallery-thumbnails" id="comm-thumbnails">
                     <button class="thumb-btn active" data-index="0" aria-label="Ver Imagen 1">
@@ -525,6 +507,54 @@
                     </button>
                     <button class="thumb-btn" data-index="4" aria-label="Ver Imagen 5">
                         <img src="assets/comm/item_5.png" alt="Miniatura Imagen 5">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Propuesta Gráfica -->
+    <div id="propuesta-modal" class="modal-overlay" aria-hidden="true" role="dialog">
+        <div class="modal-container">
+            <button class="modal-close" id="propuesta-close" aria-label="Cerrar galería">&times;</button>
+            
+            <!-- Contenido de la Galería -->
+            <div class="gallery-content">
+                <!-- Visor Principal -->
+                <div class="gallery-viewer">
+                    <button class="gallery-nav-btn prev" id="propuesta-prev" aria-label="Imagen anterior">
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                        </svg>
+                    </button>
+                    
+                    <div class="gallery-image-wrapper">
+                        <img id="propuesta-main-img" src="assets/propuesta/cereza.jpg" alt="Propuesta Gráfica - Cereza">
+                    </div>
+                    
+                    <button class="gallery-nav-btn next" id="propuesta-next" aria-label="Siguiente imagen">
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Tiras de Miniaturas -->
+                <div class="gallery-thumbnails" id="propuesta-thumbnails">
+                    <button class="thumb-btn active" data-index="0" aria-label="Ver Imagen 1">
+                        <img src="assets/propuesta/cereza.jpg" alt="Miniatura Imagen 1">
+                    </button>
+                    <button class="thumb-btn" data-index="1" aria-label="Ver Imagen 2">
+                        <img src="assets/propuesta/escaleras.jpg" alt="Miniatura Imagen 2">
+                    </button>
+                    <button class="thumb-btn" data-index="2" aria-label="Ver Imagen 3">
+                        <img src="assets/propuesta/gorros.jpg" alt="Miniatura Imagen 3">
+                    </button>
+                    <button class="thumb-btn" data-index="3" aria-label="Ver Imagen 4">
+                        <img src="assets/propuesta/jarram.jpg" alt="Miniatura Imagen 4">
+                    </button>
+                    <button class="thumb-btn" data-index="4" aria-label="Ver Imagen 5">
+                        <img src="assets/propuesta/robot.jpg" alt="Miniatura Imagen 5">
                     </button>
                 </div>
             </div>
