@@ -362,8 +362,8 @@ body {
 /* 7. TARJETAS DE CONTENIDO (GLASSMORPHISM HORIZONTAL) */
 .category-card {
     background: rgba(10, 12, 16, 0.12);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
+    backdrop-filter: blur(55px);
+    -webkit-backdrop-filter: blur(55px);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
     padding: 3.5rem;
@@ -373,7 +373,7 @@ body {
     flex-direction: row;
     gap: 4rem;
     align-items: center;
-    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.65);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.95);
     transition: all 0.8s var(--transition-curve);
 }
 
@@ -594,6 +594,13 @@ body {
     font-size: 0.9rem;
     letter-spacing: 0.05em;
     line-height: 1.2;
+}
+
+.category-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-top: 1.8rem;
 }
 
 /* 8. IMÁGENES / PLACEHOLDERS (AJUSTADOS A FONDO COMPLETO) */
@@ -904,8 +911,10 @@ body {
 
     .category-actions {
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
-        margin-top: 0.5rem;
+        gap: 0.8rem;
+        margin-top: 0.8rem;
     }
 
     .cover-card {
@@ -1084,5 +1093,251 @@ body {
 
     .footer-logo-img:nth-child(6) {
         height: 16px !important;
+    }
+}
+
+/* ==========================================================================
+   11. GALERÍA MODAL: REGISTRO IDENTIDAD VISUAL
+   ========================================================================== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(4, 5, 7, 0.82);
+    backdrop-filter: blur(20px) saturate(120%);
+    -webkit-backdrop-filter: blur(20px) saturate(120%);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-container {
+    position: relative;
+    width: 90%;
+    max-width: 900px;
+    background: rgba(10, 12, 16, 0.65);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 3rem 2.5rem 2.5rem 2.5rem;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.95);
+    transform: scale(0.93) translateY(20px);
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.modal-overlay.active .modal-container {
+    transform: scale(1) translateY(0);
+}
+
+.modal-close {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.5rem;
+    background: transparent;
+    border: none;
+    font-size: 2.2rem;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    line-height: 1;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    color: var(--color-red);
+    transform: rotate(90deg) scale(1.1);
+}
+
+.gallery-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+}
+
+.gallery-viewer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    position: relative;
+}
+
+.gallery-image-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(4, 5, 7, 0.6);
+    aspect-ratio: 16 / 9;
+    max-height: 48vh;
+}
+
+#gallery-main-img,
+#plaza-main-img,
+#foro-main-img,
+#veletas-main-img,
+#comm-main-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 4px;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    opacity: 1;
+}
+
+#gallery-main-img.changing,
+#plaza-main-img.changing,
+#foro-main-img.changing,
+#veletas-main-img.changing,
+#comm-main-img.changing {
+    opacity: 0;
+    transform: scale(0.98);
+}
+
+.gallery-nav-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--color-text-secondary);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    flex-shrink: 0;
+}
+
+.gallery-nav-btn:hover {
+    background: var(--color-red);
+    border-color: var(--color-red);
+    color: #ffffff;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(225, 45, 57, 0.45);
+}
+
+.gallery-nav-btn:active {
+    transform: scale(0.95);
+}
+
+
+.gallery-thumbnails {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 0.2rem;
+    scrollbar-width: none; /* Firefox */
+}
+
+.gallery-thumbnails::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.thumb-btn {
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    padding: 0;
+    width: 88px;
+    height: 50px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0.45;
+    flex-shrink: 0;
+}
+
+.thumb-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.thumb-btn:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.thumb-btn.active {
+    opacity: 1;
+    border-color: var(--color-gold);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(207, 168, 81, 0.35);
+}
+
+/* Ajustes Responsivos para el Modal */
+@media (max-width: 768px) {
+    .modal-container {
+        padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+        width: 95%;
+        border-radius: 12px;
+    }
+
+    .modal-close {
+        top: 0.6rem;
+        right: 1rem;
+        font-size: 2rem;
+    }
+
+    .gallery-image-wrapper {
+        aspect-ratio: 4 / 3;
+        max-height: 35vh;
+    }
+
+    .gallery-nav-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .gallery-nav-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+
+
+    .thumb-btn {
+        width: 65px;
+        height: 38px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-container {
+        padding: 2.2rem 1rem 1rem 1rem;
+    }
+
+    .gallery-viewer {
+        gap: 0.6rem;
+    }
+
+    .gallery-image-wrapper {
+        aspect-ratio: 4 / 3;
+        max-height: 28vh;
+    }
+
+    .gallery-nav-btn {
+        width: 34px;
+        height: 34px;
+    }
+
+    .thumb-btn {
+        width: 55px;
+        height: 32px;
     }
 }

@@ -17,6 +17,100 @@ document.addEventListener('DOMContentLoaded', () => {
     let isTransitioning = false;
     const transitionDuration = 800; // ms (coincide con el CSS)
 
+    // 2.1 ESTADO DE LAS GALERÍAS
+    let activeGallery = null; // 'visual-identity', 'plaza-mayor', o null
+    
+    // GALERÍA: IDENTIDAD VISUAL
+    let currentMotifIndex = 0;
+    const motifs = [
+        'assets/id_vis/motivo_1.png',
+        'assets/id_vis/motivo_2.png',
+        'assets/id_vis/motivo_3.png',
+        'assets/id_vis/motivo_4.png'
+    ];
+
+    // SELECTORES DE LA GALERÍA IDENTIDAD VISUAL
+    const galleryModal = document.getElementById('gallery-modal');
+    const btnOpenGallery = document.getElementById('btn-open-gallery');
+    const btnCloseGallery = document.getElementById('modal-close');
+    const galleryMainImg = document.getElementById('gallery-main-img');
+    const btnPrevMotif = document.getElementById('gallery-prev');
+    const btnNextMotif = document.getElementById('gallery-next');
+    const thumbButtons = document.querySelectorAll('#gallery-thumbnails .thumb-btn');
+
+    // GALERÍA: PLAZA MAYOR
+    let currentPlazaIndex = 0;
+    const plazaItems = [
+        'assets/plaza_mayor/item_1.png',
+        'assets/plaza_mayor/item_2.png',
+        'assets/plaza_mayor/item_3.png',
+        'assets/plaza_mayor/item_4.png'
+    ];
+
+    // SELECTORES DE LA GALERÍA PLAZA MAYOR
+    const plazaModal = document.getElementById('plaza-modal');
+    const btnOpenPlaza = document.getElementById('btn-plaza-mayor');
+    const btnClosePlaza = document.getElementById('plaza-close');
+    const plazaMainImg = document.getElementById('plaza-main-img');
+    const btnPrevPlaza = document.getElementById('plaza-prev');
+    const btnNextPlaza = document.getElementById('plaza-next');
+    const plazaThumbButtons = document.querySelectorAll('#plaza-thumbnails .thumb-btn');
+
+    // GALERÍA: FORO DE LOS BALBOS
+    let currentForoIndex = 0;
+    const foroItems = [
+        'assets/foro_balbos/item_1.png',
+        'assets/foro_balbos/item_2.png',
+        'assets/foro_balbos/item_3.png',
+        'assets/foro_balbos/item_4.png'
+    ];
+
+    // SELECTORES DE LA GALERÍA FORO DE LOS BALBOS
+    const foroModal = document.getElementById('foro-modal');
+    const btnOpenForo = document.getElementById('btn-foro-balbos');
+    const btnCloseForo = document.getElementById('foro-close');
+    const foroMainImg = document.getElementById('foro-main-img');
+    const btnPrevForo = document.getElementById('foro-prev');
+    const btnNextForo = document.getElementById('foro-next');
+    const foroThumbButtons = document.querySelectorAll('#foro-thumbnails .thumb-btn');
+
+    // GALERÍA: PLAZA DE LAS VELETAS
+    let currentVeletasIndex = 0;
+    const veletasItems = [
+        'assets/plaza_veletas/item_1.png',
+        'assets/plaza_veletas/item_2.png',
+        'assets/plaza_veletas/item_3.png',
+        'assets/plaza_veletas/item_4.png'
+    ];
+
+    // SELECTORES DE LA GALERÍA PLAZA DE LAS VELETAS
+    const veletasModal = document.getElementById('veletas-modal');
+    const btnOpenVeletas = document.getElementById('btn-plaza-veletas');
+    const btnCloseVeletas = document.getElementById('veletas-close');
+    const veletasMainImg = document.getElementById('veletas-main-img');
+    const btnPrevVeletas = document.getElementById('veletas-prev');
+    const btnNextVeletas = document.getElementById('veletas-next');
+    const veletasThumbButtons = document.querySelectorAll('#veletas-thumbnails .thumb-btn');
+
+    // GALERÍA: COMUNICACIÓN AUDIOVISUAL
+    let currentCommIndex = 0;
+    const commItems = [
+        'assets/comm/item_1.png',
+        'assets/comm/item_2.png',
+        'assets/comm/item_3.png',
+        'assets/comm/item_4.png',
+        'assets/comm/item_5.png'
+    ];
+
+    // SELECTORES DE LA GALERÍA COMUNICACIÓN AUDIOVISUAL
+    const commModal = document.getElementById('comm-modal');
+    const btnOpenComm = document.getElementById('btn-comm-audiovisual');
+    const btnCloseComm = document.getElementById('comm-close');
+    const commMainImg = document.getElementById('comm-main-img');
+    const btnPrevComm = document.getElementById('comm-prev');
+    const btnNextComm = document.getElementById('comm-next');
+    const commThumbButtons = document.querySelectorAll('#comm-thumbnails .thumb-btn');
+
     // Inicializar indicador del total
     if (totalNumSpan) {
         totalNumSpan.textContent = String(totalSlides - 1).padStart(2, '0'); // Muestra 05
@@ -113,8 +207,50 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 6. EVENT LISTENERS: TECLADO (ACCESIBILIDAD)
+    // 6. EVENT LISTENERS: TECLADO (ACCESIBILIDAD Y GALERÍA)
     window.addEventListener('keydown', (e) => {
+        // Si hay una galería abierta, interceptar teclado
+        if (activeGallery) {
+            if (e.key === 'ArrowRight') {
+                if (activeGallery === 'visual-identity') {
+                    showMotif(currentMotifIndex + 1);
+                } else if (activeGallery === 'plaza-mayor') {
+                    showPlazaItem(currentPlazaIndex + 1);
+                } else if (activeGallery === 'foro-balbos') {
+                    showForoItem(currentForoIndex + 1);
+                } else if (activeGallery === 'plaza-veletas') {
+                    showVeletasItem(currentVeletasIndex + 1);
+                } else if (activeGallery === 'comm-audiovisual') {
+                    showCommItem(currentCommIndex + 1);
+                }
+            } else if (e.key === 'ArrowLeft') {
+                if (activeGallery === 'visual-identity') {
+                    showMotif(currentMotifIndex - 1);
+                } else if (activeGallery === 'plaza-mayor') {
+                    showPlazaItem(currentPlazaIndex - 1);
+                } else if (activeGallery === 'foro-balbos') {
+                    showForoItem(currentForoIndex - 1);
+                } else if (activeGallery === 'plaza-veletas') {
+                    showVeletasItem(currentVeletasIndex - 1);
+                } else if (activeGallery === 'comm-audiovisual') {
+                    showCommItem(currentCommIndex - 1);
+                }
+            } else if (e.key === 'Escape') {
+                if (activeGallery === 'visual-identity') {
+                    closeGallery();
+                } else if (activeGallery === 'plaza-mayor') {
+                    closePlaza();
+                } else if (activeGallery === 'foro-balbos') {
+                    closeForo();
+                } else if (activeGallery === 'plaza-veletas') {
+                    closeVeletas();
+                } else if (activeGallery === 'comm-audiovisual') {
+                    closeComm();
+                }
+            }
+            return; // Bloquea la navegación de diapositivas de fondo
+        }
+
         if (e.key === 'ArrowRight' || e.key === 'PageDown') {
             goToSlide(currentSlide + 1);
         } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
@@ -131,6 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const wheelCooldown = 1200; // Cooldown largo para evitar saltos accidentales
 
     window.addEventListener('wheel', (e) => {
+        if (activeGallery) return;
         const currentTime = new Date().getTime();
         if (currentTime - lastWheelTime < wheelCooldown) return;
 
@@ -159,6 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
 
     function handleSwipe() {
+        if (activeGallery) return;
         const swipeDistance = touchEndX - touchStartX;
         if (Math.abs(swipeDistance) > swipeThreshold) {
             if (swipeDistance < 0) {
@@ -170,6 +308,411 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+
+    // FUNCIONES DE LA GALERÍA: IDENTIDAD VISUAL
+    function openGallery() {
+        if (!galleryModal) return;
+        galleryModal.classList.add('active');
+        galleryModal.setAttribute('aria-hidden', 'false');
+        activeGallery = 'visual-identity';
+        showMotif(0);
+    }
+
+    function closeGallery() {
+        if (!galleryModal) return;
+        galleryModal.classList.remove('active');
+        galleryModal.setAttribute('aria-hidden', 'true');
+        activeGallery = null;
+    }
+
+    function showMotif(index) {
+        if (!galleryMainImg) return;
+        
+        // Enlazar índice circularmente
+        if (index < 0) index = motifs.length - 1;
+        if (index >= motifs.length) index = 0;
+        
+        currentMotifIndex = index;
+        const motifSrc = motifs[currentMotifIndex];
+        
+        // Efecto visual de transición
+        galleryMainImg.classList.add('changing');
+        
+        setTimeout(() => {
+            galleryMainImg.src = motifSrc;
+            galleryMainImg.alt = `Motivo de Identidad Visual ${currentMotifIndex + 1}`;
+            galleryMainImg.classList.remove('changing');
+        }, 150);
+
+        // Actualizar miniaturas
+        thumbButtons.forEach((btn, idx) => {
+            if (idx === currentMotifIndex) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    // EVENT LISTENERS DE LA GALERÍA
+    if (btnOpenGallery) {
+        btnOpenGallery.addEventListener('click', openGallery);
+    }
+
+    if (btnCloseGallery) {
+        btnCloseGallery.addEventListener('click', closeGallery);
+    }
+
+    if (galleryModal) {
+        galleryModal.addEventListener('click', (e) => {
+            if (e.target === galleryModal) {
+                closeGallery();
+            }
+        });
+    }
+
+    if (btnPrevMotif) {
+        btnPrevMotif.addEventListener('click', () => {
+            showMotif(currentMotifIndex - 1);
+        });
+    }
+
+    if (btnNextMotif) {
+        btnNextMotif.addEventListener('click', () => {
+            showMotif(currentMotifIndex + 1);
+        });
+    }
+
+    thumbButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const index = parseInt(btn.getAttribute('data-index'), 10);
+            showMotif(index);
+        });
+    });
+
+    // FUNCIONES DE LA GALERÍA: PLAZA MAYOR
+    function openPlaza() {
+        if (!plazaModal) return;
+        plazaModal.classList.add('active');
+        plazaModal.setAttribute('aria-hidden', 'false');
+        activeGallery = 'plaza-mayor';
+        showPlazaItem(0);
+    }
+
+    function closePlaza() {
+        if (!plazaModal) return;
+        plazaModal.classList.remove('active');
+        plazaModal.setAttribute('aria-hidden', 'true');
+        activeGallery = null;
+    }
+
+    function showPlazaItem(index) {
+        if (!plazaMainImg) return;
+        
+        // Enlazar índice circularmente
+        if (index < 0) index = plazaItems.length - 1;
+        if (index >= plazaItems.length) index = 0;
+        
+        currentPlazaIndex = index;
+        const itemSrc = plazaItems[currentPlazaIndex];
+        
+        // Efecto visual de transición
+        plazaMainImg.classList.add('changing');
+        
+        setTimeout(() => {
+            plazaMainImg.src = itemSrc;
+            plazaMainImg.alt = `Plaza Mayor Item ${currentPlazaIndex + 1}`;
+            plazaMainImg.classList.remove('changing');
+        }, 150);
+
+        // Actualizar miniaturas
+        plazaThumbButtons.forEach((btn, idx) => {
+            if (idx === currentPlazaIndex) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    // EVENT LISTENERS DE LA GALERÍA: PLAZA MAYOR
+    if (btnOpenPlaza) {
+        btnOpenPlaza.addEventListener('click', openPlaza);
+    }
+
+    if (btnClosePlaza) {
+        btnClosePlaza.addEventListener('click', closePlaza);
+    }
+
+    if (plazaModal) {
+        plazaModal.addEventListener('click', (e) => {
+            if (e.target === plazaModal) {
+                closePlaza();
+            }
+        });
+    }
+
+    if (btnPrevPlaza) {
+        btnPrevPlaza.addEventListener('click', () => {
+            showPlazaItem(currentPlazaIndex - 1);
+        });
+    }
+
+    if (btnNextPlaza) {
+        btnNextPlaza.addEventListener('click', () => {
+            showPlazaItem(currentPlazaIndex + 1);
+        });
+    }
+
+    plazaThumbButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const index = parseInt(btn.getAttribute('data-index'), 10);
+            showPlazaItem(index);
+        });
+    });
+
+    // FUNCIONES DE LA GALERÍA: FORO DE LOS BALBOS
+    function openForo() {
+        if (!foroModal) return;
+        foroModal.classList.add('active');
+        foroModal.setAttribute('aria-hidden', 'false');
+        activeGallery = 'foro-balbos';
+        showForoItem(0);
+    }
+
+    function closeForo() {
+        if (!foroModal) return;
+        foroModal.classList.remove('active');
+        foroModal.setAttribute('aria-hidden', 'true');
+        activeGallery = null;
+    }
+
+    function showForoItem(index) {
+        if (!foroMainImg) return;
+        
+        // Enlazar índice circularmente
+        if (index < 0) index = foroItems.length - 1;
+        if (index >= foroItems.length) index = 0;
+        
+        currentForoIndex = index;
+        const itemSrc = foroItems[currentForoIndex];
+        
+        // Efecto visual de transición
+        foroMainImg.classList.add('changing');
+        
+        setTimeout(() => {
+            foroMainImg.src = itemSrc;
+            foroMainImg.alt = `Foro de los Balbos Item ${currentForoIndex + 1}`;
+            foroMainImg.classList.remove('changing');
+        }, 150);
+
+        // Actualizar miniaturas
+        foroThumbButtons.forEach((btn, idx) => {
+            if (idx === currentForoIndex) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    // EVENT LISTENERS DE LA GALERÍA: FORO DE LOS BALBOS
+    if (btnOpenForo) {
+        btnOpenForo.addEventListener('click', openForo);
+    }
+
+    if (btnCloseForo) {
+        btnCloseForo.addEventListener('click', closeForo);
+    }
+
+    if (foroModal) {
+        foroModal.addEventListener('click', (e) => {
+            if (e.target === foroModal) {
+                closeForo();
+            }
+        });
+    }
+
+    if (btnPrevForo) {
+        btnPrevForo.addEventListener('click', () => {
+            showForoItem(currentForoIndex - 1);
+        });
+    }
+
+    if (btnNextForo) {
+        btnNextForo.addEventListener('click', () => {
+            showForoItem(currentForoIndex + 1);
+        });
+    }
+
+    foroThumbButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const index = parseInt(btn.getAttribute('data-index'), 10);
+            showForoItem(index);
+        });
+    });
+
+    // FUNCIONES DE LA GALERÍA: PLAZA DE LAS VELETAS
+    function openVeletas() {
+        if (!veletasModal) return;
+        veletasModal.classList.add('active');
+        veletasModal.setAttribute('aria-hidden', 'false');
+        activeGallery = 'plaza-veletas';
+        showVeletasItem(0);
+    }
+
+    function closeVeletas() {
+        if (!veletasModal) return;
+        veletasModal.classList.remove('active');
+        veletasModal.setAttribute('aria-hidden', 'true');
+        activeGallery = null;
+    }
+
+    function showVeletasItem(index) {
+        if (!veletasMainImg) return;
+        
+        // Enlazar índice circularmente
+        if (index < 0) index = veletasItems.length - 1;
+        if (index >= veletasItems.length) index = 0;
+        
+        currentVeletasIndex = index;
+        const itemSrc = veletasItems[currentVeletasIndex];
+        
+        // Efecto visual de transición
+        veletasMainImg.classList.add('changing');
+        
+        setTimeout(() => {
+            veletasMainImg.src = itemSrc;
+            veletasMainImg.alt = `Plaza de las Veletas Item ${currentVeletasIndex + 1}`;
+            veletasMainImg.classList.remove('changing');
+        }, 150);
+
+        // Actualizar miniaturas
+        veletasThumbButtons.forEach((btn, idx) => {
+            if (idx === currentVeletasIndex) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    // EVENT LISTENERS DE LA GALERÍA: PLAZA DE LAS VELETAS
+    if (btnOpenVeletas) {
+        btnOpenVeletas.addEventListener('click', openVeletas);
+    }
+
+    if (btnCloseVeletas) {
+        btnCloseVeletas.addEventListener('click', closeVeletas);
+    }
+
+    if (veletasModal) {
+        veletasModal.addEventListener('click', (e) => {
+            if (e.target === veletasModal) {
+                closeVeletas();
+            }
+        });
+    }
+
+    if (btnPrevVeletas) {
+        btnPrevVeletas.addEventListener('click', () => {
+            showVeletasItem(currentVeletasIndex - 1);
+        });
+    }
+
+    if (btnNextVeletas) {
+        btnNextVeletas.addEventListener('click', () => {
+            showVeletasItem(currentVeletasIndex + 1);
+        });
+    }
+
+    veletasThumbButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const index = parseInt(btn.getAttribute('data-index'), 10);
+            showVeletasItem(index);
+        });
+    });
+
+    // FUNCIONES DE LA GALERÍA: COMUNICACIÓN AUDIOVISUAL
+    function openComm() {
+        if (!commModal) return;
+        commModal.classList.add('active');
+        commModal.setAttribute('aria-hidden', 'false');
+        activeGallery = 'comm-audiovisual';
+        showCommItem(0);
+    }
+
+    function closeComm() {
+        if (!commModal) return;
+        commModal.classList.remove('active');
+        commModal.setAttribute('aria-hidden', 'true');
+        activeGallery = null;
+    }
+
+    function showCommItem(index) {
+        if (!commMainImg) return;
+        
+        // Enlazar índice circularmente
+        if (index < 0) index = commItems.length - 1;
+        if (index >= commItems.length) index = 0;
+        
+        currentCommIndex = index;
+        const itemSrc = commItems[currentCommIndex];
+        
+        // Efecto visual de transición
+        commMainImg.classList.add('changing');
+        
+        setTimeout(() => {
+            commMainImg.src = itemSrc;
+            commMainImg.alt = `Comunicación Audiovisual Item ${currentCommIndex + 1}`;
+            commMainImg.classList.remove('changing');
+        }, 150);
+
+        // Actualizar miniaturas
+        commThumbButtons.forEach((btn, idx) => {
+            if (idx === currentCommIndex) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    // EVENT LISTENERS DE LA GALERÍA: COMUNICACIÓN AUDIOVISUAL
+    if (btnOpenComm) {
+        btnOpenComm.addEventListener('click', openComm);
+    }
+
+    if (btnCloseComm) {
+        btnCloseComm.addEventListener('click', closeComm);
+    }
+
+    if (commModal) {
+        commModal.addEventListener('click', (e) => {
+            if (e.target === commModal) {
+                closeComm();
+            }
+        });
+    }
+
+    if (btnPrevComm) {
+        btnPrevComm.addEventListener('click', () => {
+            showCommItem(currentCommIndex - 1);
+        });
+    }
+
+    if (btnNextComm) {
+        btnNextComm.addEventListener('click', () => {
+            showCommItem(currentCommIndex + 1);
+        });
+    }
+
+    commThumbButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const index = parseInt(btn.getAttribute('data-index'), 10);
+            showCommItem(index);
+        });
+    });
 
     // Inicializar el estado inicial
     goToSlide(0);
