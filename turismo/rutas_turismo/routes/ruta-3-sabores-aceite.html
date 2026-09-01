@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ruta de los Sabores Tradicionales y Cultura del Aceite | ESCÁCERES</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+  <div class="app-wrapper">
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="../index.html" class="brand-wrapper" aria-label="Inicio ESCÁCERES - Rutas Turísticas">
+          <div class="brand-logo-container" title="ESCÁCERES - Marca Oficial">
+            <img src="../assets/logo-landscape.svg" alt="ESCÁCERES" class="escaceres-svg-logo">
+          </div>
+          <div class="brand-titles">
+            <div class="brand-header-row">
+              <h1>Rutas Turísticas</h1>
+              <span class="brand-dev-badge">Desarrollado por Turismo - Olimpo II</span>
+            </div>
+            <span class="tagline">Itinerarios y Fichas Oficiales &bull; Red de Rutas ESCÁCERES</span>
+          </div>
+        </a>
+        <div class="header-actions">
+          <a href="../index.html" class="header-btn">⬅ Catálogo</a>
+          <button class="header-btn" id="theme-toggle-btn" title="Alternar tema" aria-label="Alternar tema">
+            <span class="icon">🌙</span><span class="theme-btn-text">Tema</span>
+          </button>
+          <button class="header-btn controls-no-print" onclick="window.print()" title="Imprimir Ficha" aria-label="Imprimir">🖨️</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="content-wrapper">
+      <article class="route-sheet">
+        <header class="sheet-hero">
+          <div class="sheet-badge-group">
+            <span class="sheet-category-tag">Ficha de Ruta Oficial</span>
+            <span class="metric-badge diff-baja">⚡ Dificultad Baja (Caminos rurales llanos y calles empedradas)</span>
+          </div>
+          <h1 class="sheet-title">Ruta de los Sabores Tradicionales y Cultura del Aceite</h1>
+          <p class="sheet-slogan">"El legado del oro líquido, las almazaras vivas y la cocina de la tierra"</p>
+        </header>
+
+        <div class="metrics-summary-grid">
+          <div class="metric-item">
+            <span class="metric-item-label">Temática</span>
+            <span class="metric-item-value">🏛️ $Enoturismo</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-item-label">Duración</span>
+            <span class="metric-item-value">⏱️ 2 horas y 45 minutos</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-item-label">Distancia</span>
+            <span class="metric-item-value">📏 4,2 km</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-item-label">Paradas</span>
+            <span class="metric-item-value">📍 5 Hitos</span>
+          </div>
+          <div class="metric-item" style="grid-column: 1/-1;">
+            <span class="metric-item-label">Inicio y Final</span>
+            <span class="metric-item-value" style="font-size: 0.95rem;">🚩 Inicio en Museo Almazara La Encomienda / Final en Plaza del Horno Comunal</span>
+          </div>
+          <div class="metric-item" style="grid-column: 1/-1;">
+            <span class="metric-item-label">Accesibilidad</span>
+            <span class="metric-item-value" style="font-size: 0.95rem;">♿ Accesible para todos los públicos y personas en silla de ruedas en instalaciones y almazaras.</span>
+          </div>
+        </div>
+
+        <div class="sheet-body">
+          <section class="section-block">
+            <h2 class="section-title"><span class="section-title-icon">📖</span> Descripción</h2>
+            <p class="text-prose">Experiencia sensorial y cultural a través de olivares centenarios de variedades autóctonas, almazaras históricas con prensas de viga y quintal, hornos comunales de leña y talleres de cata guiada. La ruta sumerge al visitante en la Dieta Mediterránea, las técnicas tradicionales de conservación y los aromas de la huerta tradicional.</p>
+            <div class="audience-box" style="margin-top: 0.75rem;">
+              <strong>👥 Público Destinatario:</strong>
+              <p class="text-prose" style="font-size: 0.95rem;">Gourmets, parejas, familias con niños, grupos de amigos y amantes de la cocina tradicional y el agroturismo.</p>
+            </div>
+          </section>
+
+          <section class="section-block">
+            <h2 class="section-title"><span class="section-title-icon">🗺️</span> Mapa del Recorrido</h2>
+            <div class="map-container">
+              <div class="map-toolbar">
+                <span>Plano Vectorial de Alta Definición</span>
+                <span class="map-mobile-hint">👉 Desliza el mapa para explorar</span>
+              </div>
+              <div class="map-svg-wrap">
+                <svg class="map-svg" viewBox="0 0 800 350" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M 90,240 Q 220,120 340,210 T 520,140 T 710,180" fill="none" stroke="var(--border-subtle)" stroke-width="12" stroke-linecap="round" />
+                  <path d="M 90,240 Q 220,120 340,210 T 520,140 T 710,180" fill="none" stroke="var(--primary)" stroke-width="6" stroke-linecap="round" stroke-dasharray="10 5" />
+                  
+      <g class="map-stop-pin active" id="svg-pin-1" onclick="window.RutasApp ? window.RutasApp.selectStop(1, true) : null" tabindex="0" role="button" aria-label="Parada 1: Museo Almazara La Encomienda">
+        <circle cx="90" cy="230" r="34" fill="transparent" class="pin-hitbox" />
+        <circle cx="90" cy="230" r="22" fill="var(--bg-surface)" stroke="var(--primary)" stroke-width="4" class="pin-ring" />
+        <circle cx="90" cy="230" r="15" fill="var(--primary)" class="pin-core" />
+        <text x="90" y="235" font-size="14" font-weight="900" fill="#ffffff" text-anchor="middle" class="pin-num">1</text>
+        <text x="90" y="275" font-size="14" font-weight="700" text-anchor="middle" class="pin-label">Museo Almazara La Encomienda</text>
+      </g>
+      <g class="map-stop-pin " id="svg-pin-2" onclick="window.RutasApp ? window.RutasApp.selectStop(2, true) : null" tabindex="0" role="button" aria-label="Parada 2: Olivares Centenarios">
+        <circle cx="240" cy="130" r="34" fill="transparent" class="pin-hitbox" />
+        <circle cx="240" cy="130" r="22" fill="var(--bg-surface)" stroke="var(--primary)" stroke-width="4" class="pin-ring" />
+        <circle cx="240" cy="130" r="15" fill="var(--primary)" class="pin-core" />
+        <text x="240" y="135" font-size="14" font-weight="900" fill="#ffffff" text-anchor="middle" class="pin-num">2</text>
+        <text x="240" y="90" font-size="14" font-weight="700" text-anchor="middle" class="pin-label">Olivares Centenarios</text>
+      </g>
+      <g class="map-stop-pin " id="svg-pin-3" onclick="window.RutasApp ? window.RutasApp.selectStop(3, true) : null" tabindex="0" role="button" aria-label="Parada 3: Bodega y Lagar Histórico">
+        <circle cx="380" cy="200" r="34" fill="transparent" class="pin-hitbox" />
+        <circle cx="380" cy="200" r="22" fill="var(--bg-surface)" stroke="var(--primary)" stroke-width="4" class="pin-ring" />
+        <circle cx="380" cy="200" r="15" fill="var(--primary)" class="pin-core" />
+        <text x="380" y="205" font-size="14" font-weight="900" fill="#ffffff" text-anchor="middle" class="pin-num">3</text>
+        <text x="380" y="245" font-size="14" font-weight="700" text-anchor="middle" class="pin-label">Bodega y Lagar Histórico</text>
+      </g>
+      <g class="map-stop-pin " id="svg-pin-4" onclick="window.RutasApp ? window.RutasApp.selectStop(4, true) : null" tabindex="0" role="button" aria-label="Parada 4: Huerta Ecológica">
+        <circle cx="530" cy="135" r="34" fill="transparent" class="pin-hitbox" />
+        <circle cx="530" cy="135" r="22" fill="var(--bg-surface)" stroke="var(--primary)" stroke-width="4" class="pin-ring" />
+        <circle cx="530" cy="135" r="15" fill="var(--primary)" class="pin-core" />
+        <text x="530" y="140" font-size="14" font-weight="900" fill="#ffffff" text-anchor="middle" class="pin-num">4</text>
+        <text x="530" y="95" font-size="14" font-weight="700" text-anchor="middle" class="pin-label">Huerta Ecológica</text>
+      </g>
+      <g class="map-stop-pin " id="svg-pin-5" onclick="window.RutasApp ? window.RutasApp.selectStop(5, true) : null" tabindex="0" role="button" aria-label="Parada 5: Plaza del Horno Comunal">
+        <circle cx="700" cy="170" r="34" fill="transparent" class="pin-hitbox" />
+        <circle cx="700" cy="170" r="22" fill="var(--bg-surface)" stroke="var(--primary)" stroke-width="4" class="pin-ring" />
+        <circle cx="700" cy="170" r="15" fill="var(--primary)" class="pin-core" />
+        <text x="700" y="175" font-size="14" font-weight="900" fill="#ffffff" text-anchor="middle" class="pin-num">5</text>
+        <text x="700" y="215" font-size="14" font-weight="700" text-anchor="middle" class="pin-label">Plaza del Horno Comunal</text>
+      </g>
+                </svg>
+              </div>
+              <div class="map-stops-quickbar">
+                <span class="quickbar-title">Hitos:</span>
+                <div class="quickbar-scroll">
+                  
+      <button class="stop-chip-btn active" id="chip-btn-1" onclick="window.RutasApp ? window.RutasApp.selectStop(1, true) : null">
+        <span class="chip-num-badge">1</span>
+        <span>Museo Almazara La Encomienda</span>
+      </button>
+      <button class="stop-chip-btn " id="chip-btn-2" onclick="window.RutasApp ? window.RutasApp.selectStop(2, true) : null">
+        <span class="chip-num-badge">2</span>
+        <span>Olivares Centenarios</span>
+      </button>
+      <button class="stop-chip-btn " id="chip-btn-3" onclick="window.RutasApp ? window.RutasApp.selectStop(3, true) : null">
+        <span class="chip-num-badge">3</span>
+        <span>Bodega y Lagar Histórico</span>
+      </button>
+      <button class="stop-chip-btn " id="chip-btn-4" onclick="window.RutasApp ? window.RutasApp.selectStop(4, true) : null">
+        <span class="chip-num-badge">4</span>
+        <span>Huerta Ecológica</span>
+      </button>
+      <button class="stop-chip-btn " id="chip-btn-5" onclick="window.RutasApp ? window.RutasApp.selectStop(5, true) : null">
+        <span class="chip-num-badge">5</span>
+        <span>Plaza del Horno Comunal</span>
+      </button>
+                </div>
+              </div>
+              <div class="selected-stop-banner" id="map-selected-banner">
+                <div class="selected-stop-info">
+                  <span class="chip-num-badge" id="banner-stop-num">1</span>
+                  <div>
+                    <strong class="selected-stop-title" id="banner-stop-title">Museo Almazara La Encomienda</strong>
+                    <span style="font-size: 0.8rem; color: var(--text-muted); display: block;" id="banner-stop-time">Estancia: 40 min</span>
+                  </div>
+                </div>
+                <button class="btn-open-route" onclick="window.RutasApp ? window.RutasApp.scrollToActiveStop() : null">
+                  Ver Ficha de Interpretación ➔
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <section class="section-block">
+            <h2 class="section-title"><span class="section-title-icon">⏱️</span> Itinerario Detallado</h2>
+            <div class="timeline">
+              
+      <div class="timeline-step">
+        <div class="timeline-node">1</div>
+        <div class="timeline-header">
+          <h3 class="timeline-title">1. Museo Almazara La Encomienda (Siglo XVII)</h3>
+          <span class="timeline-meta">00:00 - 00:40 | 0,0 km (Inicio)</span>
+        </div>
+        <p class="timeline-desc">Visita a la prensa de viga de 12 metros de longitud y bodega de tinajas enterradas.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-node">2</div>
+        <div class="timeline-header">
+          <h3 class="timeline-title">2. Olivares Centenarios y Aula de Campo</h3>
+          <span class="timeline-meta">00:45 - 01:15 | 1,2 km</span>
+        </div>
+        <p class="timeline-desc">Taller interactivo de reconocimiento de hojas, maduración del fruto y poda tradicional.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-node">3</div>
+        <div class="timeline-header">
+          <h3 class="timeline-title">3. Bodega Subterránea y Lagar de Vinos de la Tierra</h3>
+          <span class="timeline-meta">01:25 - 01:55 | 1,0 km</span>
+        </div>
+        <p class="timeline-desc">Cata iniciática de dos Aceites de Oliva Virgen Extra (AOVE) tempranos y vino de tinaja.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-node">4</div>
+        <div class="timeline-header">
+          <h3 class="timeline-title">4. Huerta Ecológica y Bancal de Aromáticas</h3>
+          <span class="timeline-meta">02:05 - 02:25 | 1,1 km</span>
+        </div>
+        <p class="timeline-desc">Recolección aromática (tomillo, romero, orégano silvestre) para la maceración de aceites.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-node">5</div>
+        <div class="timeline-header">
+          <h3 class="timeline-title">5. Plaza del Horno Comunal y Degustación de Pan de Leña</h3>
+          <span class="timeline-meta">02:30 - 02:45 | 0,9 km (Final)</span>
+        </div>
+        <p class="timeline-desc">Horneado en directo y degustación del tradicional 'canto de pan tostado' con AOVE y tomate de la huerta.</p>
+      </div>
+            </div>
+          </section>
+
+          <section class="section-block">
+            <h2 class="section-title"><span class="section-title-icon">🎙️</span> Fichas de Interpretación de cada Parada</h2>
+            <div class="stops-interpretation-list">
+              
+      <article class="stop-card" id="stop-card-1">
+        <div class="stop-card-header" onclick="window.RutasApp ? window.RutasApp.toggleStopCard(1) : null" tabindex="0" role="button" aria-expanded="true">
+          <div class="stop-card-header-left">
+            <span class="stop-badge-num">1</span>
+            <div>
+              <h3 class="stop-card-title">Museo Almazara La Encomienda</h3>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Estancia estimada: 40 min</span>
+            </div>
+          </div>
+          <span class="stop-collapse-icon" id="stop-icon-1">▼</span>
+        </div>
+        <div class="stop-card-body" id="stop-body-1">
+          <div class="stop-interpretation-keys">
+            <span class="stop-key-title">Claves de Interpretación:</span>
+            <p class="text-prose" style="font-size: 0.95rem;">Maquinaria preindustrial completa: muela cónica empiedro, capachos de esparto y prensa hidráulica.</p>
+          </div>
+          <div style="background: var(--bg-surface); padding: 0.85rem; border-radius: var(--radius-sm); border-left: 3px solid var(--accent);">
+            <strong style="font-size: 0.85rem; color: var(--text-primary);">💡 Dato de Interés:</strong>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.2rem;">Las tinajas de barro cocido estaban enterradas hasta el cuello para mantener el aceite a 16°C constantes y evitar su oxidación.</p>
+          </div>
+          <div class="stop-actions" style="margin-top: 0.5rem;">
+            <button class="btn-audio-guide" onclick="window.RutasApp ? window.RutasApp.playStopAudio(1) : null">
+              🔊 Escuchar Audioguía
+            </button>
+            <button class="btn-audio-guide" style="background: var(--bg-surface-subtle); color: var(--text-secondary);" onclick="window.RutasApp ? window.RutasApp.stopAudio() : null">
+              ⏹ Detener
+            </button>
+          </div>
+        </div>
+      </article>
+      <article class="stop-card" id="stop-card-2">
+        <div class="stop-card-header" onclick="window.RutasApp ? window.RutasApp.toggleStopCard(2) : null" tabindex="0" role="button" aria-expanded="true">
+          <div class="stop-card-header-left">
+            <span class="stop-badge-num">2</span>
+            <div>
+              <h3 class="stop-card-title">Olivares Centenarios</h3>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Estancia estimada: 30 min</span>
+            </div>
+          </div>
+          <span class="stop-collapse-icon" id="stop-icon-2">▼</span>
+        </div>
+        <div class="stop-card-body" id="stop-body-2">
+          <div class="stop-interpretation-keys">
+            <span class="stop-key-title">Claves de Interpretación:</span>
+            <p class="text-prose" style="font-size: 0.95rem;">Variedad morisca autóctona de alto contenido en polifenoles y ácido oleico; cultivo en secano con cubierta vegetal viva.</p>
+          </div>
+          <div style="background: var(--bg-surface); padding: 0.85rem; border-radius: var(--radius-sm); border-left: 3px solid var(--accent);">
+            <strong style="font-size: 0.85rem; color: var(--text-primary);">💡 Dato de Interés:</strong>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.2rem;">Un solo olivo de esta parcela produce aceite suficiente para abastecer a una familia durante todo un año.</p>
+          </div>
+          <div class="stop-actions" style="margin-top: 0.5rem;">
+            <button class="btn-audio-guide" onclick="window.RutasApp ? window.RutasApp.playStopAudio(2) : null">
+              🔊 Escuchar Audioguía
+            </button>
+            <button class="btn-audio-guide" style="background: var(--bg-surface-subtle); color: var(--text-secondary);" onclick="window.RutasApp ? window.RutasApp.stopAudio() : null">
+              ⏹ Detener
+            </button>
+          </div>
+        </div>
+      </article>
+      <article class="stop-card" id="stop-card-3">
+        <div class="stop-card-header" onclick="window.RutasApp ? window.RutasApp.toggleStopCard(3) : null" tabindex="0" role="button" aria-expanded="true">
+          <div class="stop-card-header-left">
+            <span class="stop-badge-num">3</span>
+            <div>
+              <h3 class="stop-card-title">Bodega y Lagar Histórico</h3>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Estancia estimada: 30 min</span>
+            </div>
+          </div>
+          <span class="stop-collapse-icon" id="stop-icon-3">▼</span>
+        </div>
+        <div class="stop-card-body" id="stop-body-3">
+          <div class="stop-interpretation-keys">
+            <span class="stop-key-title">Claves de Interpretación:</span>
+            <p class="text-prose" style="font-size: 0.95rem;">Panel de cata profesional: atributos positivos (frutado verde, amargo, picante) y maridaje gastronómico.</p>
+          </div>
+          <div style="background: var(--bg-surface); padding: 0.85rem; border-radius: var(--radius-sm); border-left: 3px solid var(--accent);">
+            <strong style="font-size: 0.85rem; color: var(--text-primary);">💡 Dato de Interés:</strong>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.2rem;">Las copas de cata oficiales son de color azul cobalto para que el catador no se deje influir por el color del aceite.</p>
+          </div>
+          <div class="stop-actions" style="margin-top: 0.5rem;">
+            <button class="btn-audio-guide" onclick="window.RutasApp ? window.RutasApp.playStopAudio(3) : null">
+              🔊 Escuchar Audioguía
+            </button>
+            <button class="btn-audio-guide" style="background: var(--bg-surface-subtle); color: var(--text-secondary);" onclick="window.RutasApp ? window.RutasApp.stopAudio() : null">
+              ⏹ Detener
+            </button>
+          </div>
+        </div>
+      </article>
+      <article class="stop-card" id="stop-card-4">
+        <div class="stop-card-header" onclick="window.RutasApp ? window.RutasApp.toggleStopCard(4) : null" tabindex="0" role="button" aria-expanded="true">
+          <div class="stop-card-header-left">
+            <span class="stop-badge-num">4</span>
+            <div>
+              <h3 class="stop-card-title">Huerta Ecológica</h3>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Estancia estimada: 20 min</span>
+            </div>
+          </div>
+          <span class="stop-collapse-icon" id="stop-icon-4">▼</span>
+        </div>
+        <div class="stop-card-body" id="stop-body-4">
+          <div class="stop-interpretation-keys">
+            <span class="stop-key-title">Claves de Interpretación:</span>
+            <p class="text-prose" style="font-size: 0.95rem;">Rotación de cultivos, hotel de insectos polinizadores y compostaje orgánico de alperujo.</p>
+          </div>
+          <div style="background: var(--bg-surface); padding: 0.85rem; border-radius: var(--radius-sm); border-left: 3px solid var(--accent);">
+            <strong style="font-size: 0.85rem; color: var(--text-primary);">💡 Dato de Interés:</strong>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.2rem;">El alperujo, residuo de la molturación, se recicla aquí como abono rico en potasio para fertilizar la tierra.</p>
+          </div>
+          <div class="stop-actions" style="margin-top: 0.5rem;">
+            <button class="btn-audio-guide" onclick="window.RutasApp ? window.RutasApp.playStopAudio(4) : null">
+              🔊 Escuchar Audioguía
+            </button>
+            <button class="btn-audio-guide" style="background: var(--bg-surface-subtle); color: var(--text-secondary);" onclick="window.RutasApp ? window.RutasApp.stopAudio() : null">
+              ⏹ Detener
+            </button>
+          </div>
+        </div>
+      </article>
+      <article class="stop-card" id="stop-card-5">
+        <div class="stop-card-header" onclick="window.RutasApp ? window.RutasApp.toggleStopCard(5) : null" tabindex="0" role="button" aria-expanded="true">
+          <div class="stop-card-header-left">
+            <span class="stop-badge-num">5</span>
+            <div>
+              <h3 class="stop-card-title">Plaza del Horno Comunal</h3>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Estancia estimada: 15 min</span>
+            </div>
+          </div>
+          <span class="stop-collapse-icon" id="stop-icon-5">▼</span>
+        </div>
+        <div class="stop-card-body" id="stop-body-5">
+          <div class="stop-interpretation-keys">
+            <span class="stop-key-title">Claves de Interpretación:</span>
+            <p class="text-prose" style="font-size: 0.95rem;">Masa madre de harina de trigo candeal molida a la piedra; cocción en horno de leña de poda de olivo.</p>
+          </div>
+          <div style="background: var(--bg-surface); padding: 0.85rem; border-radius: var(--radius-sm); border-left: 3px solid var(--accent);">
+            <strong style="font-size: 0.85rem; color: var(--text-primary);">💡 Dato de Interés:</strong>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.2rem;">Cada familia marcaba antiguamente sus panes con un sello de madera único antes de introducirlos al horno común.</p>
+          </div>
+          <div class="stop-actions" style="margin-top: 0.5rem;">
+            <button class="btn-audio-guide" onclick="window.RutasApp ? window.RutasApp.playStopAudio(5) : null">
+              🔊 Escuchar Audioguía
+            </button>
+            <button class="btn-audio-guide" style="background: var(--bg-surface-subtle); color: var(--text-secondary);" onclick="window.RutasApp ? window.RutasApp.stopAudio() : null">
+              ⏹ Detener
+            </button>
+          </div>
+        </div>
+      </article>
+            </div>
+          </section>
+
+          <section class="section-block">
+            <h2 class="section-title"><span class="section-title-icon">🛠️</span> Recursos y Servicios Asociados</h2>
+            <div class="services-grid">
+              
+      <div class="service-card">
+        <span class="service-icon">♿</span>
+        <div class="service-content">
+          <h4>Accesibilidad Universal</h4>
+          <p>Todas las almazaras y salas de cata disponen de accesos a cota cero y aseos adaptados.</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🛒</span>
+        <div class="service-content">
+          <h4>Tienda directa de productores</h4>
+          <p>Venta de AOVE con denominación de origen protegida, miel de romero y panadería artesanal.</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🍴</span>
+        <div class="service-content">
+          <h4>Restaurantes recomendados</h4>
+          <p>3 mesones con menús degustación 'Kilómetro 0' adheridos a la ruta.</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">👶</span>
+        <div class="service-content">
+          <h4>Talleres infantiles</h4>
+          <p>Espacio de elaboración de mini-panecillos y jabón artesanal de aceite para niños.</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">💳</span>
+        <div class="service-content">
+          <h4>Servicios de pago</h4>
+          <p>Todos los puntos aceptan pagos con tarjeta, móvil y efectivo.</p>
+        </div>
+      </div>
+            </div>
+          </section>
+
+          <section class="section-block">
+            <h2 class="section-title"><span class="section-title-icon">📋</span> Recomendaciones Prácticas</h2>
+            <div class="recommendations-box">
+              <ul class="checklist">
+                <li>Evitar perfumes fuertes o fumar antes de la cata para no alterar la sensibilidad olfativa.</li><li>Ruta apta para carritos de bebé y personas mayores.</li><li>Consultar horarios de molienda en directo si se visita entre los meses de noviembre y enero.</li><li>Llevar bolsa reutilizable de tela para las compras en los obradores locales.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="section-block">
+            <h2 class="section-title"><span class="section-title-icon">🌱</span> Medidas de Sostenibilidad</h2>
+            <div class="sustainability-box">
+              <ul class="checklist sustainability-checklist">
+                <li>Economía circular: aprovechamiento de los huesos de aceituna como biocombustible para calefacción.</li><li>Comercio justo directo sin intermediarios, remunerando dignamente a los agricultores locales.</li><li>Uso de envases de vidrio oscuro reciclable y etiquetas de papel certificado FSC.</li><li>Tratamientos fitosanitarios 100% biológicos basados en trampas ecológicas.</li>
+              </ul>
+            </div>
+          </section>
+
+          <div class="sheet-author-box">
+            <div class="sheet-author-content">
+              <span class="sheet-author-title">Documento Técnico y Guía Oficial</span>
+              <span class="sheet-author-name">Autoría y diseño: Francisco José Bermejo Tarifa - DIseño Gráfico - Olimpo II</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="author-card">
+          <span class="author-label">Créditos de Diseño y Autoría</span>
+          <span class="author-name">Francisco José Bermejo Tarifa</span>
+          <span class="author-sub">Diseño Gráfico — Olimpo II</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../js/routes-data.js"></script>
+  <script src="../js/app.js"></script>
+</body>
+</html>

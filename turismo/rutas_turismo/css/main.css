@@ -1,0 +1,529 @@
+/* ==========================================================================
+   RUTAS TURÍSTICAS & ESCÁCERES - SISTEMA DE DISEÑO LIGERO Y EFICIENTE
+   Diseñado para PC, Tablet y Móvil.
+   Optimizado para máxima legibilidad, comprensión y modo eco permanente.
+   ========================================================================== */
+
+/* --- Variables Globales y Tokens de Diseño --- */
+:root {
+  /* Modo Claro (Bright / High Contrast Sunlight Friendly) */
+  --bg-app: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #ffffff;
+  --bg-surface-subtle: #f1f5f9;
+  --bg-highlight: #f0fdf4;
+  --border-color: #e2e8f0;
+  --border-subtle: #cbd5e1;
+  --border-focus: #0284c7;
+
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --text-inverse: #ffffff;
+
+  /* Paleta cromática natural y turística */
+  --primary: #059669;          /* Verde esmeralda sostenible */
+  --primary-hover: #047857;
+  --primary-subtle: #d1fae5;
+  --primary-contrast: #064e3b;
+
+  --secondary: #0284c7;        /* Azul informativo */
+  --secondary-subtle: #e0f2fe;
+
+  --accent: #d97706;           /* Ámbar patrimonial */
+  --accent-subtle: #fef3c7;
+
+  --diff-baja: #15803d;
+  --diff-baja-bg: #dcfce7;
+  --diff-media: #b45309;
+  --diff-media-bg: #fef3c7;
+  --diff-alta: #b91c1c;
+  --diff-alta-bg: #fee2e2;
+
+  --badge-bg: #f1f5f9;
+  --badge-text: #1e293b;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  --font-stack: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+  --max-width: 1240px;
+}
+
+/* Modo Oscuro (OLED Black - Ahorro Activo de Batería) */
+[data-theme="dark"] {
+  --bg-app: #000000;              /* Píxeles 100% apagados en pantallas OLED */
+  --bg-surface: #0f1318;
+  --bg-surface-elevated: #161c24;
+  --bg-surface-subtle: #1c232d;
+  --bg-highlight: #062817;
+  --border-color: #27303c;
+  --border-subtle: #3a4555;
+  --border-focus: #38bdf8;
+
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-inverse: #000000;
+
+  --primary: #10b981;
+  --primary-hover: #34d399;
+  --primary-subtle: #064e3b;
+  --primary-contrast: #a7f3d0;
+
+  --secondary: #38bdf8;
+  --secondary-subtle: #082f49;
+
+  --accent: #f59e0b;
+  --accent-subtle: #451a03;
+
+  --diff-baja: #4ade80;
+  --diff-baja-bg: #052e16;
+  --diff-media: #fbbf24;
+  --diff-media-bg: #451a03;
+  --diff-alta: #f87171;
+  --diff-alta-bg: #450a0a;
+
+  --badge-bg: #1e293b;
+  --badge-text: #f1f5f9;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.8);
+}
+
+/* Reset básico y accesibilidad */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-stack);
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Layout General */
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* --- Cabecera Principal (Header) --- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0.65rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  outline: none;
+}
+
+.brand-wrapper:focus-visible {
+  outline: 2px solid var(--primary);
+  border-radius: var(--radius-sm);
+}
+
+/* Logo Oficial ESCÁCERES Landscape SVG */
+.brand-logo-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #11161d;
+  padding: 0.35rem 0.7rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+  height: 44px;
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+[data-theme="dark"] .brand-logo-container {
+  background: #090d12;
+  border-color: #27303c;
+}
+
+.brand-wrapper:hover .brand-logo-container {
+  border-color: var(--primary);
+  transform: scale(1.02);
+}
+
+.escaceres-svg-logo {
+  height: 26px;
+  width: auto;
+  max-width: 160px;
+  display: block;
+  object-fit: contain;
+}
+
+.brand-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.brand-header-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.brand-titles h1 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.brand-dev-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--primary);
+  background-color: var(--primary-subtle);
+  border: 1px solid var(--primary);
+  padding: 0.12rem 0.5rem;
+  border-radius: var(--radius-full);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.brand-titles .tagline {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* Botones de Cabecera */
+.header-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-surface-subtle);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.header-btn:hover {
+  background-color: var(--border-color);
+}
+
+.header-btn .icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.header-btn .theme-btn-text {
+  display: inline;
+}
+
+/* Simulador de Vista (PC / Tablet / Móvil) */
+.simulator-bar {
+  background-color: var(--bg-surface-subtle);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.4rem 1rem;
+}
+
+.simulator-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.simulator-controls {
+  display: inline-flex;
+  gap: 0.25rem;
+  background-color: var(--bg-surface);
+  padding: 0.2rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+.sim-btn {
+  padding: 0.2rem 0.55rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+}
+
+.sim-btn.active {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+
+/* Contenedor Principal Adaptable */
+.content-wrapper {
+  flex: 1;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+  transition: max-width var(--transition-normal);
+}
+
+.content-wrapper.sim-mobile {
+  max-width: 414px !important;
+  border-left: 2px dashed var(--border-color);
+  border-right: 2px dashed var(--border-color);
+  padding: 1rem 0.75rem;
+}
+
+.content-wrapper.sim-tablet {
+  max-width: 768px !important;
+  border-left: 2px dashed var(--border-color);
+  border-right: 2px dashed var(--border-color);
+}
+
+/* Footer con Autoría Oficial */
+.site-footer {
+  margin-top: auto;
+  background-color: var(--bg-surface);
+  border-top: 1px solid var(--border-color);
+  padding: 2rem 1rem 1.5rem;
+  text-align: center;
+}
+
+.footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.author-card {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 1rem 1.75rem;
+  background-color: var(--bg-surface-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+}
+
+.author-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.author-name {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.author-sub {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.footer-copy {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Barra de Navegación Rápida Móvil */
+.mobile-nav-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background-color: var(--bg-surface);
+  border-top: 1px solid var(--border-color);
+  z-index: 99;
+}
+
+.mobile-nav-grid {
+  display: flex;
+  height: 100%;
+}
+
+.mobile-nav-link {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  gap: 0.15rem;
+}
+
+.mobile-nav-link.active {
+  color: var(--primary);
+}
+
+/* Responsividad para Tablet y Móvil */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 56px;
+  }
+  .mobile-nav-bar {
+    display: block;
+  }
+  .simulator-bar {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .header-inner {
+    padding: 0.45rem 0.6rem;
+    gap: 0.4rem;
+  }
+
+  .brand-logo-container {
+    height: 34px !important;
+    padding: 0.2rem 0.4rem !important;
+  }
+
+  .escaceres-svg-logo {
+    height: 18px !important;
+    max-width: 85px !important;
+  }
+
+  .brand-titles h1 {
+    font-size: 0.9rem !important;
+    line-height: 1.1;
+  }
+
+  .brand-dev-badge {
+    font-size: 0.62rem !important;
+    padding: 0.05rem 0.35rem !important;
+  }
+
+  .brand-titles .tagline {
+    display: none;
+  }
+
+  #theme-toggle-btn {
+    width: 36px !important;
+    height: 36px !important;
+    padding: 0 !important;
+    border-radius: var(--radius-full) !important;
+  }
+
+  #theme-toggle-btn .icon {
+    font-size: 1.15rem;
+  }
+
+  #theme-toggle-btn .theme-btn-text {
+    display: none !important;
+  }
+}
+
+@media print {
+  .site-header, .simulator-bar, .mobile-nav-bar, .controls-no-print, .catalog-section {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .content-wrapper {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  .route-sheet {
+    border: none !important;
+    box-shadow: none !important;
+  }
+}
