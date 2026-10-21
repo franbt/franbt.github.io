@@ -1,6 +1,0 @@
-{
-  "name": "CONVERGENCE Institutional Gazette",
-  "description": "Interactive broadsheet digital e-reader and civic engagement portal for the municipal gazette CONVERGENCE, featuring dual-page editorial spreads, an interactive district commons map, space booking, and language tandem registration.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
