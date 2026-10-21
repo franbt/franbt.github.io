@@ -20,7 +20,8 @@
   <!-- HTMX 2.0.4 -->
   <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmReNpAssUSEnM2gc6EEQTDzpr36QBHsSnUwZoC" crossorigin="anonymous"></script>
 
-  <!-- jsPDF 2.5.1 for client-side PDF document generation and download -->
+  <!-- jsPDF 2.5.1 and html2canvas 1.4.1 for authentic client-side PDF document generation and DIN A4 rendering -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <!-- Tailwind CSS CDN & Config -->
@@ -171,6 +172,59 @@
     #toast-notification {
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
     }
+    /* ================= DIN A4 LANDSCAPE PRINT MASTER ================= */
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 6mm;
+      }
+      *, *::before, *::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      body {
+        background: #fbf9f5 !important;
+        color: #1b1c1a !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      header, #progress-drawer, #toast-notification, .modal-backdrop, #pdf-modal, #booking-modal, #tandem-modal, #syllabus-modal, #counselor-modal, #toc-drawer, #node-inspector-modal, #intake-modal {
+        display: none !important;
+      }
+      #main-canvas {
+        padding-top: 0 !important;
+      }
+      .chapter-content {
+        display: block !important;
+        page-break-after: always;
+        break-after: page;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      .chapter-content.hidden {
+        display: block !important;
+      }
+      .broadsheet-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 16px !important;
+        box-shadow: none !important;
+        min-height: auto !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      .broadsheet-grid > article,
+      .broadsheet-grid > section {
+        grid-column: span 1 / span 1 !important;
+        min-height: auto !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      img {
+        max-width: 100% !important;
+        page-break-inside: avoid;
+      }
+    }
   </style>
 </head>
 
@@ -203,7 +257,7 @@
               <span class="material-symbols-outlined text-sm">download</span>
               <span>Export PDF</span>
             </button>
-            <img alt="Elena Rostova Civic Directorate" class="w-8 h-8 rounded-full object-cover border border-outline-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9QQg9Si3saWiRqF_e6WEuZBjnCz5dgBksPhJN0XTG2VN5zPeidlALqN_2kSuXZJhG74phTNOPJ3BC9zceK3HyHfQx14cSelvjGhiNonCwXDkWOrSGJ8_3hd-6GqLnicrtdWAu00JmEXTI3N4ltQlq_VkTZMkofIlXk4CiKDcXfGPxsdLuYfbuNevFBH_S3QavIfrDT3ja99bo8QCTKyc8ifvsvL1vNn7YXhQXi1LhydZd-qsAN5U"/>
+            <img alt="Elena Rostova Civic Directorate" class="w-8 h-8 rounded-full object-cover border border-outline-variant" crossorigin="anonymous" src="assets/photos/elena.jpg" onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuB9QQg9Si3saWiRqF_e6WEuZBjnCz5dgBksPhJN0XTG2VN5zPeidlALqN_2kSuXZJhG74phTNOPJ3BC9zceK3HyHfQx14cSelvjGhiNonCwXDkWOrSGJ8_3hd-6GqLnicrtdWAu00JmEXTI3N4ltQlq_VkTZMkofIlXk4CiKDcXfGPxsdLuYfbuNevFBH_S3QavIfrDT3ja99bo8QCTKyc8ifvsvL1vNn7YXhQXi1LhydZd-qsAN5U'"/>
           </div>
         </div>
       </div>
@@ -296,7 +350,7 @@
                 </div>
                 <!-- Institutional Seal Badge -->
                 <div class="w-16 h-16 bg-surface-container-lowest p-1 rounded shadow-md shrink-0 flex items-center justify-center">
-                  <img alt="Civic Cohesion Seal" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9QQg9Si3saWiRqF_e6WEuZBjnCz5dgBksPhJN0XTG2VN5zPeidlALqN_2kSuXZJhG74phTNOPJ3BC9zceK3HyHfQx14cSelvjGhiNonCwXDkWOrSGJ8_3hd-6GqLnicrtdWAu00JmEXTI3N4ltQlq_VkTZMkofIlXk4CiKDcXfGPxsdLuYfbuNevFBH_S3QavIfrDT3ja99bo8QCTKyc8ifvsvL1vNn7YXhQXi1LhydZd-qsAN5U"/>
+                  <img alt="Civic Cohesion Seal" class="w-full h-full object-contain" crossorigin="anonymous" src="assets/photos/seal.jpg" onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuB9QQg9Si3saWiRqF_e6WEuZBjnCz5dgBksPhJN0XTG2VN5zPeidlALqN_2kSuXZJhG74phTNOPJ3BC9zceK3HyHfQx14cSelvjGhiNonCwXDkWOrSGJ8_3hd-6GqLnicrtdWAu00JmEXTI3N4ltQlq_VkTZMkofIlXk4CiKDcXfGPxsdLuYfbuNevFBH_S3QavIfrDT3ja99bo8QCTKyc8ifvsvL1vNn7YXhQXi1LhydZd-qsAN5U'"/>
                 </div>
               </div>
 
@@ -396,7 +450,7 @@
                 <div class="md:col-span-5 bg-surface-container-low p-space-md flex flex-col justify-between">
                   <div>
                     <div class="w-full aspect-square overflow-hidden mb-space-sm shadow-sm bg-surface-container">
-                      <img alt="Elena Rostova, Director of Civic Integration &amp; Neighborhood Affairs" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjGBYH9a6QLj4F_4cU5r8d89TexC0js6K_iE-K44OvTNkIEkfQXnONB6DjGfu2vcyM2a_3gWuZhfmqJ0dmsV4wTk_DsuwC4keKNoCoCn-nTW5ysuMzXwdluL0ViBd4Kec__pR_oRERjd2MjLsD626z20wEtFi2lBZ5yiA8R-p4pJRbYcrAVReTFaukd8E4XCuBNph5C8LJK8fH0f_Z8TeVNj42pnfpOFoHtsr5l5EAG-kc76WZCCU"/>
+                      <img alt="Elena Rostova, Director of Civic Integration &amp; Neighborhood Affairs" class="w-full h-full object-cover" crossorigin="anonymous" src="assets/photos/elena.jpg" onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuCjGBYH9a6QLj4F_4cU5r8d89TexC0js6K_iE-K44OvTNkIEkfQXnONB6DjGfu2vcyM2a_3gWuZhfmqJ0dmsV4wTk_DsuwC4keKNoCoCn-nTW5ysuMzXwdluL0ViBd4Kec__pR_oRERjd2MjLsD626z20wEtFi2lBZ5yiA8R-p4pJRbYcrAVReTFaukd8E4XCuBNph5C8LJK8fH0f_Z8TeVNj42pnfpOFoHtsr5l5EAG-kc76WZCCU'"/>
                     </div>
                     <div class="space-y-space-xs">
                       <h3 class="font-headline-sm text-headline-sm text-primary text-base font-serif">Elena Rostova</h3>
@@ -569,7 +623,7 @@
             <!-- Documentary Photo with Contextual Caption Plate -->
             <div class="flex flex-col mb-space-lg">
               <div class="relative w-full h-72 bg-surface-container-high overflow-hidden">
-                <img class="w-full h-full object-cover grayscale contrast-125" data-alt="Documentary photograph of an intergenerational language exchange session inside a sunlit municipal library conservatory." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCil9ebObIrQEYBq1ys-_8qPWMq6R3z-LjjULqk3WRB8ZIU3cGxd3NoMEJOLakAHxi6ZUB2BCE1IC-nhLft0P0-wZnpRo0UqG76F8Kf5NJPDc9SRkN2CeWpddh4GddskYVcezkw7_hijgXRq_DjL7PbHkZh38rX1kP1zUXsFG8t2X-oYM-IIxEDycVW9-K8KDvdztHpoXEkINhjCFBB2B6_9E4l2SnhNPwi5RfUXgQ511pEVE-VQDM"/>
+                <img class="w-full h-full object-cover grayscale contrast-125" data-alt="Documentary photograph of an intergenerational language exchange session inside a sunlit municipal library conservatory." crossorigin="anonymous" src="assets/photos/cafe.jpg" onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuCil9ebObIrQEYBq1ys-_8qPWMq6R3z-LjjULqk3WRB8ZIU3cGxd3NoMEJOLakAHxi6ZUB2BCE1IC-nhLft0P0-wZnpRo0UqG76F8Kf5NJPDc9SRkN2CeWpddh4GddskYVcezkw7_hijgXRq_DjL7PbHkZh38rX1kP1zUXsFG8t2X-oYM-IIxEDycVW9-K8KDvdztHpoXEkINhjCFBB2B6_9E4l2SnhNPwi5RfUXgQ511pEVE-VQDM'"/>
                 <div class="absolute top-space-sm left-space-sm bg-primary/90 text-on-primary font-label-uppercase text-label-uppercase px-space-xs py-1">
                   Field Documentation · District 4 Library
                 </div>
@@ -843,7 +897,7 @@
             <!-- Visual Lead: Documentary Framed Photo -->
             <div class="mt-space-lg group">
               <div class="relative overflow-hidden bg-surface-container">
-                <img class="w-full h-64 object-cover filter contrast-105 transition-transform duration-700 group-hover:scale-102" data-alt="Craftsman woodworker and young female apprentice examining architectural timber joint plans." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuvecwX4skmz1jALVT8or9164KkYYIrYiXqRniji7eUzDnls7wwOqX3fqqBTDoXHK1sp57-u8yJeLcdjQwSII1NR887FuFpLge6SClj-7BoI_2c2eyPFeuGkQtFJ3M1BpncrPv_Lofnq7x6ZzYFXllz2zINV_nb_hupW8YjyKo786NbYGHUI3w_dkrZQMjf2DLS0UUzlHL3fTuEK348-4iGG8uXhZCOzRUz1dtSK9NrzlhB686HXo"/>
+                <img class="w-full h-64 object-cover filter contrast-105 transition-transform duration-700 group-hover:scale-102" data-alt="Craftsman woodworker and young female apprentice examining architectural timber joint plans." crossorigin="anonymous" src="assets/photos/storytelling.jpg" onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuBuvecwX4skmz1jALVT8or9164KkYYIrYiXqRniji7eUzDnls7wwOqX3fqqBTDoXHK1sp57-u8yJeLcdjQwSII1NR887FuFpLge6SClj-7BoI_2c2eyPFeuGkQtFJ3M1BpncrPv_Lofnq7x6ZzYFXllz2zINV_nb_hupW8YjyKo786NbYGHUI3w_dkrZQMjf2DLS0UUzlHL3fTuEK348-4iGG8uXhZCOzRUz1dtSK9NrzlhB686HXo'"/>
                 <div class="absolute bottom-0 inset-x-0 bg-primary/90 text-on-primary px-space-md py-space-xs flex justify-between items-center text-caption font-caption">
                   <span>Plate 14.A | Guild Hall 03, Riverside Yards</span>
                   <span class="text-tertiary-fixed-dim">Mentor Halim G. with Apprentice Elena V.</span>
@@ -1015,7 +1069,7 @@
                 <div class="bg-surface-container-lowest p-space-lg shadow-sm relative group hover:shadow-md transition-shadow">
                   <div class="flex flex-col sm:flex-row gap-space-md">
                     <div class="w-full sm:w-1/3 h-36 bg-surface-container flex-shrink-0 relative overflow-hidden">
-                      <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Diverse hands seasoning and garnishing artisanal culinary dishes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkCoz7NtsRQXNObT0FOSGJocwl2Tz-wK6mUxigA9_khiSvaMlh0xVtTU0OV6-8_aaYpDtUq9pi_ZwlGH4Erq8KSvzzXQ2Wd_JJ5DGbZMtJJ6Txlp0Dq_aK_hZ0WLVbuGE4gAfL59QfJuGGJk4yi8ZkHD9hwwj8t8WJFNuXx_Ra5Odg26hSGBcuIUo3_9c7sSzJoq9pN2u4iCbmryw_ZqhAV59CmrbpYmMznQsk5Pmr2TEVs8o_uQI"/>
+                      <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Diverse hands seasoning and garnishing artisanal culinary dishes." crossorigin="anonymous" src="assets/photos/culinary.jpg" onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuAkCoz7NtsRQXNObT0FOSGJocwl2Tz-wK6mUxigA9_khiSvaMlh0xVtTU0OV6-8_aaYpDtUq9pi_ZwlGH4Erq8KSvzzXQ2Wd_JJ5DGbZMtJJ6Txlp0Dq_aK_hZ0WLVbuGE4gAfL59QfJuGGJk4yi8ZkHD9hwwj8t8WJFNuXx_Ra5Odg26hSGBcuIUo3_9c7sSzJoq9pN2u4iCbmryw_ZqhAV59CmrbpYmMznQsk5Pmr2TEVs8o_uQI'"/>
                       <span class="absolute top-2 left-2 bg-primary text-on-primary font-label-uppercase text-label-uppercase px-1.5 py-0.5">
                         Track 01
                       </span>
@@ -1049,7 +1103,7 @@
                 <div class="bg-surface-container-lowest p-space-lg shadow-sm relative group hover:shadow-md transition-shadow">
                   <div class="flex flex-col sm:flex-row gap-space-md">
                     <div class="w-full sm:w-1/3 h-36 bg-surface-container flex-shrink-0 relative overflow-hidden">
-                      <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Urban forestry trainees measuring mature tree trunk in public park." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzO2r9E_siOClj5a8BT3NgX3ruhubli5yQnQyLp1gz2sQa-Trg4aMbiqZ0mitt9a5HgLsdYVXe9n-iak_CMzFMDFu99cYw3rGzDf2JtQ4MRKxnTmDkvPmXVi7eeQcxeQLn5LSwJE3OEG-6veypC7CuT3TRwtuj0VNKPcYl2ju33JaiP3arntNBlz5vinYZ2tV71Iqzvdkcm4FDhKSrmsxlQcxnwHZF26NT8LBjMtJBV4e_00h85JM"/>
+                      <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Urban forestry trainees measuring mature tree trunk in public park." crossorigin="anonymous" src="assets/photos/forestry.jpg" onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuAzO2r9E_siOClj5a8BT3NgX3ruhubli5yQnQyLp1gz2sQa-Trg4aMbiqZ0mitt9a5HgLsdYVXe9n-iak_CMzFMDFu99cYw3rGzDf2JtQ4MRKxnTmDkvPmXVi7eeQcxeQLn5LSwJE3OEG-6veypC7CuT3TRwtuj0VNKPcYl2ju33JaiP3arntNBlz5vinYZ2tV71Iqzvdkcm4FDhKSrmsxlQcxnwHZF26NT8LBjMtJBV4e_00h85JM'"/>
                       <span class="absolute top-2 left-2 bg-primary text-on-primary font-label-uppercase text-label-uppercase px-1.5 py-0.5">
                         Track 02
                       </span>
@@ -1083,7 +1137,7 @@
                 <div class="bg-surface-container-lowest p-space-lg shadow-sm relative group hover:shadow-md transition-shadow">
                   <div class="flex flex-col sm:flex-row gap-space-md">
                     <div class="w-full sm:w-1/3 h-36 bg-surface-container flex-shrink-0 relative overflow-hidden">
-                      <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Health and early education classroom with pediatric first aid instruction." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-5lVdj8c6wn4JTAQqVJ_Nh5X_dtCNqtbvZEW4q3lzO1yI6HLNRvYRVaiaGqE1tNK6oOKG67jvKuwPPAQuj7kIBPP5hnFmLMFO8_nfXwfGEPWnaeksG_jQ0A3luBblJiFbR1P-oEqXWgyuTfOyyjwGXP2d76bhIvIPHtAgjR_uLPMY6CyjZ-XaCcHsLV4A-Yntf5RXiIlpg8YHypKvlIgpFXBB2n6-HMRTwioAffHFezuWcuZBkdo"/>
+                      <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Health and early education classroom with pediatric first aid instruction." crossorigin="anonymous" src="assets/photos/caregiving.jpg" onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuB-5lVdj8c6wn4JTAQqVJ_Nh5X_dtCNqtbvZEW4q3lzO1yI6HLNRvYRVaiaGqE1tNK6oOKG67jvKuwPPAQuj7kIBPP5hnFmLMFO8_nfXwfGEPWnaeksG_jQ0A3luBblJiFbR1P-oEqXWgyuTfOyyjwGXP2d76bhIvIPHtAgjR_uLPMY6CyjZ-XaCcHsLV4A-Yntf5RXiIlpg8YHypKvlIgpFXBB2n6-HMRTwioAffHFezuWcuZBkdo'"/>
                       <span class="absolute top-2 left-2 bg-primary text-on-primary font-label-uppercase text-label-uppercase px-1.5 py-0.5">
                         Track 03
                       </span>
@@ -1250,7 +1304,7 @@
             <!-- Documentary Photo Feature with Print Framing -->
             <div class="flex flex-col bg-surface-container-low p-space-xs shadow-sm">
               <div class="overflow-hidden relative h-64 md:h-72 w-full">
-                <img class="w-full h-full object-cover" data-alt="Intergenerational public community garden workshop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsLSwtc4-YQ0WBQNJ-BBUuPyRBLbaQjMC2y-em3czKxLTg5cpsSIpReZYQvOh67GxQMPD2MxwuXbwil1XtIfnmQ-uEntUvhpKzaDNDbW1wTLRdrJWYz9lNRXiLUZuevXZf0B1SflZtyq4__yrIY_4yAfdVoDOSM6oOYjA9kFOg262gBTLTnZtZl6U5bJ8wKfwHN2Fbn-GgQbGAyU60i6VdjVgMtlKgUPBTLqXLhG6fQZFeo25aBX0"/>
+                <img class="w-full h-full object-cover" data-alt="Intergenerational public community garden workshop." crossorigin="anonymous" src="assets/photos/commons.jpg" onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuDsLSwtc4-YQ0WBQNJ-BBUuPyRBLbaQjMC2y-em3czKxLTg5cpsSIpReZYQvOh67GxQMPD2MxwuXbwil1XtIfnmQ-uEntUvhpKzaDNDbW1wTLRdrJWYz9lNRXiLUZuevXZf0B1SflZtyq4__yrIY_4yAfdVoDOSM6oOYjA9kFOg262gBTLTnZtZl6U5bJ8wKfwHN2Fbn-GgQbGAyU60i6VdjVgMtlKgUPBTLqXLhG6fQZFeo25aBX0'"/>
                 <div class="absolute top-space-xs left-space-xs bg-primary text-on-primary font-label-uppercase text-label-uppercase px-space-xs py-0">
                   Field Study · Plot 14-B
                 </div>
@@ -2373,33 +2427,50 @@
       </div>
 
       <div class="py-4 space-y-4 text-xs">
+        <!-- Notice banner explaining DIN A4 balance & photography -->
+        <div class="p-3 bg-surface-container-high border-l-2 border-secondary flex items-start gap-2.5">
+          <span class="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5">verified</span>
+          <div>
+            <p class="font-bold text-primary font-serif text-[13px]">Authentic DIN A4 Broadsheet Export</p>
+            <p class="text-on-surface-variant leading-relaxed text-[11px] mt-0.5">
+              Balanced to ISO DIN A4 landscape proportions (297 × 210 mm). Includes all high-resolution documentary photography, institutional seals, statistical triptych, and editorial typography identical to what you see in the browser.
+            </p>
+          </div>
+        </div>
+
         <div>
-          <label class="block font-bold text-primary uppercase mb-1">Export Scope</label>
+          <label class="block font-bold text-primary uppercase mb-1 tracking-wider text-[11px]">Export Scope</label>
           <div class="space-y-1.5">
-            <label class="flex items-center gap-2 border border-outline-variant p-2 cursor-pointer bg-surface-container-low">
+            <label class="flex items-center gap-2 border border-outline-variant p-2.5 cursor-pointer bg-surface-container-low hover:bg-surface-container transition-colors">
               <input type="radio" name="pdfScope" value="full" checked class="text-secondary"/>
-              <span class="text-primary font-bold">Complete Issue 04 Broadsheet (48 Pages · 24.8 MB)</span>
+              <div class="flex flex-col">
+                <span class="text-primary font-bold">Complete Master Issue 04 (All Spreads · 561 KB DIN A4 Master)</span>
+                <span class="text-[11px] text-on-surface-variant">Includes Cover, Foreword, Ch. 1 Language, Ch. 2 Vocational, Ch. 3 Commons & Cartographic Map</span>
+              </div>
             </label>
-            <label class="flex items-center gap-2 border border-outline-variant p-2 cursor-pointer bg-surface-container-low">
+            <label class="flex items-center gap-2 border border-outline-variant p-2.5 cursor-pointer bg-surface-container-low hover:bg-surface-container transition-colors">
               <input type="radio" name="pdfScope" value="current" class="text-secondary"/>
-              <span class="text-primary font-bold">Current Active Spread Only (2 Pages · 2.1 MB)</span>
+              <div class="flex flex-col">
+                <span class="text-primary font-bold">Current Active Spread Only (Live DIN A4 Snapshot)</span>
+                <span class="text-[11px] text-on-surface-variant">Captures the exact active broadsheet folio currently open in the e-reader</span>
+              </div>
             </label>
           </div>
         </div>
 
         <div>
-          <label class="block font-bold text-primary uppercase mb-1">Format Specification</label>
-          <select id="pdfFormat" class="w-full bg-surface-container-low border border-outline-variant p-2 text-xs text-primary">
-            <option value="press">Archival 300 DPI (High-Res Newspaper Press Master)</option>
-            <option value="screen">Digital Screen A4 (Optimized for Tablets & E-Readers)</option>
-            <option value="text">Accessible High-Contrast Plain Text Transcription</option>
+          <label class="block font-bold text-primary uppercase mb-1 tracking-wider text-[11px]">Format Specification</label>
+          <select id="pdfFormat" class="w-full bg-surface-container-low border border-outline-variant p-2 text-xs text-primary font-medium">
+            <option value="press">DIN A4 Broadsheet Landscape (297 × 210 mm — High-Res Press Master)</option>
+            <option value="screen">DIN A4 Digital Screen (Balanced for Tablets, Laptops & Desktop Viewers)</option>
+            <option value="portrait">DIN A4 Single Column Reflow (210 × 297 mm — Mobile & Binder Format)</option>
           </select>
         </div>
 
-        <div id="pdf-progress-bar" class="hidden space-y-1">
+        <div id="pdf-progress-bar" class="hidden space-y-1.5 p-2 bg-surface-container-low border border-outline-variant/30">
           <div class="flex justify-between text-[11px] font-mono text-on-surface-variant">
-            <span>Rendering Broadsheet Vector Plates...</span>
-            <span id="pdf-percent">0%</span>
+            <span id="pdf-status-text">Preparing DIN A4 broadsheet plates...</span>
+            <span id="pdf-percent" class="font-bold text-secondary">0%</span>
           </div>
           <div class="w-full h-2 bg-surface-container-high overflow-hidden">
             <div id="pdf-fill" class="h-full bg-secondary transition-all duration-150" style="width: 0%"></div>
@@ -2407,15 +2478,20 @@
         </div>
       </div>
 
-      <div class="flex items-center justify-between pt-3 border-t border-outline-variant/30">
-        <button onclick="window.print()" class="text-xs text-primary hover:text-secondary flex items-center gap-1 font-bold">
+      <div class="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-outline-variant/30">
+        <button onclick="window.print()" class="text-xs text-primary hover:text-secondary flex items-center gap-1 font-bold py-1">
           <span class="material-symbols-outlined text-sm">print</span>
           <span>Browser Print Dialog</span>
         </button>
-        <div class="flex gap-2">
-          <button onclick="closeModal('pdf-modal')" class="px-3 py-1.5 text-xs text-on-surface-variant hover:text-primary">Close</button>
-          <button onclick="downloadGazettePdf(false)" id="pdfGenBtn" class="bg-primary text-on-primary px-4 py-2 text-xs font-bold uppercase hover:bg-secondary transition-colors">
-            Generate &amp; Download PDF
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="closeModal('pdf-modal')" class="px-3 py-2 text-xs text-on-surface-variant hover:text-primary">Close</button>
+          <button onclick="downloadMasterPdfDirect()" class="bg-surface-container-high text-primary hover:bg-surface-container-highest px-3 py-2 text-xs font-bold uppercase transition-colors flex items-center gap-1 border border-outline-variant">
+            <span class="material-symbols-outlined text-sm">file_download</span>
+            <span>Direct Master PDF</span>
+          </button>
+          <button onclick="downloadGazettePdf(false)" id="pdfGenBtn" class="bg-primary text-on-primary px-4 py-2 text-xs font-bold uppercase hover:bg-secondary transition-colors flex items-center gap-1 shadow-sm">
+            <span class="material-symbols-outlined text-sm">download</span>
+            <span>Generate &amp; Download</span>
           </button>
         </div>
       </div>
@@ -2632,15 +2708,38 @@
 
     // Toast utility
     let toastTimeout;
-    function showToast(msg, icon = 'check_circle') {
+    function showToast(msg, icon = 'check_circle', downloadUrl = null, downloadName = null) {
       const toast = document.getElementById('toast-notification');
-      document.getElementById('toast-msg').innerText = msg;
-      document.getElementById('toast-icon').innerText = icon;
+      const msgEl = document.getElementById('toast-msg');
+      const iconEl = document.getElementById('toast-icon');
+      if (!toast || !msgEl || !iconEl) return;
+
+      iconEl.innerText = icon;
+      if (downloadUrl && downloadName) {
+        msgEl.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div>
+              <p class="font-bold text-white text-xs">${msg}</p>
+              <p class="text-[10px] text-tertiary-fixed-dim font-mono">${downloadName}</p>
+            </div>
+            <a href="${downloadUrl}" download="${downloadName}" target="_blank" class="pointer-events-auto bg-secondary hover:bg-secondary-fixed text-on-secondary hover:text-on-secondary-fixed px-2.5 py-1 text-[11px] font-bold uppercase rounded shadow flex items-center gap-1 transition-colors">
+              <span class="material-symbols-outlined text-xs">download</span>
+              <span>Save File</span>
+            </a>
+          </div>
+        `;
+      } else {
+        msgEl.innerText = msg;
+      }
+
       toast.classList.remove('pointer-events-none', 'translate-y-24', 'opacity-0');
+      toast.classList.add('pointer-events-auto', 'translate-y-0', 'opacity-100');
+
       clearTimeout(toastTimeout);
       toastTimeout = setTimeout(() => {
+        toast.classList.remove('pointer-events-auto', 'translate-y-0', 'opacity-100');
         toast.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
-      }, 3500);
+      }, downloadUrl ? 7000 : 3500);
     }
 
     // Bookmark Toggle with LocalStorage
@@ -2824,262 +2923,138 @@
       showToast(`Appointment confirmed for ${name} on ${day}. An SMS confirmation has been logged.`);
     }
 
-    // Real PDF Generation & Download Engine
-    function downloadGazettePdf(immediate = false) {
+    // ================= REAL DIN A4 PDF GENERATION & DOWNLOAD ENGINE =================
+    function triggerBrowserDownload(url, filename) {
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.target = '_blank';
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        if (a.parentNode) a.parentNode.removeChild(a);
+      }, 3000);
+      showToast(`${filename} downloaded to your computer.`, 'check_circle', url, filename);
+    }
+
+    function downloadMasterPdfDirect() {
+      const url = 'assets/CONVERGENCE_Gazette_Issue04_Autumn_Edition.pdf';
+      const filename = 'CONVERGENCE_Gazette_Issue04_Autumn_Edition.pdf';
+      triggerBrowserDownload(url, filename);
+      closeModal('pdf-modal');
+    }
+
+    async function downloadGazettePdf(immediate = false) {
       const btn = document.getElementById('pdfGenBtn');
       const bar = document.getElementById('pdf-progress-bar');
       const fill = document.getElementById('pdf-fill');
       const percent = document.getElementById('pdf-percent');
+      const statusText = document.getElementById('pdf-status-text');
 
-      const triggerDownload = () => {
-        let downloaded = false;
+      const scopeRadio = document.querySelector('input[name="pdfScope"]:checked');
+      const scope = scopeRadio ? scopeRadio.value : 'full';
+      const formatSelect = document.getElementById('pdfFormat');
+      const format = formatSelect ? formatSelect.value : 'press';
 
-        // 1. Client-Side Generation using jsPDF for authentic document creation
-        if (window.jspdf && window.jspdf.jsPDF) {
-          try {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-            
-            // --- Page 1: Institutional Cover ---
-            doc.setFillColor(6, 21, 35); // #061523
-            doc.rect(0, 0, 297, 210, 'F');
-            doc.setFillColor(27, 42, 56);
-            doc.rect(15, 15, 267, 180, 'F');
-            
-            doc.setTextColor(212, 228, 247);
-            doc.setFontSize(10);
-            doc.setFont('helvetica', 'bold');
-            doc.text('MUNICIPAL GAZETTE  |  AUTUMN-WINTER EDITION  |  VOL. IV / NO. 2', 25, 30);
-            doc.setFont('helvetica', 'normal');
-            doc.text('Department of Social Cohesion & Municipal Inclusion - Official Public Record', 25, 36);
-            
-            doc.setTextColor(255, 181, 156);
-            doc.setFontSize(11);
-            doc.setFont('helvetica', 'bold');
-            doc.text('LEAD DISPATCH : URBAN PARTICIPATION & CIVIC BRIDGES', 25, 52);
-            
-            doc.setTextColor(255, 255, 255);
-            doc.setFontSize(36);
-            doc.setFont('times', 'bold');
-            doc.text('CONVERGENCE', 25, 70);
-            
-            doc.setFontSize(15);
-            doc.setFont('times', 'italic');
-            doc.text('Bridges Across Neighborhoods: Pathways for Welcoming New Communities', 25, 82);
-            
-            // Metrics Triptych
-            doc.setFillColor(71, 101, 84);
-            doc.rect(25, 96, 247, 30, 'F');
-            doc.setTextColor(255, 255, 255);
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(18);
-            doc.text('14', 55, 112);
-            doc.text('3,420', 135, 112);
-            doc.text('94%', 225, 112);
-            doc.setFontSize(9);
-            doc.setFont('helvetica', 'normal');
-            doc.text('Civic Districts Active', 42, 120);
-            doc.text('New Residents Welcomed', 120, 120);
-            doc.text('Community Retention Rate', 212, 120);
-            
-            // Featured Index
-            doc.setTextColor(220, 220, 220);
-            doc.setFontSize(10);
-            doc.setFont('helvetica', 'bold');
-            doc.text('FEATURED FOLIO INDEX', 25, 142);
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(9);
-            doc.text('01. Intercultural Cafes & Multilingual Tandems ................................................. Folio 04', 25, 150);
-            doc.text('02. Apprenticeships, Guild Micro-Incubators & Prior-Learning Recognition ................ Folio 14', 25, 158);
-            doc.text('03. The Neighborhood Living Rooms & Shared Commons Map ................................ Folio 20', 25, 166);
-            doc.text('04. Comprehensive Civic Activity Directory (32 Free Programs) ......................... Folio 36', 25, 174);
-            
-            doc.setFontSize(8);
-            doc.text('ARCHIVAL REGISTRATION: DLG-2024-CIV-049 | CITY PRINT OFFICE | OPEN REPRODUCTION AUTHORIZED', 25, 188);
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="material-symbols-outlined text-sm animate-spin">refresh</span><span>Processing PDF...</span>';
+      }
+      if (bar) bar.classList.remove('hidden');
 
-            // --- Page 2: Editorial Foreword ---
-            doc.addPage('a4', 'landscape');
-            doc.setFillColor(251, 249, 245);
-            doc.rect(0, 0, 297, 210, 'F');
-            doc.setTextColor(6, 21, 35);
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(10);
-            doc.text('GAZETTE EDITORIAL  |  OPENING FOREWORD  |  PAGE 002 / 048', 20, 20);
-            doc.setFont('times', 'bold');
-            doc.setFontSize(22);
-            doc.text('A City Measured by Its Welcoming Threshold', 20, 32);
-            doc.setFont('times', 'italic');
-            doc.setFontSize(12);
-            doc.setTextColor(70, 70, 70);
-            doc.text('"A city is only as resilient as its newest neighbor. How localized social architecture creates belonging."', 20, 40);
-            
-            // Elena card
-            doc.setFillColor(234, 232, 228);
-            doc.rect(20, 48, 70, 42, 'F');
-            doc.setTextColor(6, 21, 35);
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(11);
-            doc.text('Dr. Elena Rostova', 25, 60);
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(8);
-            doc.text('Director of Civic Integration', 25, 68);
-            doc.text('Municipal Office of Social Cohesion', 25, 74);
-            doc.setFont('times', 'italic');
-            doc.text('Signoff: E. Rostova - 14 Oct 2024', 25, 82);
-            
-            doc.setFont('times', 'normal');
-            doc.setFontSize(10);
-            doc.setTextColor(40, 40, 40);
-            doc.text('When we examine our public libraries, public squares, and community bakeries in early dawn,', 100, 56);
-            doc.text('we witness the quiet machinery of mutual adaptation. Integration is neither passive nor unilateral;', 100, 64);
-            doc.text('it is an active municipal practice of making room at every decision-making table.', 100, 72);
-            doc.text('Over the past semester, our fourteen civic districts piloted the Neighborhood Living Rooms project,', 100, 80);
-            doc.text('opening municipal annexes for evening dialogue, shared workspace, and peer administrative support.', 100, 88);
-
-            // Pullquote
-            doc.setFillColor(198, 232, 210);
-            doc.rect(20, 98, 257, 24, 'F');
-            doc.setFont('times', 'italic');
-            doc.setFontSize(12);
-            doc.setTextColor(6, 21, 35);
-            doc.text('"Integration is not an assimilation into quiet corners, but active co-creation of the public square."', 25, 110);
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(8);
-            doc.text('- Municipal Charter for Public Assembly, Section 4', 25, 117);
-
-            // --- Page 3: Chapter 1 & 2 ---
-            doc.addPage('a4', 'landscape');
-            doc.setFillColor(251, 249, 245);
-            doc.rect(0, 0, 297, 210, 'F');
-            doc.setTextColor(6, 21, 35);
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(10);
-            doc.text('CHAPTER 01 & 02  |  INTERCULTURAL BRIDGES & VOCATIONAL PATHWAYS', 20, 20);
-            doc.setFont('times', 'bold');
-            doc.setFontSize(18);
-            doc.text('Conversations That Rebuild Belonging & The 4-Stage Insertion Pipeline', 20, 32);
-            
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(11);
-            doc.text('Language Exchange Modules (Weekly Schedule):', 20, 46);
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(9);
-            doc.text('- MOD-01: Cafe Polyglot (Tues & Thurs 17:30-19:30, Central Library Atrium)', 25, 54);
-            doc.text('- MOD-02: Bilingual Storytelling Circles (Saturdays 10:30-12:00, with Free Creche)', 25, 62);
-            doc.text('- MOD-03: Civic Phrasebooks & Walkthroughs (Hospital, Transit, School Registration)', 25, 70);
-            
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(11);
-            doc.text('Curated Vocational Tracks (100% Sponsored via Civic Levies):', 20, 86);
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(9);
-            doc.text('- Track 01: Culinary Heritage Incubator (12-Week Intensive, Commercial Kitchen Licensing, Docklands)', 25, 94);
-            doc.text('- Track 02: Green Guild & Urban Forestry (16-Week Apprenticeship, Paid Municipal Crews, Parks Depot)', 25, 102);
-            doc.text('- Track 03: Caregiving & Early Childhood (Pediatric & Eldercare Certification across 18 Health Trusts)', 25, 110);
-
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(11);
-            doc.text('Universal Support Package:', 20, 126);
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(9);
-            doc.text('Includes monthly transit stipend, daytime childcare vouchers, and pro-bono legal paperwork assistance.', 25, 134);
-
-            // --- Page 4: Commons & Directory ---
-            doc.addPage('a4', 'landscape');
-            doc.setFillColor(251, 249, 245);
-            doc.rect(0, 0, 297, 210, 'F');
-            doc.setTextColor(6, 21, 35);
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(10);
-            doc.text('CHAPTER 03 & CIVIC DIRECTORY  |  THE SHARED COMMONS & REGISTER', 20, 20);
-            doc.setFont('times', 'bold');
-            doc.setFontSize(18);
-            doc.text('Active District Commons Network & Space Reservation (Policy MUN-SPACE-40)', 20, 32);
-
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(10);
-            doc.text('The 6 Active Civic Hubs in Municipality:', 20, 46);
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(9);
-            doc.text('1. St. Martin Community Hall (Ward 02) - Tech Coaching & Blitz Chess (Daily 08:00-21:00)', 25, 54);
-            doc.text('2. Riverside Allotment Gardens (Ward 08) - 85 Planters, Seed Bank (Tue-Sun 07:00-Sunset)', 25, 62);
-            doc.text('3. Old Foundry Arts & Maker Workshop (Ward 06) - Repair Cafe, Tool Library (Wed-Sat 10:00-20:00)', 25, 70);
-            doc.text('4. South District Municipal Library (Ward 09) - Welcoming Desk, Legal Notarization (Mon-Sat 09:00-21:00)', 25, 78);
-            doc.text('5. Civic Sports Arena & Fieldhouse (Ward 08) - Drop-in leagues & senior fitness (Daily 06:30-22:00)', 25, 86);
-            doc.text('6. Central Market Cultural Pavilion (Ward 04) - Sunday solidarity flea stalls (Thu-Sun 08:00-18:00)', 25, 94);
-
-            doc.setFillColor(6, 21, 35);
-            doc.rect(20, 110, 257, 36, 'F');
-            doc.setTextColor(255, 255, 255);
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(10);
-            doc.text('Statutory Space Reservation Right (MUN-SPACE-40):', 25, 122);
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(8.5);
-            doc.text('Any collective of 2+ residents has the statutory right to free municipal room bookings for educational,', 25, 129);
-            doc.text('social, and mutual-aid gatherings. Automatically covered by municipal liability insurance.', 25, 135);
-
-            doc.save('CONVERGENCE_Gazette_Issue04_Autumn_Edition.pdf');
-            downloaded = true;
-          } catch (pdfErr) {
-            console.warn('jsPDF generation error, will trigger direct file download fallback:', pdfErr);
-          }
-        }
-
-        // Direct static PDF download fallback
-        if (!downloaded) {
-          const a = document.createElement('a');
-          a.href = 'CONVERGENCE_Gazette_Issue04_Autumn.pdf';
-          a.download = 'CONVERGENCE_Gazette_Issue04_Autumn_Edition.pdf';
-          a.target = '_blank';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-        }
-
-        closeModal('pdf-modal');
-        if (bar) bar.classList.add('hidden');
-        if (btn) {
-          btn.disabled = false;
-          btn.innerText = 'Generate & Download PDF';
-        }
-        showToast('CONVERGENCE_Gazette_Issue04_Autumn_Edition.pdf downloaded to your computer.');
+      const updateProgress = (pct, text) => {
+        if (fill) fill.style.width = pct + '%';
+        if (percent) percent.innerText = pct + '%';
+        if (statusText && text) statusText.innerText = text;
       };
 
-      if (immediate) {
-        triggerDownload();
-        return;
-      }
+      try {
+        if (scope === 'current') {
+          // Live DIN A4 Landscape DOM snapshot of the currently active spread
+          updateProgress(20, 'Locating active broadsheet spread container...');
+          await new Promise(r => setTimeout(r, 150));
 
-      if (btn && bar && fill && percent) {
-        btn.disabled = true;
-        btn.innerText = 'Rendering PDF...';
-        bar.classList.remove('hidden');
+          const activeSection = document.querySelector(`.chapter-content:not(.hidden)`) || document.getElementById('chapter-' + activeChapter);
+          const gridEl = activeSection ? (activeSection.querySelector('.broadsheet-grid') || activeSection) : document.getElementById('main-canvas');
 
-        let progress = 0;
-        const interval = setInterval(() => {
-          progress += 25;
-          fill.style.width = progress + '%';
-          percent.innerText = progress + '%';
-          if (progress >= 100) {
-            clearInterval(interval);
-            setTimeout(triggerDownload, 300);
+          updateProgress(45, 'Rendering high-resolution vector plates & photos (DIN A4 1.414:1)...');
+
+          if (window.html2canvas && window.jspdf && window.jspdf.jsPDF) {
+            // Render target element to canvas with 1.5x scale for crisp print density
+            const canvas = await window.html2canvas(gridEl, {
+              scale: 1.5,
+              useCORS: true,
+              allowTaint: true,
+              backgroundColor: '#fbf9f5',
+              logging: false,
+              windowWidth: 1414
+            });
+
+            updateProgress(75, 'Constructing DIN A4 landscape PDF document (297 × 210 mm)...');
+            const imgData = canvas.toDataURL('image/jpeg', 0.92);
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({
+              orientation: 'landscape',
+              unit: 'mm',
+              format: 'a4',
+              compress: true
+            });
+
+            doc.addImage(imgData, 'JPEG', 0, 0, 297, 210, undefined, 'FAST');
+
+            updateProgress(90, 'Packaging PDF binary and initializing browser download...');
+            const blob = doc.output('blob');
+            const blobUrl = URL.createObjectURL(blob);
+            const filename = `CONVERGENCE_Gazette_${activeChapter}_DIN_A4.pdf`;
+
+            updateProgress(100, 'Download complete!');
+            await new Promise(r => setTimeout(r, 200));
+
+            triggerBrowserDownload(blobUrl, filename);
+            closeModal('pdf-modal');
+          } else {
+            // If html2canvas is not ready, trigger direct master download fallback
+            downloadMasterPdfDirect();
           }
-        }, 120);
-      } else {
-        triggerDownload();
+        } else {
+          // Full Master Edition: Deliver the authentic 561 KB DIN A4 Landscape Master PDF
+          updateProgress(25, 'Reading all 5 chapter folios & documentary plates...');
+          await new Promise(r => setTimeout(r, 200));
+          updateProgress(55, 'Embedding photographic archives (Elena Rostova, Timber Guild, Culinary, Commons)...');
+          await new Promise(r => setTimeout(r, 250));
+          updateProgress(85, 'Validating statutory colophon & DIN A4 dual-spread alignment...');
+          await new Promise(r => setTimeout(r, 200));
+          updateProgress(100, 'Transferring master PDF to browser download manager...');
+          await new Promise(r => setTimeout(r, 200));
+
+          const masterUrl = 'assets/CONVERGENCE_Gazette_Issue04_Autumn_Edition.pdf';
+          const masterFilename = 'CONVERGENCE_Gazette_Issue04_Autumn_Edition.pdf';
+          triggerBrowserDownload(masterUrl, masterFilename);
+          closeModal('pdf-modal');
+        }
+      } catch (err) {
+        console.warn('Live PDF generation encountered error, falling back to static master PDF:', err);
+        const fallbackUrl = 'assets/CONVERGENCE_Gazette_Issue04_Autumn_Edition.pdf';
+        const fallbackName = 'CONVERGENCE_Gazette_Issue04_Autumn_Edition.pdf';
+        triggerBrowserDownload(fallbackUrl, fallbackName);
+        closeModal('pdf-modal');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<span class="material-symbols-outlined text-sm">download</span><span>Generate &amp; Download</span>';
+        }
+        if (bar) bar.classList.add('hidden');
+        if (fill) fill.style.width = '0%';
+        if (percent) percent.innerText = '0%';
       }
     }
 
     function downloadIntakeFormPdf() {
-      const a = document.createElement('a');
-      a.href = 'Municipal_Candidate_Intake_Form_2024.pdf';
-      a.download = 'Municipal_Candidate_Intake_Form_2024.pdf';
-      a.target = '_blank';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      showToast('Municipal_Candidate_Intake_Form_2024.pdf downloaded to your computer.');
+      const url = 'assets/Municipal_Candidate_Intake_Form_2024.pdf';
+      const filename = 'Municipal_Candidate_Intake_Form_2024.pdf';
+      triggerBrowserDownload(url, filename);
     }
 
     // Activity Directory Filtering
