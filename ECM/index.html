@@ -20,6 +20,9 @@
   <!-- HTMX 2.0.4 -->
   <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmReNpAssUSEnM2gc6EEQTDzpr36QBHsSnUwZoC" crossorigin="anonymous"></script>
 
+  <!-- jsPDF 2.5.1 for client-side PDF document generation and download -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   <!-- Tailwind CSS CDN & Config -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script id="tailwind-config">
@@ -482,7 +485,7 @@
             <!-- Download & Reader Action Panel -->
             <div class="mt-space-lg pt-space-md flex flex-wrap items-center justify-between gap-space-md border-t border-outline-variant/30">
               <div class="flex items-center gap-space-sm">
-                <button onclick="openModal('pdf-modal')" class="bg-primary hover:bg-tertiary-container text-on-primary font-body-sm text-body-sm px-space-md py-space-xs flex items-center gap-space-xs transition-colors" type="button">
+                <button onclick="downloadGazettePdf(true)" class="bg-primary hover:bg-tertiary-container text-on-primary font-body-sm text-body-sm px-space-md py-space-xs flex items-center gap-space-xs transition-colors" type="button">
                   <span class="material-symbols-outlined text-sm">picture_as_pdf</span>
                   <span>Download High-Res PDF Edition (24.8 MB)</span>
                 </button>
@@ -1169,7 +1172,7 @@
                 </p>
               </div>
               <div class="flex flex-wrap items-center gap-space-sm flex-shrink-0">
-                <button onclick="showToast('Municipal Candidate Intake Form (PDF - EN/AR/UK/ES) initiated for download.')" class="bg-surface-container-lowest text-primary font-body-sm text-body-sm font-bold px-space-md py-space-sm flex items-center gap-space-xs hover:bg-tertiary-container hover:text-on-tertiary transition-colors" type="button">
+                <button onclick="downloadIntakeFormPdf()" class="bg-surface-container-lowest text-primary font-body-sm text-body-sm font-bold px-space-md py-space-sm flex items-center gap-space-xs hover:bg-tertiary-container hover:text-on-tertiary transition-colors" type="button">
                   <span class="material-symbols-outlined text-base">file_download</span>
                   <span>Intake Form (PDF)</span>
                 </button>
@@ -2411,8 +2414,8 @@
         </button>
         <div class="flex gap-2">
           <button onclick="closeModal('pdf-modal')" class="px-3 py-1.5 text-xs text-on-surface-variant hover:text-primary">Close</button>
-          <button onclick="generatePdfSimulation()" id="pdfGenBtn" class="bg-primary text-on-primary px-4 py-2 text-xs font-bold uppercase hover:bg-secondary transition-colors">
-            Generate PDF
+          <button onclick="downloadGazettePdf(false)" id="pdfGenBtn" class="bg-primary text-on-primary px-4 py-2 text-xs font-bold uppercase hover:bg-secondary transition-colors">
+            Generate &amp; Download PDF
           </button>
         </div>
       </div>
@@ -2821,33 +2824,262 @@
       showToast(`Appointment confirmed for ${name} on ${day}. An SMS confirmation has been logged.`);
     }
 
-    // PDF Simulation
-    function generatePdfSimulation() {
+    // Real PDF Generation & Download Engine
+    function downloadGazettePdf(immediate = false) {
       const btn = document.getElementById('pdfGenBtn');
       const bar = document.getElementById('pdf-progress-bar');
       const fill = document.getElementById('pdf-fill');
       const percent = document.getElementById('pdf-percent');
 
-      btn.disabled = true;
-      btn.innerText = 'Rendering...';
-      bar.classList.remove('hidden');
+      const triggerDownload = () => {
+        let downloaded = false;
 
-      let progress = 0;
-      const interval = setInterval(() => {
-        progress += 20;
-        fill.style.width = progress + '%';
-        percent.innerText = progress + '%';
-        if (progress >= 100) {
-          clearInterval(interval);
-          setTimeout(() => {
-            closeModal('pdf-modal');
-            bar.classList.add('hidden');
-            btn.disabled = false;
-            btn.innerText = 'Generate PDF';
-            showToast('CONVERGENCE_Issue04_PressMaster.pdf ready. Download dispatched.');
-          }, 400);
+        // 1. Client-Side Generation using jsPDF for authentic document creation
+        if (window.jspdf && window.jspdf.jsPDF) {
+          try {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+            
+            // --- Page 1: Institutional Cover ---
+            doc.setFillColor(6, 21, 35); // #061523
+            doc.rect(0, 0, 297, 210, 'F');
+            doc.setFillColor(27, 42, 56);
+            doc.rect(15, 15, 267, 180, 'F');
+            
+            doc.setTextColor(212, 228, 247);
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'bold');
+            doc.text('MUNICIPAL GAZETTE  |  AUTUMN-WINTER EDITION  |  VOL. IV / NO. 2', 25, 30);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Department of Social Cohesion & Municipal Inclusion - Official Public Record', 25, 36);
+            
+            doc.setTextColor(255, 181, 156);
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'bold');
+            doc.text('LEAD DISPATCH : URBAN PARTICIPATION & CIVIC BRIDGES', 25, 52);
+            
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(36);
+            doc.setFont('times', 'bold');
+            doc.text('CONVERGENCE', 25, 70);
+            
+            doc.setFontSize(15);
+            doc.setFont('times', 'italic');
+            doc.text('Bridges Across Neighborhoods: Pathways for Welcoming New Communities', 25, 82);
+            
+            // Metrics Triptych
+            doc.setFillColor(71, 101, 84);
+            doc.rect(25, 96, 247, 30, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(18);
+            doc.text('14', 55, 112);
+            doc.text('3,420', 135, 112);
+            doc.text('94%', 225, 112);
+            doc.setFontSize(9);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Civic Districts Active', 42, 120);
+            doc.text('New Residents Welcomed', 120, 120);
+            doc.text('Community Retention Rate', 212, 120);
+            
+            // Featured Index
+            doc.setTextColor(220, 220, 220);
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'bold');
+            doc.text('FEATURED FOLIO INDEX', 25, 142);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9);
+            doc.text('01. Intercultural Cafes & Multilingual Tandems ................................................. Folio 04', 25, 150);
+            doc.text('02. Apprenticeships, Guild Micro-Incubators & Prior-Learning Recognition ................ Folio 14', 25, 158);
+            doc.text('03. The Neighborhood Living Rooms & Shared Commons Map ................................ Folio 20', 25, 166);
+            doc.text('04. Comprehensive Civic Activity Directory (32 Free Programs) ......................... Folio 36', 25, 174);
+            
+            doc.setFontSize(8);
+            doc.text('ARCHIVAL REGISTRATION: DLG-2024-CIV-049 | CITY PRINT OFFICE | OPEN REPRODUCTION AUTHORIZED', 25, 188);
+
+            // --- Page 2: Editorial Foreword ---
+            doc.addPage('a4', 'landscape');
+            doc.setFillColor(251, 249, 245);
+            doc.rect(0, 0, 297, 210, 'F');
+            doc.setTextColor(6, 21, 35);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(10);
+            doc.text('GAZETTE EDITORIAL  |  OPENING FOREWORD  |  PAGE 002 / 048', 20, 20);
+            doc.setFont('times', 'bold');
+            doc.setFontSize(22);
+            doc.text('A City Measured by Its Welcoming Threshold', 20, 32);
+            doc.setFont('times', 'italic');
+            doc.setFontSize(12);
+            doc.setTextColor(70, 70, 70);
+            doc.text('"A city is only as resilient as its newest neighbor. How localized social architecture creates belonging."', 20, 40);
+            
+            // Elena card
+            doc.setFillColor(234, 232, 228);
+            doc.rect(20, 48, 70, 42, 'F');
+            doc.setTextColor(6, 21, 35);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(11);
+            doc.text('Dr. Elena Rostova', 25, 60);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(8);
+            doc.text('Director of Civic Integration', 25, 68);
+            doc.text('Municipal Office of Social Cohesion', 25, 74);
+            doc.setFont('times', 'italic');
+            doc.text('Signoff: E. Rostova - 14 Oct 2024', 25, 82);
+            
+            doc.setFont('times', 'normal');
+            doc.setFontSize(10);
+            doc.setTextColor(40, 40, 40);
+            doc.text('When we examine our public libraries, public squares, and community bakeries in early dawn,', 100, 56);
+            doc.text('we witness the quiet machinery of mutual adaptation. Integration is neither passive nor unilateral;', 100, 64);
+            doc.text('it is an active municipal practice of making room at every decision-making table.', 100, 72);
+            doc.text('Over the past semester, our fourteen civic districts piloted the Neighborhood Living Rooms project,', 100, 80);
+            doc.text('opening municipal annexes for evening dialogue, shared workspace, and peer administrative support.', 100, 88);
+
+            // Pullquote
+            doc.setFillColor(198, 232, 210);
+            doc.rect(20, 98, 257, 24, 'F');
+            doc.setFont('times', 'italic');
+            doc.setFontSize(12);
+            doc.setTextColor(6, 21, 35);
+            doc.text('"Integration is not an assimilation into quiet corners, but active co-creation of the public square."', 25, 110);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(8);
+            doc.text('- Municipal Charter for Public Assembly, Section 4', 25, 117);
+
+            // --- Page 3: Chapter 1 & 2 ---
+            doc.addPage('a4', 'landscape');
+            doc.setFillColor(251, 249, 245);
+            doc.rect(0, 0, 297, 210, 'F');
+            doc.setTextColor(6, 21, 35);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(10);
+            doc.text('CHAPTER 01 & 02  |  INTERCULTURAL BRIDGES & VOCATIONAL PATHWAYS', 20, 20);
+            doc.setFont('times', 'bold');
+            doc.setFontSize(18);
+            doc.text('Conversations That Rebuild Belonging & The 4-Stage Insertion Pipeline', 20, 32);
+            
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(11);
+            doc.text('Language Exchange Modules (Weekly Schedule):', 20, 46);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9);
+            doc.text('- MOD-01: Cafe Polyglot (Tues & Thurs 17:30-19:30, Central Library Atrium)', 25, 54);
+            doc.text('- MOD-02: Bilingual Storytelling Circles (Saturdays 10:30-12:00, with Free Creche)', 25, 62);
+            doc.text('- MOD-03: Civic Phrasebooks & Walkthroughs (Hospital, Transit, School Registration)', 25, 70);
+            
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(11);
+            doc.text('Curated Vocational Tracks (100% Sponsored via Civic Levies):', 20, 86);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9);
+            doc.text('- Track 01: Culinary Heritage Incubator (12-Week Intensive, Commercial Kitchen Licensing, Docklands)', 25, 94);
+            doc.text('- Track 02: Green Guild & Urban Forestry (16-Week Apprenticeship, Paid Municipal Crews, Parks Depot)', 25, 102);
+            doc.text('- Track 03: Caregiving & Early Childhood (Pediatric & Eldercare Certification across 18 Health Trusts)', 25, 110);
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(11);
+            doc.text('Universal Support Package:', 20, 126);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9);
+            doc.text('Includes monthly transit stipend, daytime childcare vouchers, and pro-bono legal paperwork assistance.', 25, 134);
+
+            // --- Page 4: Commons & Directory ---
+            doc.addPage('a4', 'landscape');
+            doc.setFillColor(251, 249, 245);
+            doc.rect(0, 0, 297, 210, 'F');
+            doc.setTextColor(6, 21, 35);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(10);
+            doc.text('CHAPTER 03 & CIVIC DIRECTORY  |  THE SHARED COMMONS & REGISTER', 20, 20);
+            doc.setFont('times', 'bold');
+            doc.setFontSize(18);
+            doc.text('Active District Commons Network & Space Reservation (Policy MUN-SPACE-40)', 20, 32);
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(10);
+            doc.text('The 6 Active Civic Hubs in Municipality:', 20, 46);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9);
+            doc.text('1. St. Martin Community Hall (Ward 02) - Tech Coaching & Blitz Chess (Daily 08:00-21:00)', 25, 54);
+            doc.text('2. Riverside Allotment Gardens (Ward 08) - 85 Planters, Seed Bank (Tue-Sun 07:00-Sunset)', 25, 62);
+            doc.text('3. Old Foundry Arts & Maker Workshop (Ward 06) - Repair Cafe, Tool Library (Wed-Sat 10:00-20:00)', 25, 70);
+            doc.text('4. South District Municipal Library (Ward 09) - Welcoming Desk, Legal Notarization (Mon-Sat 09:00-21:00)', 25, 78);
+            doc.text('5. Civic Sports Arena & Fieldhouse (Ward 08) - Drop-in leagues & senior fitness (Daily 06:30-22:00)', 25, 86);
+            doc.text('6. Central Market Cultural Pavilion (Ward 04) - Sunday solidarity flea stalls (Thu-Sun 08:00-18:00)', 25, 94);
+
+            doc.setFillColor(6, 21, 35);
+            doc.rect(20, 110, 257, 36, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(10);
+            doc.text('Statutory Space Reservation Right (MUN-SPACE-40):', 25, 122);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(8.5);
+            doc.text('Any collective of 2+ residents has the statutory right to free municipal room bookings for educational,', 25, 129);
+            doc.text('social, and mutual-aid gatherings. Automatically covered by municipal liability insurance.', 25, 135);
+
+            doc.save('CONVERGENCE_Gazette_Issue04_Autumn_Edition.pdf');
+            downloaded = true;
+          } catch (pdfErr) {
+            console.warn('jsPDF generation error, will trigger direct file download fallback:', pdfErr);
+          }
         }
-      }, 150);
+
+        // Direct static PDF download fallback
+        if (!downloaded) {
+          const a = document.createElement('a');
+          a.href = 'CONVERGENCE_Gazette_Issue04_Autumn.pdf';
+          a.download = 'CONVERGENCE_Gazette_Issue04_Autumn_Edition.pdf';
+          a.target = '_blank';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        }
+
+        closeModal('pdf-modal');
+        if (bar) bar.classList.add('hidden');
+        if (btn) {
+          btn.disabled = false;
+          btn.innerText = 'Generate & Download PDF';
+        }
+        showToast('CONVERGENCE_Gazette_Issue04_Autumn_Edition.pdf downloaded to your computer.');
+      };
+
+      if (immediate) {
+        triggerDownload();
+        return;
+      }
+
+      if (btn && bar && fill && percent) {
+        btn.disabled = true;
+        btn.innerText = 'Rendering PDF...';
+        bar.classList.remove('hidden');
+
+        let progress = 0;
+        const interval = setInterval(() => {
+          progress += 25;
+          fill.style.width = progress + '%';
+          percent.innerText = progress + '%';
+          if (progress >= 100) {
+            clearInterval(interval);
+            setTimeout(triggerDownload, 300);
+          }
+        }, 120);
+      } else {
+        triggerDownload();
+      }
+    }
+
+    function downloadIntakeFormPdf() {
+      const a = document.createElement('a');
+      a.href = 'Municipal_Candidate_Intake_Form_2024.pdf';
+      a.download = 'Municipal_Candidate_Intake_Form_2024.pdf';
+      a.target = '_blank';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      showToast('Municipal_Candidate_Intake_Form_2024.pdf downloaded to your computer.');
     }
 
     // Activity Directory Filtering
