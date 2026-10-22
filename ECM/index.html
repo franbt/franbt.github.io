@@ -232,55 +232,73 @@
 
   <!-- ================= TOP GAZETTE FIXED HEADER ================= -->
   <header class="fixed top-0 w-full z-50 bg-surface/95 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)] border-b border-outline-variant/30">
-    <div class="h-28 w-full px-4 md:px-margin-desktop flex flex-col justify-between py-space-xs">
+    <div class="w-full px-3 md:px-margin-desktop flex flex-col justify-between py-1.5 md:py-space-xs min-h-[82px] md:h-28">
       <!-- Upper Header Row -->
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-space-md">
-          <button onclick="switchChapter('cover-foreword')" class="flex flex-col text-left group">
-            <span class="font-label-uppercase text-label-uppercase tracking-widest text-on-surface-variant uppercase group-hover:text-secondary transition-colors">Institutional Gazette</span>
-            <span class="font-headline-sm text-headline-sm text-primary tracking-tight font-serif">CONVERGENCE</span>
+      <div class="flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2 md:gap-space-md min-w-0">
+          <button onclick="switchChapter('cover-foreword')" class="flex flex-col text-left group shrink-0">
+            <span class="font-label-uppercase text-[9px] md:text-label-uppercase tracking-widest text-on-surface-variant uppercase group-hover:text-secondary transition-colors">Institutional Gazette</span>
+            <span class="text-lg md:text-headline-sm text-primary tracking-tight font-serif font-bold leading-tight">CONVERGENCE</span>
           </button>
-          <span class="hidden sm:inline-block bg-surface-container-high text-on-surface font-label-uppercase text-label-uppercase px-space-sm py-space-xs tracking-wider uppercase">Issue 04 · Autumn Edition</span>
+          <span class="hidden sm:inline-block bg-surface-container-high text-on-surface font-label-uppercase text-[10px] md:text-label-uppercase px-space-sm py-space-xs tracking-wider uppercase">Issue 04 · Autumn</span>
           <div class="hidden lg:flex items-center gap-space-xs bg-secondary-container/40 px-space-sm py-space-xs">
             <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
             <span class="font-label-uppercase text-label-uppercase text-on-secondary-container uppercase">Social Cohesion &amp; Municipal Inclusion</span>
           </div>
         </div>
 
-        <div class="flex items-center gap-space-md">
+        <div class="flex items-center gap-1.5 md:gap-space-md shrink-0">
           <div class="hidden sm:flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs text-xs">
             <span class="material-symbols-outlined text-on-surface-variant text-base">menu_book</span>
             <span class="font-caption text-caption text-on-surface">Interactive Reader</span>
           </div>
-          <div class="flex items-center gap-space-sm">
-            <button onclick="openModal('pdf-modal')" class="bg-primary text-on-primary font-body-sm text-body-sm px-space-md py-space-xs flex items-center gap-space-xs hover:bg-tertiary-container hover:text-on-tertiary transition-colors shadow-xs" type="button">
-              <span class="material-symbols-outlined text-sm">download</span>
-              <span>Export PDF</span>
-            </button>
-            <img alt="Elena Rostova Civic Directorate" class="w-8 h-8 rounded-full object-cover border border-outline-variant" crossorigin="anonymous" src="assets/photos/elena.jpg" onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuB9QQg9Si3saWiRqF_e6WEuZBjnCz5dgBksPhJN0XTG2VN5zPeidlALqN_2kSuXZJhG74phTNOPJ3BC9zceK3HyHfQx14cSelvjGhiNonCwXDkWOrSGJ8_3hd-6GqLnicrtdWAu00JmEXTI3N4ltQlq_VkTZMkofIlXk4CiKDcXfGPxsdLuYfbuNevFBH_S3QavIfrDT3ja99bo8QCTKyc8ifvsvL1vNn7YXhQXi1LhydZd-qsAN5U'"/>
-          </div>
+
+          <!-- Table of Contents Index Drawer Trigger (Visible on all screen sizes) -->
+          <button onclick="openDrawer('toc-drawer')" class="bg-surface-container hover:bg-surface-container-high text-primary font-bold text-xs px-2.5 py-1.5 flex items-center gap-1 transition-colors border border-outline-variant/40 rounded shadow-2xs" type="button" title="Open Table of Contents (Index)">
+            <span class="material-symbols-outlined text-base">format_list_bulleted</span>
+            <span class="text-[11px] uppercase tracking-wider font-sans font-semibold">Index</span>
+          </button>
+
+          <!-- Export PDF Trigger Button -->
+          <button onclick="openModal('pdf-modal')" class="bg-primary text-on-primary font-body-sm text-xs px-2.5 md:px-space-md py-1.5 flex items-center gap-1 hover:bg-secondary transition-colors shadow-xs rounded" type="button" title="Export DIN A4 PDF">
+            <span class="material-symbols-outlined text-sm">download</span>
+            <span class="hidden sm:inline">Export PDF</span>
+            <span class="sm:hidden font-bold">PDF</span>
+          </button>
+
+          <!-- Elena Rostova Portrait -->
+          <img alt="Elena Rostova Civic Directorate" class="w-7 h-7 md:w-8 md:h-8 rounded-full object-cover border border-outline-variant shrink-0" crossorigin="anonymous" src="assets/photos/elena.jpg" onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuB9QQg9Si3saWiRqF_e6WEuZBjnCz5dgBksPhJN0XTG2VN5zPeidlALqN_2kSuXZJhG74phTNOPJ3BC9zceK3HyHfQx14cSelvjGhiNonCwXDkWOrSGJ8_3hd-6GqLnicrtdWAu00JmEXTI3N4ltQlq_VkTZMkofIlXk4CiKDcXfGPxsdLuYfbuNevFBH_S3QavIfrDT3ja99bo8QCTKyc8ifvsvL1vNn7YXhQXi1LhydZd-qsAN5U'"/>
         </div>
       </div>
 
       <!-- Lower Chapter Navigation & Reading Controls Bar -->
-      <div class="flex items-center justify-between pt-space-xs overflow-x-auto custom-scroll">
-        <nav class="flex items-center gap-space-xs md:gap-space-sm" id="chapter-nav">
-          <button class="nav-tab px-space-sm py-space-xs transition-colors whitespace-nowrap bg-primary text-on-primary font-bold text-xs md:text-body-sm" data-chapter="cover-foreword" onclick="switchChapter('cover-foreword')" hx-trigger="click">
-            Cover &amp; Foreword
-          </button>
-          <button class="nav-tab px-space-sm py-space-xs transition-colors whitespace-nowrap text-on-surface-variant hover:text-on-surface text-xs md:text-body-sm" data-chapter="language-exchange" onclick="switchChapter('language-exchange')" hx-trigger="click">
-            Chapter 1: Language &amp; Cultural Exchange
-          </button>
-          <button class="nav-tab px-space-sm py-space-xs transition-colors whitespace-nowrap text-on-surface-variant hover:text-on-surface text-xs md:text-body-sm" data-chapter="vocational-pathways" onclick="switchChapter('vocational-pathways')" hx-trigger="click">
-            Chapter 2: Vocational &amp; Skills Pathways
-          </button>
-          <button class="nav-tab px-space-sm py-space-xs transition-colors whitespace-nowrap text-on-surface-variant hover:text-on-surface text-xs md:text-body-sm" data-chapter="civic-spaces" onclick="switchChapter('civic-spaces')" hx-trigger="click">
-            Chapter 3: Civic Spaces &amp; Community Hubs
-          </button>
-          <button class="nav-tab px-space-sm py-space-xs transition-colors whitespace-nowrap text-on-surface-variant hover:text-on-surface text-xs md:text-body-sm" data-chapter="activity-directory" onclick="switchChapter('activity-directory')" hx-trigger="click">
-            Activity Directory &amp; Registration
-          </button>
-        </nav>
+      <div class="relative flex items-center justify-between pt-1 md:pt-space-xs">
+        <div class="relative w-full overflow-hidden flex items-center">
+          <nav class="flex items-center gap-1 md:gap-space-sm overflow-x-auto no-scrollbar scroll-smooth w-full py-0.5" id="chapter-nav">
+            <button class="nav-tab px-2.5 md:px-space-sm py-1 md:py-space-xs transition-colors whitespace-nowrap bg-primary text-on-primary font-bold text-xs md:text-body-sm shrink-0 rounded" data-chapter="cover-foreword" onclick="switchChapter('cover-foreword')" hx-trigger="click">
+              <span class="md:hidden">Cover</span>
+              <span class="hidden md:inline">Cover &amp; Foreword</span>
+            </button>
+            <button class="nav-tab px-2.5 md:px-space-sm py-1 md:py-space-xs transition-colors whitespace-nowrap text-on-surface-variant hover:text-on-surface text-xs md:text-body-sm shrink-0 rounded" data-chapter="language-exchange" onclick="switchChapter('language-exchange')" hx-trigger="click">
+              <span class="md:hidden">1. Language</span>
+              <span class="hidden md:inline">Chapter 1: Language &amp; Cultural Exchange</span>
+            </button>
+            <button class="nav-tab px-2.5 md:px-space-sm py-1 md:py-space-xs transition-colors whitespace-nowrap text-on-surface-variant hover:text-on-surface text-xs md:text-body-sm shrink-0 rounded" data-chapter="vocational-pathways" onclick="switchChapter('vocational-pathways')" hx-trigger="click">
+              <span class="md:hidden">2. Skills</span>
+              <span class="hidden md:inline">Chapter 2: Vocational &amp; Skills Pathways</span>
+            </button>
+            <button class="nav-tab px-2.5 md:px-space-sm py-1 md:py-space-xs transition-colors whitespace-nowrap text-on-surface-variant hover:text-on-surface text-xs md:text-body-sm shrink-0 rounded" data-chapter="civic-spaces" onclick="switchChapter('civic-spaces')" hx-trigger="click">
+              <span class="md:hidden">3. Commons</span>
+              <span class="hidden md:inline">Chapter 3: Civic Spaces &amp; Community Hubs</span>
+            </button>
+            <button class="nav-tab px-2.5 md:px-space-sm py-1 md:py-space-xs transition-colors whitespace-nowrap text-on-surface-variant hover:text-on-surface text-xs md:text-body-sm shrink-0 rounded" data-chapter="activity-directory" onclick="switchChapter('activity-directory')" hx-trigger="click">
+              <span class="md:hidden">Directory</span>
+              <span class="hidden md:inline">Activity Directory &amp; Registration</span>
+            </button>
+          </nav>
+          <!-- Subtle mobile scroll hint gradient on right edge -->
+          <div class="md:hidden absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-surface via-surface/80 to-transparent pointer-events-none"></div>
+        </div>
 
         <div class="hidden md:flex items-center gap-space-xs text-on-surface-variant shrink-0 ml-4">
           <button class="p-space-xs hover:text-on-surface hover:bg-surface-container transition-colors" onclick="openDrawer('toc-drawer')" title="Table of Contents (Index)" type="button">
@@ -307,7 +325,7 @@
   </header>
 
   <!-- ================= MAIN BROADSIDE CONTENT CANVAS ================= -->
-  <main class="w-full pt-28 bg-surface flex-1" id="main-canvas">
+  <main class="w-full pt-[86px] md:pt-28 bg-surface flex-1" id="main-canvas">
 
     <!-- ================= CHAPTER 0: COVER & FOREWORD ================= -->
     <section class="chapter-content spread-transition" id="chapter-cover-foreword">
@@ -336,7 +354,7 @@
         <div class="broadsheet-grid grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop shadow-xl">
           
           <!-- LEFT PAGE: Institutional Cover (Cols 1-6) -->
-          <section class="lg:col-span-6 bg-primary text-on-primary flex flex-col justify-between relative overflow-hidden p-6 md:p-space-xl min-h-[880px]">
+          <section class="lg:col-span-6 bg-primary text-on-primary flex flex-col justify-between relative overflow-hidden p-4 sm:p-6 md:p-space-xl min-h-0 lg:min-h-[880px]">
             <!-- Subtle Ink-Wash Gradient Texture Overlay -->
             <div class="absolute inset-0 bg-gradient-to-br from-primary via-primary-container to-primary pointer-events-none opacity-90"></div>
             <div class="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-tertiary-container/20 blur-3xl pointer-events-none"></div>
@@ -423,7 +441,7 @@
           </section>
 
           <!-- RIGHT PAGE: Editorial Foreword & Table of Contents (Cols 7-12) -->
-          <section class="lg:col-span-6 bg-surface-container-lowest text-on-surface flex flex-col justify-between p-6 md:p-space-xl min-h-[880px] relative">
+          <section class="lg:col-span-6 bg-surface-container-lowest text-on-surface flex flex-col justify-between p-4 sm:p-6 md:p-space-xl min-h-0 lg:min-h-[880px] relative">
             <div>
               <!-- Right Header Ribbon -->
               <div class="flex items-center justify-between pb-space-sm mb-space-md border-b border-outline-variant/30">
@@ -1989,9 +2007,39 @@
       </div>
     </section>
 
-    <!-- ================= BOTTOM READING PROGRESS DRAWER & QUICK JUMPS ================= -->
-    <aside class="w-full px-4 md:px-margin-desktop py-space-md bg-surface-container-low border-t border-outline-variant/30 sticky bottom-0 z-40 backdrop-blur-md shadow-md">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-space-md">
+    <!-- ================= BOTTOM READING PROGRESS & NAVIGATION DOCK ================= -->
+    <aside id="progress-drawer" class="w-full bg-surface-container-low/95 border-t border-outline-variant/30 sticky bottom-0 z-40 backdrop-blur-md shadow-lg">
+      <!-- Thin reading progress meter across the top of the dock -->
+      <div class="w-full h-1 bg-surface-container-high overflow-hidden">
+        <div id="spread-progress-bar" class="h-full bg-secondary transition-all duration-300" style="width: 20%"></div>
+      </div>
+
+      <!-- Mobile View: Streamlined thumb-friendly navigation bar (height ~50px) -->
+      <div class="flex md:hidden items-center justify-between px-3 py-2 gap-2">
+        <!-- Prev Spread Button -->
+        <button onclick="prevChapter()" id="mobile-prev-btn" class="flex items-center gap-1 px-3 py-1.5 bg-surface-container hover:bg-surface-container-high text-on-surface text-xs font-bold disabled:opacity-30 disabled:pointer-events-none transition-colors border border-outline-variant/40 rounded shadow-2xs" type="button" disabled>
+          <span class="material-symbols-outlined text-base">arrow_back</span>
+          <span>Prev</span>
+        </button>
+
+        <!-- Center: Folio & Spread Quick Indicator (tap opens Table of Contents) -->
+        <button onclick="openDrawer('toc-drawer')" class="flex flex-col items-center justify-center py-0.5 px-2 hover:bg-surface-container-high/60 transition-colors rounded text-center flex-1 min-w-0" type="button" title="View Table of Contents">
+          <div class="flex items-center justify-center gap-1 text-primary font-serif font-bold text-xs leading-tight truncate w-full">
+            <span id="mobile-folio-num" class="truncate">Folio 01–02: Foreword</span>
+            <span class="material-symbols-outlined text-xs text-secondary shrink-0">expand_more</span>
+          </div>
+          <span class="text-[10px] text-on-surface-variant font-mono leading-none mt-0.5" id="mobile-spread-count">Spread 1 of 5 · Tap for Index</span>
+        </button>
+
+        <!-- Next Spread Button -->
+        <button onclick="nextChapter()" id="mobile-next-btn" class="flex items-center gap-1 px-3 py-1.5 bg-primary text-on-primary text-xs font-bold disabled:opacity-30 disabled:pointer-events-none transition-colors shadow-xs rounded" type="button">
+          <span>Next</span>
+          <span class="material-symbols-outlined text-base">arrow_forward</span>
+        </button>
+      </div>
+
+      <!-- Desktop View: Spacious editorial reading progress bar with full skip buttons -->
+      <div class="hidden md:flex px-margin-desktop py-space-md items-center justify-between gap-space-md">
         <div class="flex items-center gap-space-md">
           <div class="w-10 h-10 bg-secondary/15 rounded flex items-center justify-center text-secondary shrink-0">
             <span class="material-symbols-outlined">menu_book</span>
@@ -2004,12 +2052,12 @@
 
         <!-- Quick Chapter Switcher Buttons -->
         <div class="flex items-center flex-wrap gap-space-xs">
-          <span class="font-label-uppercase text-label-uppercase text-on-surface-variant uppercase mr-space-xs hidden sm:inline">Quick Skip:</span>
-          <button onclick="switchChapter('cover-foreword')" class="quick-btn bg-primary text-on-primary font-body-sm text-body-sm px-space-sm py-space-xs" data-chapter="cover-foreword" type="button">Cover</button>
-          <button onclick="switchChapter('language-exchange')" class="quick-btn bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-sm text-body-sm px-space-sm py-space-xs transition-colors" data-chapter="language-exchange" type="button">Chap. 1: Language</button>
-          <button onclick="switchChapter('vocational-pathways')" class="quick-btn bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-sm text-body-sm px-space-sm py-space-xs transition-colors" data-chapter="vocational-pathways" type="button">Chap. 2: Skills</button>
-          <button onclick="switchChapter('civic-spaces')" class="quick-btn bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-sm text-body-sm px-space-sm py-space-xs transition-colors" data-chapter="civic-spaces" type="button">Chap. 3: Commons</button>
-          <button onclick="switchChapter('activity-directory')" class="quick-btn bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-sm text-body-sm px-space-sm py-space-xs transition-colors" data-chapter="activity-directory" type="button">Directory</button>
+          <span class="font-label-uppercase text-label-uppercase text-on-surface-variant uppercase mr-space-xs">Quick Skip:</span>
+          <button onclick="switchChapter('cover-foreword')" class="quick-btn bg-primary text-on-primary font-body-sm text-body-sm px-space-sm py-space-xs rounded" data-chapter="cover-foreword" type="button">Cover</button>
+          <button onclick="switchChapter('language-exchange')" class="quick-btn bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-sm text-body-sm px-space-sm py-space-xs transition-colors rounded" data-chapter="language-exchange" type="button">Chap. 1: Language</button>
+          <button onclick="switchChapter('vocational-pathways')" class="quick-btn bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-sm text-body-sm px-space-sm py-space-xs transition-colors rounded" data-chapter="vocational-pathways" type="button">Chap. 2: Skills</button>
+          <button onclick="switchChapter('civic-spaces')" class="quick-btn bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-sm text-body-sm px-space-sm py-space-xs transition-colors rounded" data-chapter="civic-spaces" type="button">Chap. 3: Commons</button>
+          <button onclick="switchChapter('activity-directory')" class="quick-btn bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-sm text-body-sm px-space-sm py-space-xs transition-colors rounded" data-chapter="activity-directory" type="button">Directory</button>
         </div>
       </div>
     </aside>
@@ -2514,7 +2562,7 @@
 
         <div class="py-4 space-y-2 text-xs">
           <!-- Item 1 -->
-          <button onclick="switchChapter('cover-foreword'); closeDrawer('toc-drawer');" class="w-full text-left p-3 bg-surface-container-low hover:bg-surface-container-high transition-colors flex items-start justify-between border-l-2 border-primary">
+          <button data-drawer-chapter="cover-foreword" onclick="switchChapter('cover-foreword'); closeDrawer('toc-drawer');" class="w-full text-left p-3 bg-surface-container-low hover:bg-surface-container-high transition-colors flex items-start justify-between border-l-2 border-primary">
             <div>
               <span class="font-bold text-primary block text-sm font-serif">Folio 01–02: Opening Foreword</span>
               <span class="text-on-surface-variant text-[11px]">Director Elena Rostova on Municipal Belonging &amp; Civic Architecture</span>
@@ -2523,7 +2571,7 @@
           </button>
 
           <!-- Item 2 -->
-          <button onclick="switchChapter('language-exchange'); closeDrawer('toc-drawer');" class="w-full text-left p-3 bg-surface-container-low hover:bg-surface-container-high transition-colors flex items-start justify-between border-l-2 border-secondary">
+          <button data-drawer-chapter="language-exchange" onclick="switchChapter('language-exchange'); closeDrawer('toc-drawer');" class="w-full text-left p-3 bg-surface-container-low hover:bg-surface-container-high transition-colors flex items-start justify-between border-l-2 border-secondary">
             <div>
               <span class="font-bold text-primary block text-sm font-serif">Folio 08–09: Language Tandems</span>
               <span class="text-on-surface-variant text-[11px]">Dual-Track Experiment &amp; Weekly Modular Timetable (Café Polyglot)</span>
@@ -2532,7 +2580,7 @@
           </button>
 
           <!-- Item 3 -->
-          <button onclick="switchChapter('vocational-pathways'); closeDrawer('toc-drawer');" class="w-full text-left p-3 bg-surface-container-low hover:bg-surface-container-high transition-colors flex items-start justify-between border-l-2 border-tertiary-container">
+          <button data-drawer-chapter="vocational-pathways" onclick="switchChapter('vocational-pathways'); closeDrawer('toc-drawer');" class="w-full text-left p-3 bg-surface-container-low hover:bg-surface-container-high transition-colors flex items-start justify-between border-l-2 border-tertiary-container">
             <div>
               <span class="font-bold text-primary block text-sm font-serif">Folio 14–15: Vocational Pathways</span>
               <span class="text-on-surface-variant text-[11px]">Prior-Learning Pipeline, Guild Apprenticeships &amp; Support Stipends</span>
@@ -2541,7 +2589,7 @@
           </button>
 
           <!-- Item 4 -->
-          <button onclick="switchChapter('civic-spaces'); closeDrawer('toc-drawer');" class="w-full text-left p-3 bg-surface-container-low hover:bg-surface-container-high transition-colors flex items-start justify-between border-l-2 border-primary">
+          <button data-drawer-chapter="civic-spaces" onclick="switchChapter('civic-spaces'); closeDrawer('toc-drawer');" class="w-full text-left p-3 bg-surface-container-low hover:bg-surface-container-high transition-colors flex items-start justify-between border-l-2 border-primary">
             <div>
               <span class="font-bold text-primary block text-sm font-serif">Folio 20–21: The Shared Commons</span>
               <span class="text-on-surface-variant text-[11px]">5 Pillars of Third Places, 6 Active Hubs &amp; Space Booking Guide</span>
@@ -2550,7 +2598,7 @@
           </button>
 
           <!-- Item 5 -->
-          <button onclick="switchChapter('activity-directory'); closeDrawer('toc-drawer');" class="w-full text-left p-3 bg-surface-container-low hover:bg-surface-container-high transition-colors flex items-start justify-between border-l-2 border-secondary">
+          <button data-drawer-chapter="activity-directory" onclick="switchChapter('activity-directory'); closeDrawer('toc-drawer');" class="w-full text-left p-3 bg-surface-container-low hover:bg-surface-container-high transition-colors flex items-start justify-between border-l-2 border-secondary">
             <div>
               <span class="font-bold text-primary block text-sm font-serif">Folio 36–48: Civic Directory</span>
               <span class="text-on-surface-variant text-[11px]">32 Free Municipal Programs with Ward Search and Instant Enrollment</span>
@@ -2613,22 +2661,60 @@
       // Update Top Nav Tabs
       document.querySelectorAll('.nav-tab').forEach(tab => {
         if (tab.getAttribute('data-chapter') === chapId) {
-          tab.className = 'nav-tab px-space-sm py-space-xs transition-colors whitespace-nowrap bg-primary text-on-primary font-bold text-xs md:text-body-sm';
+          tab.className = 'nav-tab px-2.5 md:px-space-sm py-1 md:py-space-xs transition-colors whitespace-nowrap bg-primary text-on-primary font-bold text-xs md:text-body-sm shrink-0 rounded shadow-xs';
         } else {
-          tab.className = 'nav-tab px-space-sm py-space-xs transition-colors whitespace-nowrap text-on-surface-variant hover:text-on-surface text-xs md:text-body-sm';
+          tab.className = 'nav-tab px-2.5 md:px-space-sm py-1 md:py-space-xs transition-colors whitespace-nowrap text-on-surface-variant hover:text-on-surface text-xs md:text-body-sm shrink-0 rounded';
         }
       });
 
-      // Update Bottom Quick Skip Buttons
+      // Update Bottom Quick Skip Buttons (Desktop)
       document.querySelectorAll('.quick-btn').forEach(btn => {
         if (btn.getAttribute('data-chapter') === chapId) {
-          btn.className = 'quick-btn bg-primary text-on-primary font-body-sm text-body-sm px-space-sm py-space-xs';
+          btn.className = 'quick-btn bg-primary text-on-primary font-body-sm text-body-sm px-space-sm py-space-xs rounded';
         } else {
-          btn.className = 'quick-btn bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-sm text-body-sm px-space-sm py-space-xs transition-colors';
+          btn.className = 'quick-btn bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-sm text-body-sm px-space-sm py-space-xs transition-colors rounded';
         }
       });
 
-      // Update Drawer Progress Labels
+      // Update Table of Contents Drawer Active Items
+      document.querySelectorAll('[data-drawer-chapter]').forEach(item => {
+        if (item.getAttribute('data-drawer-chapter') === chapId) {
+          item.classList.add('ring-2', 'ring-secondary', 'bg-surface-container-high');
+        } else {
+          item.classList.remove('ring-2', 'ring-secondary', 'bg-surface-container-high');
+        }
+      });
+
+      // Update Mobile Navigation Dock (Prev/Next buttons, Folio Title, Progress Meter)
+      const currIdx = CHAPTERS.indexOf(chapId);
+      const prevBtn = document.getElementById('mobile-prev-btn');
+      const nextBtn = document.getElementById('mobile-next-btn');
+      if (prevBtn) prevBtn.disabled = currIdx <= 0;
+      if (nextBtn) nextBtn.disabled = currIdx >= CHAPTERS.length - 1;
+
+      const folioNum = document.getElementById('mobile-folio-num');
+      const spreadCount = document.getElementById('mobile-spread-count');
+      const spreadBar = document.getElementById('spread-progress-bar');
+      
+      const FOLIO_SHORT_NAMES = {
+        'cover-foreword': { folio: 'Folio 01–02: Foreword', count: 'Spread 1 of 5 · Tap for Index' },
+        'language-exchange': { folio: 'Folio 08–09: Language', count: 'Spread 2 of 5 · Tap for Index' },
+        'vocational-pathways': { folio: 'Folio 14–15: Skills', count: 'Spread 3 of 5 · Tap for Index' },
+        'civic-spaces': { folio: 'Folio 20–21: Commons', count: 'Spread 4 of 5 · Tap for Index' },
+        'activity-directory': { folio: 'Folio 36–48: Directory', count: 'Spread 5 of 5 · Tap for Index' }
+      };
+
+      if (folioNum && FOLIO_SHORT_NAMES[chapId]) folioNum.innerText = FOLIO_SHORT_NAMES[chapId].folio;
+      if (spreadCount && FOLIO_SHORT_NAMES[chapId]) spreadCount.innerText = FOLIO_SHORT_NAMES[chapId].count;
+      if (spreadBar) spreadBar.style.width = ((currIdx + 1) / CHAPTERS.length * 100) + '%';
+
+      // Auto-scroll active tab into view horizontally in top navigation bar
+      const activeTab = document.querySelector(`.nav-tab[data-chapter="${chapId}"]`);
+      if (activeTab) {
+        activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+
+      // Update Drawer Progress Labels (Desktop)
       if (CHAPTER_TITLES[chapId]) {
         document.getElementById('drawer-title').innerText = CHAPTER_TITLES[chapId].title;
         document.getElementById('drawer-subtitle').innerText = CHAPTER_TITLES[chapId].sub;
@@ -2637,6 +2723,46 @@
       // Scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    // Prev / Next Chapter Handlers (Mobile Dock & Keyboard)
+    function prevChapter() {
+      const currIdx = CHAPTERS.indexOf(activeChapter);
+      if (currIdx > 0) {
+        switchChapter(CHAPTERS[currIdx - 1]);
+      }
+    }
+
+    function nextChapter() {
+      const currIdx = CHAPTERS.indexOf(activeChapter);
+      if (currIdx < CHAPTERS.length - 1) {
+        switchChapter(CHAPTERS[currIdx + 1]);
+      }
+    }
+
+    // Touch Swipe Gesture Support for Mobile Page Turning
+    let touchStartX = 0;
+    let touchStartY = 0;
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+      // Don't trigger page turns if user is interacting with interactive modals, inputs, tables, or navigation tabs
+      if (e.target.closest('#pdf-modal, #syllabus-modal, #counselor-modal, #tandem-modal, #toc-drawer, #intake-modal, input, select, textarea, #program-table-container, #chapter-nav')) return;
+      const touchEndX = e.changedTouches[0].screenX;
+      const touchEndY = e.changedTouches[0].screenY;
+      const diffX = touchEndX - touchStartX;
+      const diffY = touchEndY - touchStartY;
+      // If horizontal swipe distance exceeds 60px and is predominantly horizontal
+      if (Math.abs(diffX) > 60 && Math.abs(diffX) > Math.abs(diffY) * 1.5) {
+        if (diffX < 0) {
+          nextChapter();
+        } else {
+          prevChapter();
+        }
+      }
+    }, { passive: true });
 
     // View Mode Toggle (Spread vs Single)
     function setViewMode(mode) {
@@ -2669,11 +2795,10 @@
     // Keyboard navigation
     window.addEventListener('keydown', (e) => {
       if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
-      const currIdx = CHAPTERS.indexOf(activeChapter);
-      if (e.key === 'ArrowRight' && currIdx < CHAPTERS.length - 1) {
-        switchChapter(CHAPTERS[currIdx + 1]);
-      } else if (e.key === 'ArrowLeft' && currIdx > 0) {
-        switchChapter(CHAPTERS[currIdx - 1]);
+      if (e.key === 'ArrowRight') {
+        nextChapter();
+      } else if (e.key === 'ArrowLeft') {
+        prevChapter();
       }
     });
 
