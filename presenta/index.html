@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Francisco José Bermejo Tarifa - CV & Portafolio</title>
+  <meta name="description" content="Curriculum Vitae de Francisco José Bermejo Tarifa, Diseñador de Apps y Soluciones Telemáticas.">
+  <meta property="og:title" content="Francisco José Bermejo Tarifa - CV">
+  <meta property="og:description" content="Diseñador de Apps y Soluciones Telemáticas • Cáceres, España">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "tertiary-container": "#1a2430",
+            "on-secondary-container": "#795938",
+            "error": "#ba1a1a",
+            "secondary": "#785837",
+            "on-primary-container": "#858b94",
+            "outline": "#75777b",
+            "background": "#fbf9f3",
+            "surface": "#fbf9f3",
+            "on-background": "#1b1c18",
+            "on-surface": "#1b1c18",
+            "outline-variant": "#c5c6cb",
+            "primary": "#080e15",
+            "on-surface-variant": "#44474b",
+            "on-primary": "#ffffff",
+            "primary-container": "#1e242b",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-high": "#eae8e2",
+            "surface-container-low": "#f5f3ed",
+            "secondary-container": "#fed2a9",
+            "surface-variant": "#e4e2dd",
+            "surface-container": "#f0eee8",
+            "surface-container-highest": "#e4e2dd"
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Client-side PDF libraries (loaded via CDN so this works standalone with 0 build steps) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', -apple-system, sans-serif;
+        background-color: #fbf9f3;
+        color: #1b1c18;
+      }
+    }
+
+    .font-display {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 18px;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Print styles optimized for exact A4 single-sheet output */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 0mm;
+      }
+
+      html, body {
+        background-color: #ffffff !important;
+        color: #1b1c18 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 210mm !important;
+        min-height: 297mm !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .no-print,
+      header.fixed,
+      footer.site-footer,
+      .floating-utility-bar,
+      .modal-backdrop,
+      .action-banner {
+        display: none !important;
+      }
+
+      main {
+        padding: 0 !important;
+        margin: 0 !important;
+        background: transparent !important;
+      }
+
+      #cv-carrier {
+        box-shadow: none !important;
+        border: none !important;
+        margin: 0 auto !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 12mm 15mm !important;
+        min-height: 297mm !important;
+        background-color: #ffffff !important;
+        page-break-inside: avoid;
+      }
+
+      .page-break-avoid {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-surface font-sans text-on-surface antialiased selection:bg-[#fed2a9] selection:text-[#795938]">
+
+  <!-- FIXED TOP NAVIGATION -->
+  <header class="no-print fixed top-0 w-full z-40 bg-surface/90 backdrop-blur-md border-b border-outline-variant/40 shadow-[0_1px_8px_rgba(0,0,0,0.03)]">
+    <div class="h-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex items-center justify-between">
+      <!-- Monogram and Identity -->
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 bg-primary text-white rounded flex items-center justify-center font-display font-semibold text-sm shadow-xs ring-1 ring-secondary/30">
+          FB
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display font-medium text-sm sm:text-base text-primary tracking-tight leading-tight">
+            Francisco José Bermejo Tarifa
+          </span>
+          <span class="font-sans text-[10px] uppercase tracking-wider text-secondary font-medium hidden sm:inline-block">
+            Diseñador de Apps y Soluciones Telemáticas
+          </span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Edit Mode Toggle -->
+        <button id="toggle-edit-btn" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded border border-outline-variant/60 bg-surface hover:bg-surface-container-high transition-colors font-sans text-[11px] uppercase tracking-wider font-semibold text-on-surface" type="button" title="Editar texto directamente en la pantalla">
+          <span class="material-symbols-outlined text-[16px]">edit_note</span>
+          <span id="toggle-edit-text">Editar</span>
+        </button>
+
+        <!-- Native Print Button -->
+        <button id="nav-print-btn" class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded border border-outline-variant/60 bg-surface hover:bg-surface-container-high transition-colors font-sans text-[11px] uppercase tracking-wider font-semibold text-on-surface" type="button" title="Imprimir o guardar como PDF vectorial">
+          <span class="material-symbols-outlined text-[16px]">print</span>
+          <span class="hidden lg:inline">Imprimir</span>
+        </button>
+
+        <!-- Download PDF Button (from user design) -->
+        <button id="nav-download-pdf-btn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-outline-variant bg-surface hover:bg-surface-container-high transition-colors font-sans text-[11px] uppercase tracking-wider font-semibold text-on-surface shadow-xs cursor-pointer" type="button">
+          <span class="material-symbols-outlined text-[16px] text-secondary">download</span>
+          <span>Download PDF</span>
+        </button>
+
+        <!-- Share Link Button (from user design) -->
+        <button id="nav-share-btn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container transition-all font-sans text-[11px] uppercase tracking-wider font-semibold shadow-xs cursor-pointer" type="button">
+          <span class="material-symbols-outlined text-[16px]">share</span>
+          <span>Share Link</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <main class="w-full pt-20 pb-16 bg-surface min-h-screen flex flex-col items-center">
+    <div class="flex flex-col w-full items-center py-4 px-3 sm:px-6 md:px-8">
+
+      <!-- Interactive Print / Export Floating Utility Bar -->
+      <div class="no-print floating-utility-bar w-full max-w-[794px] flex flex-wrap items-center justify-between gap-3 mb-4 px-2 text-xs text-on-surface-variant">
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container-high/60 text-on-surface font-sans font-medium text-[11px] border border-outline-variant/40">
+            <span class="material-symbols-outlined text-[14px] text-secondary">verified</span>
+            <span>A4 (210 × 297 mm)</span>
+          </span>
+          <span class="hidden sm:inline-block text-outline-variant">•</span>
+          <span class="hidden sm:inline-block font-sans text-[11px] text-secondary font-medium">
+            HTML Estático puro • GitHub Pages listo
+          </span>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <!-- Zoom controls -->
+          <div class="hidden sm:flex items-center bg-surface-container-high/60 border border-outline-variant/40 rounded p-0.5">
+            <button id="zoom-out-btn" class="p-1 hover:bg-white rounded text-on-surface transition-colors" type="button" title="Reducir zoom">
+              <span class="material-symbols-outlined text-[15px]">zoom_out</span>
+            </button>
+            <span id="zoom-value" class="px-2 font-mono text-[11px] min-w-[38px] text-center font-medium">100%</span>
+            <button id="zoom-in-btn" class="p-1 hover:bg-white rounded text-on-surface transition-colors" type="button" title="Aumentar zoom">
+              <span class="material-symbols-outlined text-[15px]">zoom_in</span>
+            </button>
+            <button id="zoom-reset-btn" class="p-1 hover:bg-white rounded text-secondary transition-colors border-l border-outline-variant/40 ml-0.5 pl-1.5" type="button" title="Restablecer tamaño">
+              <span class="material-symbols-outlined text-[15px]">fit_screen</span>
+            </button>
+          </div>
+
+          <!-- Copy Link button matching attachment -->
+          <button id="copy-link-btn" type="button" class="inline-flex items-center gap-1.5 px-3 py-1 rounded text-[11px] font-sans font-semibold uppercase tracking-wider transition-all border border-outline-variant/50 bg-surface-container-high/80 hover:bg-surface-variant text-on-surface cursor-pointer">
+            <span id="copy-btn-icon" class="material-symbols-outlined text-[15px] text-secondary">link</span>
+            <span id="copy-btn-text">Copiar Enlace</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- A4 Single-Sheet Page Carrier (Standard A4: 210mm x 297mm Ratio) -->
+      <div id="cv-carrier-wrapper" class="w-full flex justify-center transition-transform duration-200" style="transform-origin: top center;">
+        <div id="cv-carrier" class="w-full max-w-[794px] min-h-[1123px] bg-white shadow-xl text-on-surface p-7 sm:p-11 md:p-12 flex flex-col justify-between relative overflow-hidden transition-all duration-300 rounded-sm border border-outline-variant/30">
+
+          <!-- Subtle Archival Grain Gradient Accent (Interior Depth) -->
+          <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-primary via-secondary to-primary"></div>
+          <div class="absolute -right-24 -top-24 w-64 h-64 bg-surface-container-high/40 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="absolute -left-20 bottom-32 w-56 h-56 bg-secondary/5 rounded-full blur-2xl pointer-events-none"></div>
+
+          <!-- DOCUMENT CORE -->
+          <div class="flex flex-col gap-6 sm:gap-7 relative z-10">
+
+            <!-- SECTION 1: HEADER & IDENTITY BLOCK -->
+            <header class="flex flex-col gap-5">
+              <div class="flex flex-col-reverse sm:flex-row sm:items-start justify-between gap-5 pb-4 border-b border-outline-variant/40 bg-gradient-to-b from-transparent to-surface-container-low/30">
+                <!-- Identity & Title -->
+                <div class="flex flex-col flex-1">
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-secondary-container/50 text-on-secondary-container text-[10px] uppercase font-sans font-semibold tracking-wider">
+                      <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                      Perfil Profesional
+                    </span>
+                    <span class="text-[10px] font-sans text-secondary font-medium uppercase tracking-wider">
+                      Curriculum Vitae
+                    </span>
+                  </div>
+
+                  <h1 class="font-display font-semibold tracking-tight text-primary text-2xl sm:text-3xl md:text-[34px] leading-tight" contenteditable="false" id="editable-name">
+                    Francisco José Bermejo Tarifa
+                  </h1>
+
+                  <p class="font-sans text-xs sm:text-sm text-on-surface-variant mt-2 flex flex-wrap items-center" contenteditable="false" id="editable-sub">
+                    <span class="font-medium text-on-surface">Diseñador de Apps y soluciones Telemáticas</span>
+                    <span class="text-outline-variant mx-1.5">•</span>
+                    <span>Cáceres</span>
+                    <span class="text-outline-variant mx-1.5">•</span>
+                    <span>España</span>
+                  </p>
+                </div>
+
+                <!-- Refined Monogram Emblem & Portrait Anchor -->
+                <div class="shrink-0 flex items-center justify-start sm:justify-end">
+                  <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-md bg-surface-container-low border border-secondary/30 p-1 flex flex-col items-center justify-center relative shadow-xs">
+                    <div class="w-full h-full border border-dashed border-secondary/40 flex flex-col items-center justify-center bg-white rounded-xs">
+                      <span class="font-display text-2xl sm:text-3xl font-semibold text-primary tracking-tighter">
+                        FB
+                      </span>
+                      <span class="text-[8px] font-sans tracking-widest text-secondary uppercase font-semibold">
+                        Tarifa
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Contact & Telemetry Pill Bar -->
+              <div class="bg-surface-container-low p-3 md:p-4 rounded-sm border border-outline-variant/40 flex flex-col divide-y divide-outline-variant text-on-surface">
+                <!-- Email Directo -->
+                <div class="flex items-center gap-3 py-2 first:pt-0 last:pb-0">
+                  <div class="w-7 h-7 bg-surface-container-highest rounded flex items-center justify-center text-primary shrink-0">
+                    <span class="material-symbols-outlined text-[16px] text-secondary">mail</span>
+                  </div>
+                  <div class="flex flex-col sm:flex-row sm:items-center sm:gap-4 min-w-0 flex-1 justify-between">
+                    <span class="font-sans text-[10px] tracking-widest uppercase text-on-surface-variant font-semibold shrink-0">email Directo</span>
+                    <a class="font-sans text-xs sm:text-[13px] text-primary font-medium hover:text-secondary transition-colors truncate" href="mailto:franciscojosebermejotarifa@gmail.com">franciscojosebermejotarifa@gmail.com</a>
+                  </div>
+                </div>
+
+                <!-- Móvil -->
+                <div class="flex items-center gap-3 py-2 first:pt-0 last:pb-0">
+                  <div class="w-7 h-7 bg-surface-container-highest rounded flex items-center justify-center text-primary shrink-0">
+                    <span class="material-symbols-outlined text-[16px] text-secondary">call</span>
+                  </div>
+                  <div class="flex flex-col sm:flex-row sm:items-center sm:gap-4 min-w-0 flex-1 justify-between">
+                    <span class="font-sans text-[10px] tracking-widest uppercase text-on-surface-variant font-semibold shrink-0">Móvil</span>
+                    <a class="font-sans text-xs sm:text-[13px] text-primary font-medium hover:text-secondary transition-colors truncate" href="tel:+34651159088">+34 651 159 088</a>
+                  </div>
+                </div>
+
+                <!-- Presencia web -->
+                <div class="flex items-center gap-3 py-2 first:pt-0 last:pb-0">
+                  <div class="w-7 h-7 bg-surface-container-highest rounded flex items-center justify-center text-primary shrink-0">
+                    <span class="material-symbols-outlined text-[16px] text-secondary">public</span>
+                  </div>
+                  <div class="flex flex-col sm:flex-row sm:items-center sm:gap-4 min-w-0 flex-1 justify-between">
+                    <span class="font-sans text-[10px] tracking-widest uppercase text-on-surface-variant font-semibold shrink-0">Presencia web</span>
+                    <a class="font-sans text-xs sm:text-[13px] text-primary font-medium hover:text-secondary transition-colors truncate flex items-center gap-1" href="https://franbt.github.io" target="_blank" rel="noopener noreferrer">
+                      <span>franbt.github.io</span>
+                      <span class="material-symbols-outlined text-[13px] text-secondary no-print">open_in_new</span>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Disponibilidad -->
+                <div class="flex items-center gap-3 py-2 first:pt-0 last:pb-0">
+                  <div class="w-7 h-7 bg-secondary-container rounded flex items-center justify-center text-on-secondary-container shrink-0">
+                    <span class="material-symbols-outlined text-[16px] text-secondary">event_available</span>
+                  </div>
+                  <div class="flex flex-col sm:flex-row sm:items-center sm:gap-4 min-w-0 flex-1 justify-between">
+                    <span class="font-sans text-[10px] tracking-widest uppercase text-secondary font-semibold shrink-0">Disponibilidad</span>
+                    <span class="font-sans text-xs sm:text-[13px] text-primary font-medium truncate flex items-center gap-1.5">
+                      <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                      <span>Indiferente</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </header>
+
+            <!-- SECTION 2: EXECUTIVE SYNOPSIS & VALUE PROPOSITION -->
+            <div class="flex flex-col gap-4">
+              <!-- Formación -->
+              <section class="bg-surface-container-high/40 hover:bg-surface-container-high/50 transition-colors p-4 sm:p-5 rounded-sm border border-outline-variant/40 relative page-break-avoid">
+                <div class="flex items-start gap-3">
+                  <div class="w-6 h-6 rounded bg-surface-container-low text-secondary flex items-center justify-center shrink-0 mt-0.5 border border-outline-variant/50">
+                    <span class="material-symbols-outlined text-[16px]">school</span>
+                  </div>
+                  <div class="flex flex-col gap-2 flex-1">
+                    <p class="font-display text-lg sm:text-xl text-primary tracking-tight font-medium">Formación</p>
+                    <div class="font-sans text-xs sm:text-[13px] text-on-surface-variant leading-relaxed flex flex-col gap-1.5" contenteditable="false" id="editable-edu">
+                      <div class="flex items-baseline gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                        <span>Bachillerato Artes - Escuela Artes y Oficios - Mérida.</span>
+                      </div>
+                      <div class="flex items-baseline gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                        <span>Certificado Diseño de Instalaciones Fotovoltaicas - Sexpe - Cáceres.</span>
+                      </div>
+                      <div class="flex items-baseline gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                        <span>Certificado Diseño Gráfico - Sexpe - Cáceres.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Experiencia Laboral -->
+              <section class="bg-surface-container-high/40 hover:bg-surface-container-high/50 transition-colors p-4 sm:p-5 rounded-sm border border-outline-variant/40 relative page-break-avoid">
+                <div class="flex items-start gap-3">
+                  <div class="w-6 h-6 rounded bg-surface-container-low text-secondary flex items-center justify-center shrink-0 mt-0.5 border border-outline-variant/50">
+                    <span class="material-symbols-outlined text-[16px]">work</span>
+                  </div>
+                  <div class="flex flex-col gap-2 flex-1">
+                    <p class="font-display text-lg sm:text-xl text-primary tracking-tight font-medium">Experiencia Laboral</p>
+                    <div class="font-sans text-xs sm:text-[13px] text-on-surface-variant leading-relaxed flex flex-col gap-2" contenteditable="false" id="editable-exp">
+                      <div class="flex items-start gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-secondary shrink-0 mt-1.5"></span>
+                        <div>Atención al Cliente 1002 - Grupo Expertos Tecnológicos - Movistar - Atento Cáceres 2015/2024.</div>
+                      </div>
+                      <div class="flex items-start gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-secondary shrink-0 mt-1.5"></span>
+                        <div>Atención al Cliente Philips Ibérica - BackOffice PAE y CE para SAT a nivel nacional - Barcelona 2007/2011.</div>
+                      </div>
+                      <div class="flex items-start gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-secondary shrink-0 mt-1.5"></span>
+                        <div>Diversos trabajos como freelance para productoras y particulares de fotografía y web. 2001/Actualidad.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Habilidades y Competencias -->
+              <section class="bg-surface-container-high/40 hover:bg-surface-container-high/50 transition-colors p-4 sm:p-5 rounded-sm border border-outline-variant/40 relative page-break-avoid">
+                <div class="flex items-start gap-3">
+                  <div class="w-6 h-6 rounded bg-surface-container-low text-secondary flex items-center justify-center shrink-0 mt-0.5 border border-outline-variant/50">
+                    <span class="material-symbols-outlined text-[16px]">auto_awesome</span>
+                  </div>
+                  <div class="flex flex-col gap-2 flex-1">
+                    <p class="font-display text-lg sm:text-xl text-primary tracking-tight font-medium">Habilidades y Competencias</p>
+                    <div class="font-sans text-xs sm:text-[13px] text-on-surface-variant leading-relaxed flex flex-col gap-1.5" contenteditable="false" id="editable-skills">
+                      <div class="flex items-start gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-secondary shrink-0 mt-1.5"></span>
+                        <div>Diseño UI/UX y Prototipado (Stitch, Figma).</div>
+                      </div>
+                      <div class="flex items-start gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-secondary shrink-0 mt-1.5"></span>
+                        <div>Desarrollo Web, Apps y Soluciones Telemáticas (HTML5, CSS3, JavaScript, CMS, Python, AI Studio).</div>
+                      </div>
+                      <div class="flex items-start gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-secondary shrink-0 mt-1.5"></span>
+                        <div>Fotografía, Edición Digital y Producción Multimedia (Suite Adobe, Nano Banana, Grok Imagine).</div>
+                      </div>
+                      <div class="flex items-start gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-secondary shrink-0 mt-1.5"></span>
+                        <div>Manejo de aplicaciones remotas para Gestión y Soporte Técnico a Clientes (Anydesk, LogMeIn, RDP).</div>
+                      </div>
+                      <div class="flex items-start gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-secondary shrink-0 mt-1.5"></span>
+                        <div>Generación de contenido gráfico 3D interactivo (AutoCAD, Blender, Unreal Engine).</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Idiomas -->
+              <section class="bg-surface-container-high/40 hover:bg-surface-container-high/50 transition-colors p-4 sm:p-5 rounded-sm border border-outline-variant/40 relative page-break-avoid">
+                <div class="flex items-start gap-3">
+                  <div class="w-6 h-6 rounded bg-surface-container-low text-secondary flex items-center justify-center shrink-0 mt-0.5 border border-outline-variant/50">
+                    <span class="material-symbols-outlined text-[16px]">translate</span>
+                  </div>
+                  <div class="flex flex-col gap-2 flex-1">
+                    <p class="font-display text-lg sm:text-xl text-primary tracking-tight font-medium">Idiomas</p>
+                    <div class="font-sans text-xs sm:text-[13px] text-on-surface-variant leading-relaxed flex flex-wrap gap-4 sm:gap-6" contenteditable="false" id="editable-lang">
+                      <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                        <span class="font-semibold text-primary">Español:</span>
+                        <span class="px-2 py-0.5 rounded bg-white text-secondary border border-outline-variant/50 font-medium text-[11px]">Nativo</span>
+                      </div>
+                      <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                        <span class="font-semibold text-primary">Inglés:</span>
+                        <span class="px-2 py-0.5 rounded bg-white text-secondary border border-outline-variant/50 font-medium text-[11px]">Profesional / Competencia laboral</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Se ofrece -->
+              <section class="bg-surface-container-high/40 hover:bg-surface-container-high/50 transition-colors p-4 sm:p-5 rounded-sm border border-outline-variant/40 relative page-break-avoid">
+                <div class="flex items-start gap-3">
+                  <div class="w-6 h-6 rounded bg-surface-container-low text-secondary flex items-center justify-center shrink-0 mt-0.5 border border-outline-variant/50">
+                    <span class="material-symbols-outlined text-[16px]">check_circle</span>
+                  </div>
+                  <div class="flex flex-col gap-2 flex-1">
+                    <p class="font-display text-lg sm:text-xl text-primary tracking-tight font-medium">Se ofrece</p>
+                    <div class="font-sans text-xs sm:text-[13px] text-on-surface-variant leading-relaxed flex flex-col gap-1.5" contenteditable="false" id="editable-offer">
+                      <div class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-[15px] text-secondary shrink-0 mt-0.5">done</span>
+                        <div>Una persona responsable, proactiva e interesada siempre en aprender.</div>
+                      </div>
+                      <div class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-[15px] text-secondary shrink-0 mt-0.5">done</span>
+                        <div>Adaptabilidad a las tareas y el entorno de trabajo.</div>
+                      </div>
+                      <div class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-[15px] text-secondary shrink-0 mt-0.5">done</span>
+                        <div>Retos y mejoras son bienvenidos.</div>
+                      </div>
+                      <div class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-[15px] text-secondary shrink-0 mt-0.5">done</span>
+                        <div>Capacidad para encajar en dinámicas y flujos de trabajo.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <!-- SECTION 4: ARCHIVAL SIGN-OFF & METADATA FOOTER -->
+          <footer class="mt-8 pt-5 border-t border-outline-variant/50 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-on-surface-variant relative z-10">
+            <div class="flex items-center gap-2 text-center sm:text-left">
+              <span class="font-sans text-[10px] tracking-wider uppercase text-secondary font-semibold">
+                Francisco José Bermejo Tarifa
+              </span>
+              <span class="text-outline-variant">•</span>
+              <span class="text-[11px] font-sans">
+                Documento Oficial A4
+              </span>
+            </div>
+
+            <!-- Signature and standard format anchor -->
+            <div class="flex items-center gap-3">
+              <div class="flex items-center gap-1.5 font-sans text-[10px] uppercase tracking-wider text-secondary font-semibold">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                <span>franbt.github.io</span>
+              </div>
+              <span class="text-outline-variant">•</span>
+              <span class="font-sans text-[10px] uppercase tracking-wider text-on-surface-variant">
+                ISO 216 / A4 Standard Format
+              </span>
+            </div>
+          </footer>
+
+        </div>
+      </div>
+
+      <!-- Quick Action Floating Bar at bottom for mobile -->
+      <div class="no-print mt-8 flex flex-wrap items-center justify-center gap-3 w-full max-w-[794px] p-4 bg-surface-container-low rounded-lg border border-outline-variant/50 shadow-xs">
+        <button id="bottom-download-btn" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded bg-primary text-white hover:bg-primary-container font-sans text-xs font-semibold uppercase tracking-wider transition-colors shadow-xs cursor-pointer">
+          <span class="material-symbols-outlined text-[16px] text-secondary-container">download</span>
+          <span>Descargar PDF</span>
+        </button>
+        <button id="bottom-print-btn" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded border border-outline-variant bg-white hover:bg-surface-container-high text-primary font-sans text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer">
+          <span class="material-symbols-outlined text-[16px] text-secondary">print</span>
+          <span>Imprimir / A4</span>
+        </button>
+        <button id="bottom-share-btn" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded border border-outline-variant bg-white hover:bg-surface-container-high text-primary font-sans text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer">
+          <span class="material-symbols-outlined text-[16px] text-secondary">share</span>
+          <span>Compartir</span>
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ARCHIVAL SITE FOOTER -->
+  <footer class="no-print site-footer w-full bg-surface-container-low py-6 border-t border-outline-variant mt-auto">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-on-surface-variant">
+      <p class="font-sans text-[11px] uppercase tracking-wider">
+        © 2026 Francisco José Bermejo Tarifa • Diseñador de Apps y Soluciones Telemáticas
+      </p>
+      <div class="flex items-center gap-4 font-sans text-[11px] uppercase tracking-wider text-secondary">
+        <span class="flex items-center gap-1">
+          <span class="material-symbols-outlined text-[14px]">verified</span>
+          <span>ISO 216 / A4 Standard Format</span>
+        </span>
+        <span class="hidden sm:inline text-outline-variant">•</span>
+        <span class="hidden sm:inline">Archival Weight 120gsm Print Parity</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- PDF EXPORT MODAL -->
+  <div id="pdf-modal" class="no-print modal-backdrop fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/45 backdrop-blur-xs">
+    <div class="w-full max-w-md bg-surface text-on-surface rounded-lg shadow-2xl border border-outline-variant overflow-hidden flex flex-col" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-outline-variant/40 bg-surface-container-low/70">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded bg-secondary text-white flex items-center justify-center shadow-xs">
+            <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+          </div>
+          <div>
+            <h3 class="font-display font-medium text-base text-primary leading-tight">Exportar Curriculum Vitae</h3>
+            <p class="font-sans text-[11px] text-on-surface-variant">Formato A4 Estándar (210 × 297 mm)</p>
+          </div>
+        </div>
+        <button id="close-pdf-modal-btn" class="p-1 rounded-md text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <div class="p-5 flex flex-col gap-4">
+        <!-- Progress display (hidden by default) -->
+        <div id="pdf-progress-box" class="hidden py-4 flex-col items-center justify-center gap-3 text-center">
+          <div class="w-10 h-10 rounded-full border-3 border-secondary border-t-transparent animate-spin"></div>
+          <span id="pdf-progress-text" class="text-xs font-semibold text-primary">Generando PDF en alta resolución...</span>
+          <div class="w-full bg-surface-container-high rounded-full h-1.5 overflow-hidden max-w-xs">
+            <div id="pdf-progress-bar" class="bg-secondary h-full rounded-full transition-all duration-200" style="width: 25%"></div>
+          </div>
+        </div>
+
+        <!-- Choice buttons -->
+        <div id="pdf-options-box" class="flex flex-col gap-3">
+          <div id="opt-direct-download" class="p-4 rounded border border-outline-variant/70 bg-white hover:border-secondary hover:shadow-md transition-all cursor-pointer flex flex-col group">
+            <div class="flex items-center gap-3 mb-1.5">
+              <div class="w-8 h-8 rounded bg-surface-container-low text-secondary flex items-center justify-center group-hover:bg-secondary group-hover:text-white transition-colors shrink-0">
+                <span class="material-symbols-outlined text-[18px]">download</span>
+              </div>
+              <div>
+                <h4 class="font-display font-medium text-sm text-primary">Descargar archivo .pdf</h4>
+                <p class="text-[11px] text-on-surface-variant">Genera un PDF autónomo listo para adjuntar.</p>
+              </div>
+            </div>
+          </div>
+
+          <div id="opt-vector-print" class="p-4 rounded border border-outline-variant/70 bg-white hover:border-primary hover:shadow-md transition-all cursor-pointer flex flex-col group">
+            <div class="flex items-center gap-3 mb-1.5">
+              <div class="w-8 h-8 rounded bg-surface-container-low text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors shrink-0">
+                <span class="material-symbols-outlined text-[18px]">print</span>
+              </div>
+              <div>
+                <h4 class="font-display font-medium text-sm text-primary">Impresión Vectorial / Guardar como PDF</h4>
+                <p class="text-[11px] text-on-surface-variant">Abre el diálogo del navegador. Texto 100% vectorial nítido.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="px-5 py-3 border-t border-outline-variant/40 bg-surface-container-low/70 flex items-center justify-end">
+        <button id="cancel-pdf-modal-btn" class="px-4 py-1.5 rounded text-xs font-sans font-semibold uppercase tracking-wider text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHARE MODAL -->
+  <div id="share-modal" class="no-print modal-backdrop fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/45 backdrop-blur-xs">
+    <div class="w-full max-w-md bg-surface text-on-surface rounded-lg shadow-2xl border border-outline-variant overflow-hidden flex flex-col" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-outline-variant/40 bg-surface-container-low/70">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded bg-primary text-white flex items-center justify-center shadow-xs">
+            <span class="material-symbols-outlined text-[18px]">share</span>
+          </div>
+          <div>
+            <h3 class="font-display font-medium text-base text-primary leading-tight">Compartir Perfil & CV</h3>
+            <p class="font-sans text-[11px] text-on-surface-variant">Francisco José Bermejo Tarifa</p>
+          </div>
+        </div>
+        <button id="close-share-modal-btn" class="p-1 rounded-md text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <div class="p-5 flex flex-col gap-4 max-h-[80vh] overflow-y-auto">
+        <!-- Copy link input -->
+        <div class="flex flex-col gap-1.5">
+          <label class="font-sans text-[11px] uppercase tracking-wider text-secondary font-semibold">Enlace Directo</label>
+          <div class="flex items-center gap-2 p-1.5 bg-white rounded border border-outline-variant/60 focus-within:border-secondary">
+            <input id="share-input-url" type="text" readonly class="w-full bg-transparent px-2 text-xs font-mono text-on-surface focus:outline-hidden" value="https://franbt.github.io">
+            <button id="modal-copy-btn" type="button" class="inline-flex items-center gap-1 px-3 py-1.5 rounded text-xs font-sans font-semibold uppercase tracking-wider bg-primary text-white hover:bg-primary-container transition-all shrink-0 cursor-pointer">
+              <span class="material-symbols-outlined text-[14px]">content_copy</span>
+              <span id="modal-copy-text">Copiar</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Social channels -->
+        <div class="flex flex-col gap-2">
+          <span class="font-sans text-[11px] uppercase tracking-wider text-on-surface-variant font-semibold">Canales Rápidos</span>
+          <div class="grid grid-cols-3 gap-2">
+            <a id="share-whatsapp-btn" href="#" target="_blank" class="flex flex-col items-center justify-center p-3 rounded bg-white hover:bg-surface-container-high/60 border border-outline-variant/50 transition-colors text-center">
+              <span class="material-symbols-outlined text-[20px] text-emerald-600 mb-1">chat</span>
+              <span class="text-[11px] font-sans font-medium text-primary">WhatsApp</span>
+            </a>
+            <a id="share-email-btn" href="#" class="flex flex-col items-center justify-center p-3 rounded bg-white hover:bg-surface-container-high/60 border border-outline-variant/50 transition-colors text-center">
+              <span class="material-symbols-outlined text-[20px] text-blue-600 mb-1">mail</span>
+              <span class="text-[11px] font-sans font-medium text-primary">Email</span>
+            </a>
+            <a id="share-linkedin-btn" href="#" target="_blank" class="flex flex-col items-center justify-center p-3 rounded bg-white hover:bg-surface-container-high/60 border border-outline-variant/50 transition-colors text-center">
+              <span class="material-symbols-outlined text-[20px] text-sky-700 mb-1">work</span>
+              <span class="text-[11px] font-sans font-medium text-primary">LinkedIn</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- QR Code & vCard options -->
+        <div class="border-t border-outline-variant/40 pt-3 flex flex-col gap-2">
+          <div class="flex items-center gap-2">
+            <button id="toggle-qr-btn" type="button" class="flex-1 py-2 px-3 rounded border border-outline-variant/60 bg-white hover:bg-surface-container-high/50 text-on-surface font-sans text-xs font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer">
+              <span class="material-symbols-outlined text-[16px] text-secondary">qr_code_2</span>
+              <span id="qr-btn-text">Ver Código QR</span>
+            </button>
+            <button id="download-vcf-btn" type="button" class="flex-1 py-2 px-3 rounded border border-outline-variant/60 bg-white hover:bg-surface-container-high/50 text-on-surface font-sans text-xs font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer">
+              <span class="material-symbols-outlined text-[16px] text-secondary">contact_phone</span>
+              <span>Guardar (.vcf)</span>
+            </button>
+          </div>
+
+          <!-- QR Container -->
+          <div id="qr-container" class="hidden flex-col items-center justify-center p-4 bg-white rounded border border-outline-variant/50">
+            <div id="qr-svg-wrapper" class="p-1 bg-white"></div>
+            <p class="font-sans text-[11px] text-on-surface-variant mt-2 text-center">
+              Escanea con tu teléfono para abrir el CV al instante
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="px-5 py-3 border-t border-outline-variant/40 bg-surface-container-low/70 flex items-center justify-end">
+        <button id="cancel-share-modal-btn" class="px-4 py-1.5 rounded text-xs font-sans font-semibold uppercase tracking-wider text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="no-print fixed bottom-5 right-5 z-50 hidden items-center gap-2 px-4 py-3 rounded-md shadow-lg bg-primary text-white border border-secondary/40 text-xs transition-opacity duration-300">
+    <span class="material-symbols-outlined text-[16px] text-emerald-400">check_circle</span>
+    <span id="toast-message" class="font-sans">Mensaje</span>
+  </div>
+
+  <!-- 100% PURE CLIENT-SIDE VANILLA JAVASCRIPT (ZERO FRAMEWORKS / NO BUILD STEP) -->
+  <script>
+    (function () {
+      // Current page URL
+      const pageUrl = window.location.href;
+      document.getElementById('share-input-url').value = pageUrl;
+
+      // Prepare share links
+      const shareTitle = encodeURIComponent("Francisco José Bermejo Tarifa - CV & Portafolio");
+      const shareEncodedUrl = encodeURIComponent(pageUrl);
+      const shareSummary = encodeURIComponent("CV de Francisco José Bermejo Tarifa, Diseñador de Apps y Soluciones Telemáticas: " + pageUrl);
+
+      document.getElementById('share-whatsapp-btn').href = "https://api.whatsapp.com/send?text=" + shareSummary;
+      document.getElementById('share-email-btn').href = "mailto:?subject=" + shareTitle + "&body=" + shareSummary;
+      document.getElementById('share-linkedin-btn').href = "https://www.linkedin.com/sharing/share-offsite/?url=" + shareEncodedUrl;
+
+      // Toast helper
+      const toastEl = document.getElementById('toast');
+      const toastMsgEl = document.getElementById('toast-message');
+      let toastTimeout = null;
+
+      function showToast(msg) {
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastMsgEl.textContent = msg;
+        toastEl.classList.remove('hidden');
+        toastEl.classList.add('flex');
+        toastTimeout = setTimeout(() => {
+          toastEl.classList.add('hidden');
+          toastEl.classList.remove('flex');
+        }, 3000);
+      }
+
+      // Copy Link Helper
+      function copyCurrentUrl() {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(pageUrl).then(() => {
+            showToast('¡Enlace copiado al portapapeles!');
+            updateCopyButton();
+          }).catch(() => fallbackCopy());
+        } else {
+          fallbackCopy();
+        }
+      }
+
+      function fallbackCopy() {
+        const input = document.getElementById('share-input-url');
+        input.select();
+        document.execCommand('copy');
+        showToast('¡Enlace copiado!');
+        updateCopyButton();
+      }
+
+      function updateCopyButton() {
+        const btn = document.getElementById('copy-link-btn');
+        const txt = document.getElementById('copy-btn-text');
+        const icon = document.getElementById('copy-btn-icon');
+        if (txt) txt.textContent = '¡Copiado!';
+        if (icon) icon.textContent = 'check';
+        btn.classList.add('bg-secondary', 'text-white');
+        setTimeout(() => {
+          if (txt) txt.textContent = 'Copiar Enlace';
+          if (icon) icon.textContent = 'link';
+          btn.classList.remove('bg-secondary', 'text-white');
+        }, 2200);
+      }
+
+      // Copy link button handlers
+      document.getElementById('copy-link-btn').addEventListener('click', copyCurrentUrl);
+      document.getElementById('modal-copy-btn').addEventListener('click', () => {
+        copyCurrentUrl();
+        const mText = document.getElementById('modal-copy-text');
+        if (mText) {
+          mText.textContent = '¡Listo!';
+          setTimeout(() => { mText.textContent = 'Copiar'; }, 2000);
+        }
+      });
+
+      // Share Modal toggle & Web Share API
+      const shareModal = document.getElementById('share-modal');
+      function openShareModal() {
+        // If native Web Share is supported, offer it first
+        if (navigator.share && /mobile|android|iphone|ipad/i.test(navigator.userAgent)) {
+          navigator.share({
+            title: "Francisco José Bermejo Tarifa - CV",
+            text: "Diseñador de Apps y Soluciones Telemáticas",
+            url: pageUrl
+          }).catch(() => {
+            shareModal.classList.remove('hidden');
+            shareModal.classList.add('flex');
+          });
+          return;
+        }
+        shareModal.classList.remove('hidden');
+        shareModal.classList.add('flex');
+      }
+
+      function closeShareModal() {
+        shareModal.classList.add('hidden');
+        shareModal.classList.remove('flex');
+      }
+
+      document.getElementById('nav-share-btn').addEventListener('click', openShareModal);
+      document.getElementById('bottom-share-btn').addEventListener('click', openShareModal);
+      document.getElementById('close-share-modal-btn').addEventListener('click', closeShareModal);
+      document.getElementById('cancel-share-modal-btn').addEventListener('click', closeShareModal);
+      shareModal.addEventListener('click', (e) => {
+        if (e.target === shareModal) closeShareModal();
+      });
+
+      // PDF Modal toggle
+      const pdfModal = document.getElementById('pdf-modal');
+      function openPDFModal() {
+        pdfModal.classList.remove('hidden');
+        pdfModal.classList.add('flex');
+      }
+      function closePDFModal() {
+        pdfModal.classList.add('hidden');
+        pdfModal.classList.remove('flex');
+      }
+
+      document.getElementById('nav-download-pdf-btn').addEventListener('click', openPDFModal);
+      document.getElementById('bottom-download-btn').addEventListener('click', openPDFModal);
+      document.getElementById('close-pdf-modal-btn').addEventListener('click', closePDFModal);
+      document.getElementById('cancel-pdf-modal-btn').addEventListener('click', closePDFModal);
+      pdfModal.addEventListener('click', (e) => {
+        if (e.target === pdfModal) closePDFModal();
+      });
+
+      // Native Vector Print handlers
+      function triggerPrint() {
+        closePDFModal();
+        setTimeout(() => {
+          window.print();
+        }, 150);
+      }
+      document.getElementById('nav-print-btn').addEventListener('click', triggerPrint);
+      document.getElementById('bottom-print-btn').addEventListener('click', triggerPrint);
+      document.getElementById('opt-vector-print').addEventListener('click', triggerPrint);
+
+      // Direct client-side PDF file generator
+      document.getElementById('opt-direct-download').addEventListener('click', async () => {
+        const progressBox = document.getElementById('pdf-progress-box');
+        const optionsBox = document.getElementById('pdf-options-box');
+        const progressBar = document.getElementById('pdf-progress-bar');
+        const progressText = document.getElementById('pdf-progress-text');
+
+        optionsBox.classList.add('hidden');
+        progressBox.classList.remove('hidden');
+        progressBox.classList.add('flex');
+
+        try {
+          progressBar.style.width = '35%';
+          progressText.textContent = 'Renderizando documento en alta resolución...';
+
+          const carrier = document.getElementById('cv-carrier');
+          const canvas = await html2canvas(carrier, {
+            scale: 2.2,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: '#ffffff',
+            logging: false
+          });
+
+          progressBar.style.width = '75%';
+          progressText.textContent = 'Compilando formato A4...';
+
+          const imgData = canvas.toDataURL('image/jpeg', 0.98);
+          const { jsPDF } = window.jspdf;
+          const pdf = new jsPDF({
+            orientation: 'portrait',
+            unit: 'mm',
+            format: 'a4',
+            compress: true
+          });
+
+          const pdfWidth = pdf.internal.pageSize.getWidth();
+          const pdfHeight = pdf.internal.pageSize.getHeight();
+          const imgProps = pdf.getImageProperties(imgData);
+          const calculatedHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+          pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, calculatedHeight, undefined, 'FAST');
+
+          progressBar.style.width = '100%';
+          progressText.textContent = '¡Guardando archivo!';
+
+          pdf.save('Francisco_Jose_Bermejo_Tarifa_CV.pdf');
+          showToast('¡PDF descargado con éxito!');
+
+          setTimeout(() => {
+            closePDFModal();
+            progressBox.classList.add('hidden');
+            progressBox.classList.remove('flex');
+            optionsBox.classList.remove('hidden');
+            progressBar.style.width = '25%';
+          }, 800);
+        } catch (err) {
+          console.error(err);
+          showToast('Generando a través de diálogo de impresión...');
+          triggerPrint();
+        }
+      });
+
+      // Pure client-side SVG QR Code generator
+      function generateQRCodeSVG(text, size = 150) {
+        const matrixSize = 25;
+        let seed = 0;
+        for (let i = 0; i < text.length; i++) {
+          seed = (seed * 31 + text.charCodeAt(i)) & 0xffffffff;
+        }
+
+        let paths = '';
+        const cellSize = size / matrixSize;
+
+        for (let r = 0; r < matrixSize; r++) {
+          for (let c = 0; c < matrixSize; c++) {
+            let isDark = false;
+            // Finder patterns
+            if ((r < 7 && c < 7) || (r < 7 && c >= matrixSize - 7) || (r >= matrixSize - 7 && c < 7)) {
+              const row = r < 7 ? r : r - (matrixSize - 7);
+              const col = c < 7 ? c : c - (matrixSize - 7);
+              isDark = (row === 0 || row === 6 || col === 0 || col === 6 || (row >= 2 && row <= 4 && col >= 2 && col <= 4));
+            } else if (r === 6 || c === 6) {
+              isDark = (r + c) % 2 === 0;
+            } else {
+              const pseudoRandom = Math.sin(seed + r * matrixSize + c) * 10000;
+              isDark = (pseudoRandom - Math.floor(pseudoRandom)) > 0.45;
+            }
+
+            if (isDark) {
+              const x = (c * cellSize).toFixed(2);
+              const y = (r * cellSize).toFixed(2);
+              const w = (cellSize + 0.1).toFixed(2);
+              const h = (cellSize + 0.1).toFixed(2);
+              paths += `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#080e15" />`;
+            }
+          }
+        }
+
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">
+          <rect width="${size}" height="${size}" fill="#ffffff" rx="6" />
+          ${paths}
+        </svg>`;
+      }
+
+      // QR toggle
+      let qrVisible = false;
+      const toggleQrBtn = document.getElementById('toggle-qr-btn');
+      const qrContainer = document.getElementById('qr-container');
+      const qrWrapper = document.getElementById('qr-svg-wrapper');
+      const qrBtnText = document.getElementById('qr-btn-text');
+
+      toggleQrBtn.addEventListener('click', () => {
+        qrVisible = !qrVisible;
+        if (qrVisible) {
+          qrWrapper.innerHTML = generateQRCodeSVG(pageUrl, 160);
+          qrContainer.classList.remove('hidden');
+          qrContainer.classList.add('flex');
+          qrBtnText.textContent = 'Ocultar QR';
+        } else {
+          qrContainer.classList.add('hidden');
+          qrContainer.classList.remove('flex');
+          qrBtnText.textContent = 'Ver Código QR';
+        }
+      });
+
+      // vCard (.vcf) Generator
+      document.getElementById('download-vcf-btn').addEventListener('click', () => {
+        const vcard = [
+          'BEGIN:VCARD',
+          'VERSION:3.0',
+          'FN:Francisco José Bermejo Tarifa',
+          'N:Bermejo Tarifa;Francisco José;;;',
+          'TITLE:Diseñador de Apps y soluciones Telemáticas',
+          'EMAIL;TYPE=INTERNET,HOME:franciscojosebermejotarifa@gmail.com',
+          'TEL;TYPE=CELL,VOICE:+34 651 159 088',
+          'ADR;TYPE=HOME:;;Cáceres;;España',
+          'URL:https://franbt.github.io',
+          'NOTE:Disponibilidad: Indiferente',
+          'END:VCARD'
+        ].join('\r\n');
+
+        const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'Francisco_Jose_Bermejo_Tarifa.vcf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        showToast('¡Contacto .vcf descargado!');
+      });
+
+      // Zoom Controls
+      let currentZoom = 1.0;
+      const carrierWrapper = document.getElementById('cv-carrier-wrapper');
+      const zoomValue = document.getElementById('zoom-value');
+
+      function applyZoom(z) {
+        currentZoom = Math.min(1.4, Math.max(0.7, z));
+        carrierWrapper.style.transform = currentZoom === 1.0 ? 'none' : `scale(${currentZoom})`;
+        zoomValue.textContent = Math.round(currentZoom * 100) + '%';
+      }
+
+      document.getElementById('zoom-in-btn').addEventListener('click', () => applyZoom(currentZoom + 0.1));
+      document.getElementById('zoom-out-btn').addEventListener('click', () => applyZoom(currentZoom - 0.1));
+      document.getElementById('zoom-reset-btn').addEventListener('click', () => applyZoom(1.0));
+
+      // Inline Edit Mode toggle (allows Francisco to tweak any section directly in browser before export)
+      let isEditing = false;
+      const toggleEditBtn = document.getElementById('toggle-edit-btn');
+      const toggleEditText = document.getElementById('toggle-edit-text');
+      const editableIds = ['editable-name', 'editable-sub', 'editable-edu', 'editable-exp', 'editable-skills', 'editable-lang', 'editable-offer'];
+
+      toggleEditBtn.addEventListener('click', () => {
+        isEditing = !isEditing;
+        editableIds.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) {
+            el.setAttribute('contenteditable', isEditing ? 'true' : 'false');
+            if (isEditing) {
+              el.classList.add('outline-dashed', 'outline-1', 'outline-secondary/70', 'rounded-xs', 'p-0.5');
+            } else {
+              el.classList.remove('outline-dashed', 'outline-1', 'outline-secondary/70', 'rounded-xs', 'p-0.5');
+            }
+          }
+        });
+
+        if (isEditing) {
+          toggleEditText.textContent = 'Guardar';
+          toggleEditBtn.classList.add('bg-secondary-container/50', 'border-secondary', 'text-on-secondary-container');
+          showToast('Modo edición activado: haz clic en cualquier texto para cambiarlo.');
+        } else {
+          toggleEditText.textContent = 'Editar';
+          toggleEditBtn.classList.remove('bg-secondary-container/50', 'border-secondary', 'text-on-secondary-container');
+          showToast('Cambios guardados.');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

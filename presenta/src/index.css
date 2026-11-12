@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #fbf9f3;
+    color: #1b1c18;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.font-display {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-sans {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Material Symbols Outlined helper */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbar for clean UI */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f0eee8;
+}
+::-webkit-scrollbar-thumb {
+  background: #c5c6cb;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #785837;
+}
+
+/* Print Specific Rules for perfect A4 output */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0mm;
+  }
+
+  html, body {
+    background-color: #ffffff !important;
+    color: #1b1c18 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 210mm !important;
+    min-height: 297mm !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .no-print,
+  nav,
+  header.fixed,
+  .print-controls,
+  .floating-bar,
+  footer.site-footer,
+  .modal-backdrop,
+  .toast-container {
+    display: none !important;
+  }
+
+  main {
+    padding-top: 0 !important;
+    background: transparent !important;
+  }
+
+  .cv-carrier {
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 12mm 14mm !important;
+    min-height: 297mm !important;
+    background-color: #ffffff !important;
+    page-break-inside: avoid;
+  }
+
+  .page-break-avoid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
