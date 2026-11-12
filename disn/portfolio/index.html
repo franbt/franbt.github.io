@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Architectural static presentation website built with pure HTML, HTMX, CSS, and Three.js. Supports multi-aspect ratio presentation across PC, Mobile, Tablet, and 4K TV.">
+  <title>STUDIO ARCHETYPE // Interactive Client Presentation</title>
+
+  <!-- Typography: Inter & JetBrains Mono for Architectural Precision -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Core Architectural Stylesheets -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+
+  <!-- Three.js ES Module Import Map -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+
+  <!-- HTMX Lightweight Reactive Engine -->
+  <script src="https://unpkg.com/htmx.org@1.9.10" defer></script>
+</head>
+<body>
+
+  <!-- ======================================================================
+       STICKY HEADER WITH VIEWPORT TELEMETRY & PRESENTATION CONTROLS
+       ====================================================================== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand-mark">
+        <span class="brand-dot"></span>
+        <span>STUDIO ATTRITION // ARCH-SYS</span>
+      </div>
+
+      <nav class="main-nav" aria-label="Main Navigation">
+        <a href="#hero" class="nav-link">Overview</a>
+        <a href="#work" class="nav-link">Aspect Gallery</a>
+        <a href="#lab" class="nav-link">3D Containers</a>
+        <a href="#specs" class="nav-link">Hardware Specs</a>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Live Viewport & Hardware Orientation Telemetry -->
+        <span class="hud-badge" data-viewport-telemetry title="Live Hardware Profile">
+          DETECTING VIEWPORT...
+        </span>
+
+        <!-- Theme Switcher: Dark Architectural <-> Light Swiss Editorial -->
+        <button class="btn" data-action="toggle-theme" title="Switch Theme (Dark / Light)" aria-label="Toggle Theme">
+          <span data-theme-label>DARK // 01</span>
+        </button>
+
+        <!-- Presentation Fullscreen Mode (Optimized for Client TV Pitches) -->
+        <button class="btn btn-primary" data-action="fullscreen" title="Toggle Fullscreen Presentation Mode" aria-label="Toggle Fullscreen">
+          PRESENT [F]
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================================================================
+       MAIN CONTENT WRAPPER
+       ====================================================================== -->
+  <div class="site-wrapper">
+
+    <!-- --------------------------------------------------------------------
+         HERO SECTION: Live Multi-Aspect Ratio Stage & 3D Interactive Core
+         -------------------------------------------------------------------- -->
+    <section id="hero" class="section-block">
+      <div class="hero-grid">
+        
+        <!-- Left Column: Copy & Architectural Context -->
+        <div class="hero-copy">
+          <div>
+            <span class="section-index">01 // SPATIAL ARCHITECTURE & 3D SYSTEMS</span>
+            <h1 class="section-title" style="margin-bottom: var(--space-3);">
+              Multi-Aspect Presentation Architecture.
+            </h1>
+            <p class="section-subtitle" style="margin-bottom: var(--space-4);">
+              A static, zero-build client presentation engine engineered exclusively with HTML, HTMX, modern CSS tokens, and Three.js containers. Designed to morph fluidly across widescreen PCs, ultra-wide 4K TVs, tablets, and vertical mobile viewports.
+            </p>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: var(--space-3);">
+            <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
+              <span class="hud-badge">&bull; ZERO FRAMEWORK LOCK-IN</span>
+              <span class="hud-badge">&bull; PURE HTML5 + HTMX</span>
+              <span class="hud-badge">&bull; WEBGL / THREE.JS</span>
+              <span class="hud-badge">&bull; 4K / TV FOCUS-FRIENDLY</span>
+            </div>
+            <div>
+              <a href="#work" class="btn btn-primary">
+                Explore Work Matrix &darr;
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Live Aspect-Ratio Switcher & Three.js Canvas -->
+        <div class="hero-stage-wrapper">
+          
+          <!-- Live Aspect Morphing Control Bar -->
+          <div class="control-bar">
+            <div class="control-group">
+              <span class="control-label">Aspect Morph:</span>
+              <button class="pill-btn" data-aspect-switch="21:9" data-aspect-target="#hero-stage">21:9 Horiz</button>
+              <button class="pill-btn is-active" data-aspect-switch="16:9" data-aspect-target="#hero-stage" aria-selected="true">16:9 HD</button>
+              <button class="pill-btn" data-aspect-switch="4:3" data-aspect-target="#hero-stage">4:3 Box</button>
+              <button class="pill-btn" data-aspect-switch="1:1" data-aspect-target="#hero-stage">1:1 Square</button>
+              <button class="pill-btn" data-aspect-switch="4:5" data-aspect-target="#hero-stage">4:5 Tablet</button>
+              <button class="pill-btn" data-aspect-switch="9:16" data-aspect-target="#hero-stage">9:16 Vert</button>
+            </div>
+            <span class="hud-badge" style="font-size: var(--text-xs);">DRAG ORBIT ENABLED</span>
+          </div>
+
+          <!-- Dynamic Aspect Target Frame -->
+          <div id="hero-stage" class="aspect-frame aspect-16-9 stage-morph-target">
+            <div class="three-container" data-three-scene="hero-lattice">
+              
+              <!-- Technical HUD Overlay -->
+              <div class="three-hud">
+                <div class="hud-top">
+                  <span class="hud-badge">LIVE STAGE // HERO LATTICE</span>
+                  <span class="hud-badge" data-hud-res>1920×1080</span>
+                </div>
+                <div class="hud-bottom">
+                  <span class="hud-badge" data-hud-aspect>16:9 LANDSCAPE</span>
+                  <div class="hud-controls">
+                    <button class="hud-btn" data-three-action="wireframe" aria-pressed="true">WIREFRAME</button>
+                    <button class="hud-btn" data-three-action="autorotate" aria-pressed="true">AUTOROTATE</button>
+                    <button class="hud-btn" data-three-action="reset">RESET</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Swiss Architectural Reticles -->
+              <span class="corner-reticle tl"></span>
+              <span class="corner-reticle tr"></span>
+              <span class="corner-reticle bl"></span>
+              <span class="corner-reticle br"></span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- --------------------------------------------------------------------
+         WORK SECTION: HTMX Partial Filtering (Horizontal, Vertical, 3D, All)
+         -------------------------------------------------------------------- -->
+    <section id="work" class="section-block">
+      <div class="section-header">
+        <div>
+          <span class="section-index">02 // PORTFOLIO BENTO & CLIENT SLIDES</span>
+          <h2 class="section-title">Curated Client Showcase</h2>
+          <p class="section-subtitle">
+            Partials loaded dynamically via HTMX. Switch between horizontal architectural views, vertical mobile formats, and real-time Three.js lab scenes.
+          </p>
+        </div>
+
+        <!-- HTMX Filter Controls -->
+        <div class="control-group" role="tablist">
+          <button class="pill-btn is-active"
+                  data-filter-pill
+                  hx-get="partials/work-all.html"
+                  hx-target="#work-grid-target"
+                  hx-swap="innerHTML transition:true"
+                  hx-indicator="#loading-indicator"
+                  role="tab"
+                  aria-selected="true">
+            All Formats [05]
+          </button>
+
+          <button class="pill-btn"
+                  data-filter-pill
+                  hx-get="partials/work-horizontal.html"
+                  hx-target="#work-grid-target"
+                  hx-swap="innerHTML transition:true"
+                  hx-indicator="#loading-indicator"
+                  role="tab"
+                  aria-selected="false">
+            Horizontal (21:9 · 16:9)
+          </button>
+
+          <button class="pill-btn"
+                  data-filter-pill
+                  hx-get="partials/work-vertical.html"
+                  hx-target="#work-grid-target"
+                  hx-swap="innerHTML transition:true"
+                  hx-indicator="#loading-indicator"
+                  role="tab"
+                  aria-selected="false">
+            Vertical (9:16 · 4:5)
+          </button>
+
+          <button class="pill-btn"
+                  data-filter-pill
+                  hx-get="partials/work-3d.html"
+                  hx-target="#work-grid-target"
+                  hx-swap="innerHTML transition:true"
+                  hx-indicator="#loading-indicator"
+                  role="tab"
+                  aria-selected="false">
+            Interactive 3D Lab
+          </button>
+
+          <span id="loading-indicator" class="htmx-indicator hud-badge" style="color: var(--accent-highlight);">
+            SYNCING PARTIAL...
+          </span>
+        </div>
+      </div>
+
+      <!-- HTMX Swappable Target Container -->
+      <div id="work-grid-target">
+        <!-- Pre-populated default with partials/work-all.html content for immediate render -->
+        <div class="bento-grid">
+          
+          <!-- Item 1: Wide 21:9 Architectural Panorama (Horizontal) -->
+          <article class="project-card col-span-8">
+            <div class="aspect-frame aspect-21-9">
+              <div class="visual-art">
+                <div class="visual-art-grid"></div>
+                <div class="visual-shape" style="width: 28%;"></div>
+                <span class="corner-reticle tl"></span>
+                <span class="corner-reticle tr"></span>
+                <span class="corner-reticle bl"></span>
+                <span class="corner-reticle br"></span>
+              </div>
+            </div>
+            <div class="project-meta">
+              <div class="project-meta-top">
+                <span>ARCH-01 // CINEMATIC</span>
+                <span class="aspect-tag">21:9 ULTRA-WIDE</span>
+              </div>
+              <h3 class="project-title">Helios Spatial Pavilion</h3>
+              <p class="project-desc">Panoramic architectural visualization designed for multi-screen client boardroom presentations and ultra-wide displays.</p>
+              <div class="project-footer">
+                <button class="btn"
+                        hx-get="partials/case-study-01.html"
+                        hx-target="#drawer-content"
+                        hx-indicator="#loading-indicator"
+                        data-open-drawer>
+                  View Case Study &rarr;
+                </button>
+                <span class="hud-badge">PC · TV · PROJECTION</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Item 2: Vertical 9:16 Mobile / Signage Experience (Vertical) -->
+          <article class="project-card col-span-4 row-span-2">
+            <div class="aspect-frame aspect-9-16">
+              <div class="three-container" data-three-scene="orbital-tower">
+                <div class="three-hud">
+                  <div class="hud-top">
+                    <span class="hud-badge">3D KINETIC TOWER</span>
+                    <span class="hud-badge" data-hud-res></span>
+                  </div>
+                  <div class="hud-bottom">
+                    <span class="hud-badge" data-hud-aspect>9:16 PORTRAIT</span>
+                    <div class="hud-controls">
+                      <button class="hud-btn" data-three-action="wireframe" aria-pressed="false">MESH</button>
+                      <button class="hud-btn" data-three-action="autorotate" aria-pressed="true">SPIN</button>
+                    </div>
+                  </div>
+                </div>
+                <span class="corner-reticle tl"></span>
+                <span class="corner-reticle tr"></span>
+                <span class="corner-reticle bl"></span>
+                <span class="corner-reticle br"></span>
+              </div>
+            </div>
+            <div class="project-meta">
+              <div class="project-meta-top">
+                <span>DEV-02 // INTERACTIVE 3D</span>
+                <span class="aspect-tag">9:16 VERTICAL</span>
+              </div>
+              <h3 class="project-title">Aether Spatial Monolith</h3>
+              <p class="project-desc">Real-time Three.js kinetic structure optimized for vertical touchscreen totems, mobile viewports, and vertical showroom displays.</p>
+              <div class="project-footer">
+                <button class="btn"
+                        hx-get="partials/case-study-02.html"
+                        hx-target="#drawer-content"
+                        hx-indicator="#loading-indicator"
+                        data-open-drawer>
+                  Inspect Specs &rarr;
+                </button>
+                <span class="hud-badge">MOBILE · TOTEM</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Item 3: 16:9 Standard Landscape Interactive 3D Showcase (Horizontal) -->
+          <article class="project-card col-span-4">
+            <div class="aspect-frame aspect-16-9">
+              <div class="three-container" data-three-scene="torus-knot">
+                <div class="three-hud">
+                  <div class="hud-top">
+                    <span class="hud-badge">PARAMETRIC SURFACE</span>
+                    <span class="hud-badge" data-hud-res></span>
+                  </div>
+                  <div class="hud-bottom">
+                    <span class="hud-badge" data-hud-aspect>16:9</span>
+                    <div class="hud-controls">
+                      <button class="hud-btn" data-three-action="wireframe" aria-pressed="false">WIRE</button>
+                      <button class="hud-btn" data-three-action="autorotate" aria-pressed="true">ROT</button>
+                    </div>
+                  </div>
+                </div>
+                <span class="corner-reticle tl"></span>
+                <span class="corner-reticle tr"></span>
+                <span class="corner-reticle bl"></span>
+                <span class="corner-reticle br"></span>
+              </div>
+            </div>
+            <div class="project-meta">
+              <div class="project-meta-top">
+                <span>MATH-03 // WEBGL</span>
+                <span class="aspect-tag">16:9 HD</span>
+              </div>
+              <h3 class="project-title">Topology Shader Lab</h3>
+              <p class="project-desc">Interactive WebGL mathematical knot with real-time lighting and bounding boundary wireframe.</p>
+              <div class="project-footer">
+                <button class="btn"
+                        hx-get="partials/case-study-03.html"
+                        hx-target="#drawer-content"
+                        hx-indicator="#loading-indicator"
+                        data-open-drawer>
+                  Explore Node &rarr;
+                </button>
+                <span class="hud-badge">GPU ACCELERATED</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Item 4: 1:1 Square Balanced Container -->
+          <article class="project-card col-span-4">
+            <div class="aspect-frame aspect-1-1">
+              <div class="three-container" data-three-scene="voxel-wave">
+                <div class="three-hud">
+                  <div class="hud-top">
+                    <span class="hud-badge">VOXEL MATRIX</span>
+                    <span class="hud-badge" data-hud-res></span>
+                  </div>
+                  <div class="hud-bottom">
+                    <span class="hud-badge" data-hud-aspect>1:1 SQUARE</span>
+                    <div class="hud-controls">
+                      <button class="hud-btn" data-three-action="reset">RESET</button>
+                    </div>
+                  </div>
+                </div>
+                <span class="corner-reticle tl"></span>
+                <span class="corner-reticle tr"></span>
+                <span class="corner-reticle bl"></span>
+                <span class="corner-reticle br"></span>
+              </div>
+            </div>
+            <div class="project-meta">
+              <div class="project-meta-top">
+                <span>GRID-04 // KINETIC</span>
+                <span class="aspect-tag">1:1 EQUAL</span>
+              </div>
+              <h3 class="project-title">Dynamic Elevation Field</h3>
+              <p class="project-desc">Procedural 7x7 spatial displacement matrix driven by trigonometry and responsive pointer feedback.</p>
+              <div class="project-footer">
+                <button class="btn"
+                        hx-get="partials/case-study-01.html"
+                        hx-target="#drawer-content"
+                        hx-indicator="#loading-indicator"
+                        data-open-drawer>
+                  View Case Study &rarr;
+                </button>
+                <span class="hud-badge">TABLET · PC</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Item 5: 4:5 Portrait Editorial Card (Vertical) -->
+          <article class="project-card col-span-4">
+            <div class="aspect-frame aspect-4-5">
+              <div class="visual-art" style="background: radial-gradient(circle at 50% 30%, rgba(129, 140, 248, 0.22), transparent 70%), var(--bg-canvas);">
+                <div class="visual-art-grid"></div>
+                <div class="visual-shape" style="width: 50%; border-radius: 4px;"></div>
+                <span class="corner-reticle tl"></span>
+                <span class="corner-reticle tr"></span>
+                <span class="corner-reticle bl"></span>
+                <span class="corner-reticle br"></span>
+              </div>
+            </div>
+            <div class="project-meta">
+              <div class="project-meta-top">
+                <span>SYS-05 // EDITORIAL</span>
+                <span class="aspect-tag">4:5 VERTICAL</span>
+              </div>
+              <h3 class="project-title">Synthetix Design Language</h3>
+              <p class="project-desc">Modular multi-breakpoint typography and UI system crafted for tablets, high-DPI pitch decks, and client showcases.</p>
+              <div class="project-footer">
+                <button class="btn"
+                        hx-get="partials/case-study-02.html"
+                        hx-target="#drawer-content"
+                        hx-indicator="#loading-indicator"
+                        data-open-drawer>
+                  View System &rarr;
+                </button>
+                <span class="hud-badge">TABLET · SOCIAL</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- --------------------------------------------------------------------
+         THREE.JS LAB SECTION: Multi-Container Matrix
+         -------------------------------------------------------------------- -->
+    <section id="lab" class="section-block">
+      <div class="section-header">
+        <div>
+          <span class="section-index">03 // THREE.JS LAB CONTAINERS</span>
+          <h2 class="section-title">Independent WebGL Viewports</h2>
+          <p class="section-subtitle">
+            Demonstrating isolated Three.js containers side-by-side. Each container hosts its own independent WebGL context, adaptive FOV logic, and pointer listener.
+          </p>
+        </div>
+      </div>
+
+      <div class="lab-matrix">
+        <!-- Container A: 16:9 Horizontal -->
+        <div class="col-span-6">
+          <div class="aspect-frame aspect-16-9">
+            <div class="three-container" data-three-scene="torus-knot">
+              <div class="three-hud">
+                <div class="hud-top">
+                  <span class="hud-badge">LAB 01 // 16:9</span>
+                  <span class="hud-badge" data-hud-res></span>
+                </div>
+                <div class="hud-bottom">
+                  <span class="hud-badge">PARAMETRIC SURFACE</span>
+                  <div class="hud-controls">
+                    <button class="hud-btn" data-three-action="wireframe">WIRE</button>
+                    <button class="hud-btn" data-three-action="autorotate">ROT</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Container B: 16:9 Horizontal (Geodesic Core) -->
+        <div class="col-span-6">
+          <div class="aspect-frame aspect-16-9">
+            <div class="three-container" data-three-scene="hero-lattice">
+              <div class="three-hud">
+                <div class="hud-top">
+                  <span class="hud-badge">LAB 02 // 16:9</span>
+                  <span class="hud-badge" data-hud-res></span>
+                </div>
+                <div class="hud-bottom">
+                  <span class="hud-badge">GEODESIC LATTICE</span>
+                  <div class="hud-controls">
+                    <button class="hud-btn" data-three-action="wireframe">WIRE</button>
+                    <button class="hud-btn" data-three-action="autorotate">ROT</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- --------------------------------------------------------------------
+         HARDWARE SPECIFICATIONS & RESPONSIVENESS MATRIX
+         -------------------------------------------------------------------- -->
+    <section id="specs" class="section-block">
+      <div class="section-header">
+        <div>
+          <span class="section-index">04 // HARDWARE COMPATIBILITY MATRIX</span>
+          <h2 class="section-title">Tested Device Profiles</h2>
+          <p class="section-subtitle">
+            Responsive geometry tested against physical client devices from handheld mobile phones to 4K conference room television displays.
+          </p>
+        </div>
+      </div>
+
+      <div class="capabilities-grid">
+        <div class="spec-card">
+          <span class="spec-number">DEVICE 01 // DESKTOP & ULTRAWIDE</span>
+          <div class="spec-title">PC & Workstations</div>
+          <p class="project-desc">21:9 ultrawide and dual 16:9 displays. Dense 12-column Swiss bento grid with mouse orbit tracking.</p>
+        </div>
+
+        <div class="spec-card">
+          <span class="spec-number">DEVICE 02 // TOUCH TABLETS</span>
+          <div class="spec-title">iPad & Surfaces</div>
+          <p class="project-desc">4:3 and 4:5 touch interaction. Fluid layout wrapping without horizontal overflow or pinch-zoom distortion.</p>
+        </div>
+
+        <div class="spec-card">
+          <span class="spec-number">DEVICE 03 // MOBILE PHONES</span>
+          <div class="spec-title">Smartphones (iOS/Android)</div>
+          <p class="project-desc">9:16 full-bleed vertical containers. Single-column stacked cards with touch-friendly 44px+ hit targets.</p>
+        </div>
+
+        <div class="spec-card">
+          <span class="spec-number">DEVICE 04 // 4K TELEVISION</span>
+          <div class="spec-title">Smart TVs & Video Walls</div>
+          <p class="project-desc">3840×2160 resolution scaling with fluid clamp() typography and high-visibility focus states for D-Pad remotes.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         FOOTER
+         ==================================================================== -->
+    <footer class="site-footer">
+      <div>
+        <span>STUDIO ATTRITION // ARCHITECTURAL CLIENT DECK</span>
+      </div>
+      <div>
+        <span>STACK: HTML5 &bull; HTMX &bull; CSS3 &bull; THREE.JS &bull; UV / PYTHON HTTP</span>
+      </div>
+      <div>
+        <span>2026 // ALL RIGHTS RESERVED</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ======================================================================
+       CLIENT CASE STUDY DRAWER (Injected via HTMX)
+       ====================================================================== -->
+  <aside id="case-study-drawer" class="drawer-backdrop" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="drawer-panel" id="drawer-content">
+      <!-- Populated dynamically via hx-get from partials/case-study-*.html -->
+    </div>
+  </aside>
+
+  <!-- Main ES6 Entrypoint -->
+  <script type="module" src="js/main.js"></script>
+
+</body>
+</html>

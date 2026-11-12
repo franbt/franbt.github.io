@@ -1,0 +1,116 @@
+/* ==========================================================================
+   DESIGN TOKENS & THEME SYSTEM (Dark / Light + Fluid Multi-Device Scaling)
+   ========================================================================== */
+
+:root {
+  /* Fluid Typography: Scales seamlessly from Mobile (320px) -> PC -> 4K TV (3840px) */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+
+  --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 1.1rem);
+  --text-sm: clamp(0.8125rem, 0.75rem + 0.3vw, 1.25rem);
+  --text-base: clamp(0.95rem, 0.875rem + 0.38vw, 1.5rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.55vw, 1.85rem);
+  --text-xl: clamp(1.35rem, 1.15rem + 0.85vw, 2.4rem);
+  --text-2xl: clamp(1.75rem, 1.4rem + 1.5vw, 3.5rem);
+  --text-3xl: clamp(2.25rem, 1.7rem + 2.6vw, 5.25rem);
+  --text-display: clamp(2.75rem, 2rem + 3.8vw, 7.5rem);
+
+  /* Fluid Spacing Scale */
+  --space-1: clamp(0.25rem, 0.2rem + 0.2vw, 0.5rem);
+  --space-2: clamp(0.5rem, 0.4rem + 0.35vw, 0.85rem);
+  --space-3: clamp(0.75rem, 0.6rem + 0.5vw, 1.25rem);
+  --space-4: clamp(1rem, 0.8rem + 0.75vw, 1.75rem);
+  --space-5: clamp(1.5rem, 1.2rem + 1.1vw, 2.75rem);
+  --space-6: clamp(2rem, 1.5rem + 1.75vw, 4rem);
+  --space-7: clamp(3rem, 2.2rem + 2.8vw, 6rem);
+  --space-8: clamp(4.5rem, 3rem + 4.5vw, 9rem);
+
+  /* Structural Tokens */
+  --container-max: 1760px;
+  --container-tv-max: 3200px;
+  --page-gutter: clamp(1rem, 3vw, 4.5rem);
+  --grid-gap: clamp(0.85rem, 1.4vw, 2.25rem);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --header-height: clamp(3.75rem, 5vw, 5.5rem);
+
+  /* Transitions */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 160ms var(--ease-out-expo);
+  --transition-base: 320ms var(--ease-out-expo);
+  --transition-slow: 600ms var(--ease-out-expo);
+}
+
+/* --------------------------------------------------------------------------
+   DARK THEME (Default — Architectural Minimal)
+   -------------------------------------------------------------------------- */
+:root,
+[data-theme="dark"] {
+  --bg-primary: #090a0c;
+  --bg-secondary: #101216;
+  --bg-elevated: #161920;
+  --bg-glass: rgba(16, 18, 22, 0.82);
+  --bg-canvas: #060709;
+
+  --text-primary: #f3f4f6;
+  --text-secondary: #9ca3af;
+  --text-muted: #646b78;
+
+  --border-subtle: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.22);
+  --border-focus: #38bdf8;
+
+  --accent-primary: #e2e8f0;
+  --accent-highlight: #38bdf8;
+  --accent-secondary: #818cf8;
+  --accent-status: #10b981;
+
+  --shadow-card: 0 18px 40px -15px rgba(0, 0, 0, 0.65);
+  --three-grid-color: 0x222631;
+  --three-primary-color: 0x38bdf8;
+  --three-secondary-color: 0x94a3b8;
+  --three-bg-hex: #07080b;
+}
+
+/* --------------------------------------------------------------------------
+   LIGHT THEME (Swiss Editorial Grid)
+   -------------------------------------------------------------------------- */
+[data-theme="light"] {
+  --bg-primary: #f6f5f2;
+  --bg-secondary: #eceae4;
+  --bg-elevated: #ffffff;
+  --bg-glass: rgba(246, 245, 242, 0.86);
+  --bg-canvas: #e5e3dc;
+
+  --text-primary: #111317;
+  --text-secondary: #4b5262;
+  --text-muted: #767e8f;
+
+  --border-subtle: rgba(17, 19, 23, 0.11);
+  --border-strong: rgba(17, 19, 23, 0.28);
+  --border-focus: #0284c7;
+
+  --accent-primary: #111317;
+  --accent-highlight: #0284c7;
+  --accent-secondary: #4f46e5;
+  --accent-status: #059669;
+
+  --shadow-card: 0 16px 36px -12px rgba(17, 19, 23, 0.09);
+  --three-grid-color: 0xd0cec7;
+  --three-primary-color: 0x0284c7;
+  --three-secondary-color: 0x334155;
+  --three-bg-hex: #eae8e1;
+}
+
+/* --------------------------------------------------------------------------
+   4K / Large Format TV Overrides (10-Foot Presentation Mode)
+   -------------------------------------------------------------------------- */
+@media (min-width: 2400px) {
+  :root {
+    --container-max: var(--container-tv-max);
+    --radius-md: 12px;
+    --radius-lg: 20px;
+  }
+}
