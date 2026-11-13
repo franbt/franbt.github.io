@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Studio Archetype — Spatial architecture, interactive objects, and client studies.">
+  <title>STUDIO ARCHETYPE</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+
+  <script src="https://unpkg.com/htmx.org@1.9.10" defer></script>
+</head>
+<body>
+
+  <!-- 1. TOP BANNER (Always visible, carries studio info) -->
+  <header class="top-banner">
+    <div class="banner-inner">
+      <a href="#top" class="banner-brand">
+        <span class="brand-name">Studio Archetype</span>
+        <span class="brand-tagline">Spatial &amp; Interactive Practice</span>
+      </a>
+
+      <div class="banner-info">
+        <span>Zurich, CH</span>
+        <span>Edition 2026</span>
+        <span>studio@archetype.ch</span>
+      </div>
+
+      <div class="banner-actions">
+        <button class="btn-line" data-action="toggle-theme" aria-label="Toggle Theme">
+          <span data-theme-label>DARK</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. CENTER SCROLLABLE VIEWER (Dedicated scroll area for containers) -->
+  <main class="center-viewer" id="top">
+    <div class="viewer-inner">
+
+      <!-- Intro Split -->
+      <section class="viewer-intro">
+        <div class="intro-copy">
+          <div>
+            <span class="type-eyebrow">Client Presentation</span>
+            <h1 class="type-display" style="margin-top: var(--space-2);">
+              Form, light, and quiet precision.
+            </h1>
+          </div>
+          <p class="type-lead" style="max-width: 38ch;">
+            Selected architectural studies, spatial objects, and interactive client presentations.
+          </p>
+        </div>
+
+        <div class="stage">
+          <div class="stage-media ratio-4-3">
+            <div class="three-container" data-three-scene="hero-lattice"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Filter Strip -->
+      <div class="filter-bar">
+        <span class="type-eyebrow">Selected Works</span>
+
+        <div class="filter-tabs" role="tablist">
+          <button class="pill-filter is-active"
+                  data-filter-pill
+                  hx-get="partials/work-all.html"
+                  hx-target="#work-target"
+                  hx-swap="innerHTML transition:true"
+                  role="tab"
+                  aria-selected="true">
+            All
+          </button>
+
+          <button class="pill-filter"
+                  data-filter-pill
+                  hx-get="partials/work-horizontal.html"
+                  hx-target="#work-target"
+                  hx-swap="innerHTML transition:true"
+                  role="tab"
+                  aria-selected="false">
+            Spatial
+          </button>
+
+          <button class="pill-filter"
+                  data-filter-pill
+                  hx-get="partials/work-vertical.html"
+                  hx-target="#work-target"
+                  hx-swap="innerHTML transition:true"
+                  role="tab"
+                  aria-selected="false">
+            Vertical
+          </button>
+
+          <button class="pill-filter"
+                  data-filter-pill
+                  hx-get="partials/work-3d.html"
+                  hx-target="#work-target"
+                  hx-swap="innerHTML transition:true"
+                  role="tab"
+                  aria-selected="false">
+            Objects
+          </button>
+        </div>
+      </div>
+
+      <!-- Scrollable Container Feed -->
+      <div id="work-target">
+        <div class="grid-duo">
+
+          <article class="stage">
+            <div class="stage-media ratio-16-9">
+              <div class="three-container" data-three-scene="torus-knot"></div>
+            </div>
+            <div class="stage-body">
+              <div class="meta-line">
+                <span>Spatial Study</span>
+                <span>2026</span>
+              </div>
+              <h3 class="stage-title">Helios Pavilion</h3>
+              <p class="stage-desc">Continuous ribbon form exploring natural daylight reflection across curved surfaces.</p>
+              <div>
+                <button class="btn-link"
+                        hx-get="partials/case-study-01.html"
+                        hx-target="#drawer-content"
+                        data-open-drawer>
+                  View Study &rarr;
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="stage">
+            <div class="stage-media ratio-4-3">
+              <div class="three-container" data-three-scene="voxel-wave"></div>
+            </div>
+            <div class="stage-body">
+              <div class="meta-line">
+                <span>Installation</span>
+                <span>2026</span>
+              </div>
+              <h3 class="stage-title">Kinetic Elevation Field</h3>
+              <p class="stage-desc">Modular timber and aluminum column array responding to harmonic wave intervals.</p>
+              <div>
+                <button class="btn-link"
+                        hx-get="partials/case-study-02.html"
+                        hx-target="#drawer-content"
+                        data-open-drawer>
+                  View Study &rarr;
+                </button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="grid-trio" style="margin-top: var(--space-4);">
+
+          <article class="stage">
+            <div class="stage-media ratio-1-1">
+              <div class="three-container" data-three-scene="hero-lattice"></div>
+            </div>
+            <div class="stage-body">
+              <div class="meta-line">
+                <span>Object</span>
+                <span>2026</span>
+              </div>
+              <h3 class="stage-title">Geodesic Core</h3>
+              <p class="stage-desc">Lightweight structural lattice study in brushed steel and frosted acrylic.</p>
+              <div>
+                <button class="btn-link"
+                        hx-get="partials/case-study-03.html"
+                        hx-target="#drawer-content"
+                        data-open-drawer>
+                  View Study &rarr;
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="stage">
+            <div class="stage-media ratio-4-5">
+              <div class="three-container" data-three-scene="orbital-tower"></div>
+            </div>
+            <div class="stage-body">
+              <div class="meta-line">
+                <span>Sculpture</span>
+                <span>2025</span>
+              </div>
+              <h3 class="stage-title">Aether Monolith</h3>
+              <p class="stage-desc">Vertical kinetic column commissioned for an atrium gallery space.</p>
+              <div>
+                <button class="btn-link"
+                        hx-get="partials/case-study-02.html"
+                        hx-target="#drawer-content"
+                        data-open-drawer>
+                  View Study &rarr;
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="stage">
+            <div class="stage-media ratio-9-16">
+              <div class="three-container" data-three-scene="orbital-tower"></div>
+            </div>
+            <div class="stage-body">
+              <div class="meta-line">
+                <span>Totem</span>
+                <span>2025</span>
+              </div>
+              <h3 class="stage-title">Harmonic Rotor</h3>
+              <p class="stage-desc">Tall interactive centerpiece designed for narrow architectural alcoves.</p>
+              <div>
+                <button class="btn-link"
+                        hx-get="partials/case-study-02.html"
+                        hx-target="#drawer-content"
+                        data-open-drawer>
+                  View Study &rarr;
+                </button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- 3. BOTTOM FOOTER (Always visible, 75% height of top banner) -->
+  <footer class="bottom-footer">
+    <div class="footer-inner">
+      <div class="footer-group">
+        <span>Studio Archetype</span>
+        <span class="footer-hide-sm">Client Presentation Archive</span>
+      </div>
+      <div class="footer-group">
+        <span class="footer-hide-sm">Zurich, CH</span>
+        <span>&copy; 2026</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Case Study Sheet -->
+  <aside id="case-study-drawer" class="drawer-backdrop" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="drawer-panel" id="drawer-content"></div>
+  </aside>
+
+  <script type="module" src="js/main.js"></script>
+
+</body>
+</html>
