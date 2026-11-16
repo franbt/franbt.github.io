@@ -216,22 +216,6 @@ button {
   width: 100%;
 }
 
-/* Portrait and square frames stay in proportion inside a full-width row. */
-#work-target > .stage > .stage-media.ratio-1-1 {
-  width: min(100%, 42rem);
-  margin-inline: auto;
-}
-
-#work-target > .stage > .stage-media.ratio-4-5 {
-  width: min(100%, calc(68dvh * 4 / 5));
-  margin-inline: auto;
-}
-
-#work-target > .stage > .stage-media.ratio-9-16 {
-  width: min(100%, calc(70dvh * 9 / 16));
-  margin-inline: auto;
-}
-
 /* --------------------------------------------------------------------------
    VIEWER GRIDS (Balanced Lineout Structure)
    -------------------------------------------------------------------------- */

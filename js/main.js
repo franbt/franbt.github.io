@@ -85,10 +85,11 @@ function closeDrawer() {
 /* --------------------------------------------------------------------------
    3. LAUNCH FRAME
    iOS Safari and iOS Chrome cannot lock or fullscreen a page. The frame is
-   sized to the visual viewport, and on a portrait iPhone or iPad it is
-   turned 90° so the project lays out at landscape size.
+   sized to the visual viewport. Only a project marked landscape is turned
+   90° on a portrait iPhone or iPad, or locked to landscape on Android.
    -------------------------------------------------------------------------- */
 let portraitDismissed = false;
+let launchWantsLandscape = false;
 
 function isLaunchOpen() {
   const layer = document.getElementById('launch-frame');
@@ -124,7 +125,7 @@ function syncOrientNotice() {
   const notice = layer?.querySelector('.launch-orient');
   if (!notice) return;
   const turned = layer.classList.contains('is-turned');
-  const show = isLaunchOpen() && isHandheld() && isPortrait() && !portraitDismissed && !turned;
+  const show = isLaunchOpen() && launchWantsLandscape && isHandheld() && isPortrait() && !portraitDismissed && !turned;
   notice.hidden = !show;
 }
 
@@ -153,7 +154,7 @@ function unlockOrientation() {
 }
 
 function requestLandscape(layer) {
-  if (!isHandheld() || isIOS()) return;
+  if (!launchWantsLandscape || !isHandheld() || isIOS()) return;
   const request = layer.requestFullscreen || layer.webkitRequestFullscreen;
   const pending = request ? request.call(layer) : Promise.resolve();
   Promise.resolve(pending)
@@ -171,7 +172,7 @@ function layoutLaunchFrame() {
   if (!layer || !frame || !layer.classList.contains('is-open')) return;
 
   const box = visualBox();
-  const turn = isIOS() && isHandheld() && box.height > box.width && !portraitDismissed;
+  const turn = launchWantsLandscape && isIOS() && isHandheld() && box.height > box.width && !portraitDismissed;
   layer.classList.toggle('is-turned', turn);
 
   const width = turn ? box.height : box.width;
@@ -262,11 +263,12 @@ function clearLaunchLayout(layer, frame) {
   }
 }
 
-function openLaunch(src, title) {
+function openLaunch(src, title, orient) {
   const layer = document.getElementById('launch-frame');
   const frame = layer?.querySelector('.launch-frame-view');
   if (!layer || !frame || !src) return;
   portraitDismissed = false;
+  launchWantsLandscape = orient === 'landscape';
   frame.title = title || 'Project';
   frame.removeAttribute('src');
   layer.setAttribute('aria-label', frame.title);
@@ -288,6 +290,7 @@ function closeLaunch() {
   layer.setAttribute('aria-hidden', 'true');
   document.documentElement.classList.remove('launch-open');
   portraitDismissed = false;
+  launchWantsLandscape = false;
   clearLaunchLayout(layer, frame);
   if (frame) {
     frame.src = 'about:blank';
@@ -309,7 +312,11 @@ function initLaunchFrame() {
     const launch = e.target.closest('[data-launch-frame]');
     if (launch) {
       e.preventDefault();
-      openLaunch(launch.getAttribute('href'), launch.getAttribute('data-launch-title'));
+      openLaunch(
+        launch.getAttribute('href'),
+        launch.getAttribute('data-launch-title'),
+        launch.getAttribute('data-launch-orient'),
+      );
       return;
     }
     if (e.target.closest('[data-launch-close]')) {
