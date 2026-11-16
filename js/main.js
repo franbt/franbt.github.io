@@ -84,6 +84,9 @@ function closeDrawer() {
 
 /* --------------------------------------------------------------------------
    3. LAUNCH FRAME
+   iOS Safari and iOS Chrome cannot lock or fullscreen a page. The frame is
+   sized to the visual viewport, and on a portrait iPhone or iPad it is
+   turned 90° so the project lays out at landscape size.
    -------------------------------------------------------------------------- */
 let portraitDismissed = false;
 
@@ -100,10 +103,28 @@ function isPortrait() {
   return window.matchMedia('(orientation: portrait)').matches;
 }
 
+function isIOS() {
+  const ua = navigator.userAgent || '';
+  if (/iPad|iPhone|iPod|CriOS|FxiOS|EdgiOS/.test(ua)) return true;
+  return navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+}
+
+function visualBox() {
+  const vv = window.visualViewport;
+  return {
+    width: Math.round(vv ? vv.width : window.innerWidth),
+    height: Math.round(vv ? vv.height : window.innerHeight),
+    top: Math.round(vv ? vv.offsetTop : 0),
+    left: Math.round(vv ? vv.offsetLeft : 0),
+  };
+}
+
 function syncOrientNotice() {
-  const notice = document.querySelector('#launch-frame .launch-orient');
+  const layer = document.getElementById('launch-frame');
+  const notice = layer?.querySelector('.launch-orient');
   if (!notice) return;
-  const show = isLaunchOpen() && isHandheld() && isPortrait() && !portraitDismissed;
+  const turned = layer.classList.contains('is-turned');
+  const show = isLaunchOpen() && isHandheld() && isPortrait() && !portraitDismissed && !turned;
   notice.hidden = !show;
 }
 
@@ -132,13 +153,113 @@ function unlockOrientation() {
 }
 
 function requestLandscape(layer) {
-  if (!isHandheld()) return;
+  if (!isHandheld() || isIOS()) return;
   const request = layer.requestFullscreen || layer.webkitRequestFullscreen;
   const pending = request ? request.call(layer) : Promise.resolve();
   Promise.resolve(pending)
     .then(() => screen.orientation?.lock?.('landscape'))
     .catch(() => {})
-    .finally(syncOrientNotice);
+    .finally(() => {
+      layoutLaunchFrame();
+      syncOrientNotice();
+    });
+}
+
+function layoutLaunchFrame() {
+  const layer = document.getElementById('launch-frame');
+  const frame = layer?.querySelector('.launch-frame-view');
+  if (!layer || !frame || !layer.classList.contains('is-open')) return;
+
+  const box = visualBox();
+  const turn = isIOS() && isHandheld() && box.height > box.width && !portraitDismissed;
+  layer.classList.toggle('is-turned', turn);
+
+  const width = turn ? box.height : box.width;
+  const height = turn ? box.width : box.height;
+  layer.style.top = box.top + 'px';
+  layer.style.left = (turn ? box.left + box.width : box.left) + 'px';
+  layer.style.width = width + 'px';
+  layer.style.height = height + 'px';
+  layer.style.transformOrigin = 'top left';
+  layer.style.transform = turn ? 'rotate(90deg)' : 'none';
+  frame.style.width = width + 'px';
+  frame.style.height = height + 'px';
+  syncOrientNotice();
+  fitFramedDocument(frame);
+}
+
+function fitFramedDocument(frame) {
+  const doc = frame.contentDocument;
+  const win = frame.contentWindow;
+  if (!doc || !win || !doc.head) return;
+  if (!frame.getAttribute('src') || frame.getAttribute('src') === 'about:blank') return;
+
+  const w = frame.clientWidth;
+  const h = frame.clientHeight;
+  if (!w || !h) return;
+
+  const meta = doc.querySelector('meta[name="viewport"]');
+  if (meta) {
+    meta.setAttribute(
+      'content',
+      `width=${w}, height=${h}, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, shrink-to-fit=no`,
+    );
+  }
+
+  let style = doc.getElementById('launch-fit');
+  if (!style) {
+    style = doc.createElement('style');
+    style.id = 'launch-fit';
+    doc.head.appendChild(style);
+  }
+  const slides = doc.querySelectorAll('.slide').length || 6;
+  style.textContent = `
+    html, body {
+      width: ${w}px !important;
+      height: ${h}px !important;
+      min-width: 0 !important;
+      min-height: 0 !important;
+      max-width: ${w}px !important;
+      max-height: ${h}px !important;
+      overflow: hidden !important;
+    }
+    #canvas-container, #ui-layer, #pdf-modal, .app-wrapper, .presentation-container, .slide {
+      width: ${w}px !important;
+      max-width: ${w}px !important;
+    }
+    #canvas-container, #ui-layer, #pdf-modal {
+      height: ${h}px !important;
+      max-height: ${h}px !important;
+    }
+    .slider-wrapper { width: ${w * slides}px !important; }
+  `;
+
+  const key = `${w}x${h}`;
+  const inner = win.innerWidth;
+  if (Math.abs(inner - w) > 8 && frame.dataset.fitFor !== key) {
+    frame.dataset.fitFor = key;
+    try {
+      const url = new URL(frame.src, window.location.href);
+      url.searchParams.set('frame', key);
+      frame.src = `${url.pathname}${url.search}`;
+    } catch {
+      /* keep the fitted stylesheet if the address cannot be rebuilt */
+    }
+  } else {
+    win.dispatchEvent(new Event('resize'));
+  }
+}
+
+function clearLaunchLayout(layer, frame) {
+  layer.classList.remove('is-turned');
+  ['top', 'left', 'width', 'height', 'transform', 'transformOrigin'].forEach((prop) => {
+    layer.style[prop] = '';
+  });
+  if (frame) {
+    frame.style.width = '';
+    frame.style.height = '';
+    delete frame.dataset.fitFor;
+  }
 }
 
 function openLaunch(src, title) {
@@ -147,14 +268,16 @@ function openLaunch(src, title) {
   if (!layer || !frame || !src) return;
   portraitDismissed = false;
   frame.title = title || 'Project';
-  frame.src = src;
+  frame.removeAttribute('src');
   layer.setAttribute('aria-label', frame.title);
   layer.classList.add('is-open');
   layer.setAttribute('aria-hidden', 'false');
+  document.documentElement.classList.add('launch-open');
   document.body.style.overflow = 'hidden';
-  syncOrientNotice();
+  layoutLaunchFrame();
+  frame.src = src;
   requestLandscape(layer);
-  layer.querySelector('[data-launch-close]')?.focus();
+  layer.querySelector('[data-launch-close]')?.focus({ preventScroll: true });
 }
 
 function closeLaunch() {
@@ -163,7 +286,9 @@ function closeLaunch() {
   if (!layer || !layer.classList.contains('is-open')) return;
   layer.classList.remove('is-open');
   layer.setAttribute('aria-hidden', 'true');
+  document.documentElement.classList.remove('launch-open');
   portraitDismissed = false;
+  clearLaunchLayout(layer, frame);
   if (frame) {
     frame.src = 'about:blank';
     frame.title = 'Project';
@@ -174,6 +299,12 @@ function closeLaunch() {
 }
 
 function initLaunchFrame() {
+  const frame = document.querySelector('#launch-frame .launch-frame-view');
+  frame?.addEventListener('load', () => {
+    if (!isLaunchOpen()) return;
+    fitFramedDocument(frame);
+  });
+
   document.addEventListener('click', (e) => {
     const launch = e.target.closest('[data-launch-frame]');
     if (launch) {
@@ -187,15 +318,18 @@ function initLaunchFrame() {
     }
     if (e.target.closest('[data-launch-continue]')) {
       portraitDismissed = true;
-      syncOrientNotice();
+      layoutLaunchFrame();
     }
   });
 
-  const portrait = window.matchMedia('(orientation: portrait)');
-  const onOrient = () => syncOrientNotice();
-  if (portrait.addEventListener) portrait.addEventListener('change', onOrient);
-  else portrait.addListener(onOrient);
-  window.addEventListener('orientationchange', onOrient);
+  const onViewport = () => layoutLaunchFrame();
+  window.visualViewport?.addEventListener('resize', onViewport);
+  window.visualViewport?.addEventListener('scroll', onViewport);
+  window.addEventListener('resize', onViewport);
+  window.addEventListener('orientationchange', () => {
+    setTimeout(onViewport, 50);
+    setTimeout(onViewport, 300);
+  });
 }
 
 /* --------------------------------------------------------------------------

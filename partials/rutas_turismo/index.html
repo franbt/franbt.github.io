@@ -2,7 +2,19 @@
 <html lang="es" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, shrink-to-fit=no">
+  <script>
+    (function () {
+      if (window.top === window || !window.frameElement) return;
+      var w = window.frameElement.clientWidth;
+      var h = window.frameElement.clientHeight;
+      if (!w || !h) return;
+      var meta = document.querySelector('meta[name="viewport"]');
+      if (meta) {
+        meta.setAttribute('content', 'width=' + w + ', height=' + h + ', initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, shrink-to-fit=no');
+      }
+    })();
+  </script>
   <meta name="description" content="Aplicación web mockup de Rutas Turísticas: Itinerarios culturales, naturales, gastronómicos y costeros con máxima legibilidad, eficiencia de batería y diseño responsivo para PC, tablet y móvil.">
   <meta name="theme-color" content="#059669">
   <title>Rutas Turísticas | Itinerarios Culturales y Naturales</title>

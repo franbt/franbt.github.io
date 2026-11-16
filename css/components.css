@@ -348,17 +348,27 @@
   inset: 0;
   z-index: 200;
   background: var(--bg-primary);
+  overflow: hidden;
 }
 
 .launch-frame.is-open {
   display: block;
 }
 
+html.launch-open,
+html.launch-open body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 .launch-frame-view {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  display: block;
   width: 100%;
   height: 100%;
+  max-width: 100%;
   border: 0;
   background: var(--bg-primary);
 }
@@ -369,6 +379,12 @@
   top: max(0.75rem, env(safe-area-inset-top));
   right: max(0.75rem, env(safe-area-inset-right));
   background: var(--bg-primary);
+}
+
+/* After a 90° turn, the layer's top-left sits on the phone's top-right. */
+.launch-frame.is-turned .launch-frame-close {
+  right: auto;
+  left: max(0.75rem, env(safe-area-inset-left));
 }
 
 .launch-orient {
