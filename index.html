@@ -53,51 +53,8 @@
   <main class="center-viewer" id="top">
     <div class="viewer-inner">
 
-      <!-- Filter Strip -->
       <div class="filter-bar">
         <span class="type-eyebrow">Selected Works</span>
-
-        <div class="filter-tabs" role="tablist">
-          <button class="pill-filter is-active"
-                  data-filter-pill
-                  hx-get="partials/work-all.html"
-                  hx-target="#work-target"
-                  hx-swap="innerHTML transition:true"
-                  role="tab"
-                  aria-selected="true">
-            All
-          </button>
-
-          <button class="pill-filter"
-                  data-filter-pill
-                  hx-get="partials/work-horizontal.html"
-                  hx-target="#work-target"
-                  hx-swap="innerHTML transition:true"
-                  role="tab"
-                  aria-selected="false">
-            Spatial
-          </button>
-
-          <button class="pill-filter"
-                  data-filter-pill
-                  hx-get="partials/work-vertical.html"
-                  hx-target="#work-target"
-                  hx-swap="innerHTML transition:true"
-                  role="tab"
-                  aria-selected="false">
-            Vertical
-          </button>
-
-          <button class="pill-filter"
-                  data-filter-pill
-                  hx-get="partials/work-3d.html"
-                  hx-target="#work-target"
-                  hx-swap="innerHTML transition:true"
-                  role="tab"
-                  aria-selected="false">
-            Objects
-          </button>
-        </div>
       </div>
 
       <!-- Scrollable Container Feed -->
@@ -126,7 +83,7 @@
                       data-open-drawer>
                 View Study &rarr;
               </button>
-              <a href="partials/jato/index.html" target="_blank" rel="noopener noreferrer" class="btn-link" style="color: var(--text-muted); text-decoration: none;">
+              <a href="partials/jato/index.html" class="btn-link" style="color: var(--text-muted); text-decoration: none;" data-launch-frame data-launch-title="Jato 2026 — Análisis Gráfico">
                 Launch Interactive Presentation &nearr;
               </a>
             </div>
@@ -156,7 +113,7 @@
                         data-open-drawer>
                   View Study &rarr;
                 </button>
-                <a href="partials/ribera_marco/index.html" target="_blank" rel="noopener noreferrer" class="btn-link" style="color: var(--text-muted); text-decoration: none;">
+                <a href="partials/ribera_marco/index.html" class="btn-link" style="color: var(--text-muted); text-decoration: none;" data-launch-frame data-launch-title="Ribera del Marco — Cartografía 3D">
                   Launch 3D Map &nearr;
                 </a>
               </div>
@@ -186,7 +143,7 @@
                         data-open-drawer>
                   View Study &rarr;
                 </button>
-                <a href="partials/rutas_turismo/index.html" target="_blank" rel="noopener noreferrer" class="btn-link" style="color: var(--text-muted); text-decoration: none;">
+                <a href="partials/rutas_turismo/index.html" class="btn-link" style="color: var(--text-muted); text-decoration: none;" data-launch-frame data-launch-title="Rutas Turísticas ESCÁCERES">
                   Launch Web App &nearr;
                 </a>
               </div>
@@ -335,6 +292,18 @@
   <aside id="case-study-drawer" class="drawer-backdrop" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="drawer-panel" id="drawer-content"></div>
   </aside>
+
+  <div id="launch-frame" class="launch-frame" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Project">
+    <iframe class="launch-frame-view" title="Project"></iframe>
+    <div class="launch-orient" hidden>
+      <div class="launch-orient-card">
+        <p class="type-headline">Rotate to landscape</p>
+        <p class="launch-orient-copy">This project is meant to be viewed horizontally. Turn your phone or tablet sideways for the intended experience.</p>
+        <button type="button" class="btn-line" data-launch-continue>Continue in portrait</button>
+      </div>
+    </div>
+    <button type="button" class="btn-line launch-frame-close" data-launch-close>Close</button>
+  </div>
 
   <script type="module" src="js/main.js"></script>
 
