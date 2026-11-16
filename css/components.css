@@ -55,11 +55,70 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2);
+  flex-wrap: wrap;
   font-size: var(--text-2xs);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--text-muted);
+}
+
+.meta-tags {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.meta-sep {
+  opacity: 0.35;
+  font-weight: 300;
+}
+
+.meta-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  padding: 0.12rem 0.5rem;
+  border: 1px solid var(--line);
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.045em;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.meta-status::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: currentColor;
+  opacity: 0.65;
+}
+
+.meta-status.status-completed::before {
+  background-color: #10b981;
+  opacity: 0.9;
+}
+
+.meta-status.status-in-progress::before {
+  background-color: #3b82f6;
+  opacity: 0.9;
+}
+
+.meta-status.status-prototype::before,
+.meta-status.status-fabrication::before {
+  background-color: #f59e0b;
+  opacity: 0.9;
+}
+
+.meta-status.status-commissioned::before,
+.meta-status.status-concept::before {
+  background-color: #8b5cf6;
+  opacity: 0.9;
 }
 
 .stage-title {

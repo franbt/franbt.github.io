@@ -206,24 +206,6 @@ button {
 /* --------------------------------------------------------------------------
    VIEWER GRIDS (Balanced Lineout Structure)
    -------------------------------------------------------------------------- */
-.viewer-intro {
-  display: grid;
-  grid-template-columns: 1fr 1.25fr;
-  gap: var(--space-5);
-  align-items: stretch;
-  padding-bottom: var(--space-5);
-  border-bottom: 1px solid var(--line);
-  margin-bottom: var(--space-5);
-}
-
-.intro-copy {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: var(--space-4);
-  padding-right: var(--space-3);
-}
-
 .grid-duo {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -242,10 +224,6 @@ button {
 
 /* Tablet & Compact Laptop */
 @media (max-width: 1080px) {
-  .viewer-intro {
-    grid-template-columns: 1fr;
-  }
-
   .grid-trio {
     grid-template-columns: repeat(2, 1fr);
   }
