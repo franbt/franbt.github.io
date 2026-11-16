@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aplicación web mockup de Rutas Turísticas: Itinerarios culturales, naturales, gastronómicos y costeros con máxima legibilidad, eficiencia de batería y diseño responsivo para PC, tablet y móvil.">
+  <meta name="theme-color" content="#059669">
+  <title>Rutas Turísticas | Itinerarios Culturales y Naturales</title>
+  
+  <!-- Estilos Core y Componentes -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <div class="app-wrapper">
+    
+    <!-- Barra de Simulación de Dispositivos (PC / Tablet / Móvil) -->
+    <div class="simulator-bar controls-no-print">
+      <div class="simulator-inner">
+        <span>📐 Vista responsiva:</span>
+        <div class="simulator-controls">
+          <button class="sim-btn active" data-device="pc" title="Vista estándar de pantalla completa">🖥️ PC / Todo</button>
+          <button class="sim-btn" data-device="tablet" title="Simular ancho Tablet (768px)">📱 Tablet</button>
+          <button class="sim-btn" data-device="mobile" title="Simular ancho Móvil (414px)">📱 Móvil</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Encabezado Principal -->
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand-wrapper" onclick="window.RutasApp.showCatalog()" role="button" tabindex="0" aria-label="Inicio ESCÁCERES - Rutas Turísticas">
+          <div class="brand-logo-container" title="ESCÁCERES - Marca Oficial">
+            <img src="assets/logo-landscape.svg" alt="ESCÁCERES" class="escaceres-svg-logo">
+          </div>
+          <div class="brand-titles">
+            <div class="brand-header-row">
+              <h1>Rutas Turísticas</h1>
+              <span class="brand-dev-badge">Desarrollado por Turismo - Olimpo II</span>
+            </div>
+            <span class="tagline">Itinerarios y Fichas Oficiales &bull; Red de Rutas ESCÁCERES</span>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <!-- Alternador de Tema Claro / Oscuro OLED -->
+          <button class="header-btn" id="theme-toggle-btn" title="Alternar entre tema claro y oscuro OLED" aria-label="Alternar tema">
+            <span class="icon">🌙</span><span class="theme-btn-text">Modo Oscuro</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Contenedor Principal Adaptable -->
+    <main class="content-wrapper" id="main-content-wrapper">
+      
+      <!-- SECCIÓN CATÁLOGO / EXPLORADOR -->
+      <section class="catalog-section" id="catalog-section">
+        <div class="catalog-header">
+          <h2 class="catalog-title">Explorador de Rutas e Itinerarios</h2>
+          <p class="catalog-desc">
+            Selecciona un itinerario para consultar su ficha técnica completa, cartografía vectorial, paradas interpretativas, servicios y recomendaciones ambientales.
+          </p>
+        </div>
+
+        <!-- Barra de Búsqueda y Filtros Rápidos -->
+        <div class="filter-bar">
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="search" id="search-routes-input" class="search-input" placeholder="Buscar por nombre, temática o punto de interés..." aria-label="Buscar rutas turísticas">
+          </div>
+
+          <!-- Filtros por Temática ESCÁCERES -->
+          <div class="filter-pills">
+            <button class="filter-pill theme-filter-pill active" data-theme="all">Todas las categorías</button>
+            <button class="filter-pill theme-filter-pill" data-theme="Patrimonio"><strong style="color: #d15e15;">ES</strong>HISTORIA</button>
+            <button class="filter-pill theme-filter-pill" data-theme="Ecoturismo"><strong style="color: #94c11f;">ES</strong>NATURALEZA</button>
+            <button class="filter-pill theme-filter-pill" data-theme="Enoturismo"><strong style="color: #ab182d;">ES</strong>ESENCIA</button>
+            <button class="filter-pill theme-filter-pill" data-theme="Litoral"><strong style="color: #0098d6;">ES</strong>PAISAJE</button>
+          </div>
+
+          <!-- Filtros por Dificultad -->
+          <div class="filter-pills">
+            <button class="filter-pill diff-filter-pill active" data-diff="all">Dificultad</button>
+            <button class="filter-pill diff-filter-pill" data-diff="Baja">Baja</button>
+            <button class="filter-pill diff-filter-pill" data-diff="Media">Media</button>
+          </div>
+        </div>
+
+        <!-- Grid de Rutas -->
+        <div class="routes-grid" id="routes-catalog-grid">
+          <!-- Renderizado dinámico vía Vanilla JS / HTMX -->
+        </div>
+      </section>
+
+      <!-- CONTENEDOR DE FICHA DETALLADA (Se monta al seleccionar una ruta) -->
+      <div id="route-detail-container" style="display: none;">
+        <!-- Inyección dinámica de la Ficha Completa -->
+      </div>
+
+    </main>
+
+    <!-- Barra de Navegación Rápida Móvil -->
+    <nav class="mobile-nav-bar" aria-label="Navegación móvil">
+      <div class="mobile-nav-grid">
+        <button class="mobile-nav-link active" onclick="window.RutasApp.showCatalog()">
+          <span>🏠</span>
+          <span>Catálogo</span>
+        </button>
+        <button class="mobile-nav-link" onclick="window.RutasApp.toggleTheme()">
+          <span>🌓</span>
+          <span>Tema</span>
+        </button>
+        <button class="mobile-nav-link" onclick="window.print()">
+          <span>📄</span>
+          <span>PDF</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Pie de Página con Autoría Obligatoria -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="author-card">
+          <span class="author-label">Créditos de Diseño y Autoría</span>
+          <span class="author-name">Francisco José Bermejo Tarifa</span>
+          <span class="author-sub">Diseño Gráfico — Olimpo II</span>
+        </div>
+        <p class="footer-copy">
+          Mockup Web de Rutas Turísticas &bull; HTML5 Semántico + CSS3 + HTMX + Vanilla JS &bull; Eficiencia Energética y Accesibilidad Universal
+        </p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Scripts: HTMX + Datos de Rutas + Lógica Vanilla JS -->
+  <script src="js/htmx.min.js"></script>
+  <script src="js/routes-data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

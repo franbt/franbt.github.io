@@ -26,6 +26,30 @@
   overflow: hidden;
 }
 
+.stage-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.stage-media:empty,
+.stage-media.stage-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stage-media:empty::after,
+.stage-media.stage-empty::after {
+  content: "";
+  display: block;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 1px dashed var(--line-strong);
+  opacity: 0.35;
+}
+
 .stage-media + .stage-body {
   border-top: 1px solid var(--line);
 }
@@ -153,28 +177,20 @@
 /* Lineout Stat Row */
 .stat-group {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1px;
+  background-color: var(--line);
   border: 1px solid var(--line);
 }
 
 .stat-item {
+  background-color: var(--bg-primary);
   padding: var(--space-3);
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
-  border-right: 1px solid var(--line);
-}
-
-.stat-item:last-child {
-  border-right: none;
-}
-
-.stat-value {
-  font-size: var(--text-xl);
-  font-weight: 300;
-  letter-spacing: -0.045em;
-  line-height: 1.05;
-  color: var(--text-primary);
+  gap: var(--space-1);
+  min-width: 0; /* Prevents overflow in CSS Grid */
+  overflow: hidden;
 }
 
 .stat-label {
@@ -183,6 +199,17 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.stat-value {
+  font-size: clamp(0.92rem, 0.86rem + 0.35vw, 1.2rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  color: var(--text-primary);
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 /* --------------------------------------------------------------------------

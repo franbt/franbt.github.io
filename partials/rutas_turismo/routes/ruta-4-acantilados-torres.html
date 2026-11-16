@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Senda Costera de los Acantilados y Torres Vigía | ESCÁCERES</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+  <div class="app-wrapper">
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="../index.html" class="brand-wrapper" aria-label="Inicio ESCÁCERES - Rutas Turísticas">
+          <div class="brand-logo-container" title="ESCÁCERES - Marca Oficial">
+            <img src="../assets/logo-landscape.svg" alt="ESCÁCERES" class="escaceres-svg-logo">
+          </div>
+          <div class="brand-titles">
+            <div class="brand-header-row">
+              <h1>Rutas Turísticas</h1>
+              <span class="brand-dev-badge">Desarrollado por Turismo - Olimpo II</span>
+            </div>
+            <span class="tagline">Itinerarios y Fichas Oficiales &bull; Red de Rutas ESCÁCERES</span>
+          </div>
+        </a>
+        <div class="header-actions">
+          <a href="../index.html" class="header-btn">⬅ Catálogo</a>
+          <button class="header-btn" id="theme-toggle-btn" title="Alternar tema" aria-label="Alternar tema">
+            <span class="icon">🌙</span><span class="theme-btn-text">Tema</span>
+          </button>
+          <button class="header-btn controls-no-print" onclick="window.print()" title="Imprimir Ficha" aria-label="Imprimir">🖨️</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="content-wrapper">
+      <article class="route-sheet">
+        <header class="sheet-hero">
+          <div class="sheet-badge-group">
+            <span class="sheet-category-tag">Ficha de Ruta Oficial</span>
+            <span class="metric-badge diff-media">⚡ Dificultad Media (Sendero costero con desniveles moderados y escalinatas)</span>
+          </div>
+          <h1 class="sheet-title">Senda Costera de los Acantilados y Torres Vigía</h1>
+          <p class="sheet-slogan">"Centinelas de roca frente al mar, brisa marina y geología viva"</p>
+        </header>
+
+        <div class="metrics-summary-grid">
+          <div class="metric-item">
+            <span class="metric-item-label">Temática</span>
+            <span class="metric-item-value">🏛️ $Paisaje Litoral</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-item-label">Duración</span>
+            <span class="metric-item-value">⏱️ 3 horas y 15 minutos</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-item-label">Distancia</span>
+            <span class="metric-item-value">📏 5,6 km</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-item-label">Paradas</span>
+            <span class="metric-item-value">📍 6 Hitos</span>
+          </div>
+          <div class="metric-item" style="grid-column: 1/-1;">
+            <span class="metric-item-label">Inicio y Final</span>
+            <span class="metric-item-value" style="font-size: 0.95rem;">🚩 Inicio en Faro del Cabo / Final en Cala de la Torre Vigía Alta</span>
+          </div>
+          <div class="metric-item" style="grid-column: 1/-1;">
+            <span class="metric-item-label">Accesibilidad</span>
+            <span class="metric-item-value" style="font-size: 0.95rem;">♿ Sendero natural no adaptado para sillas de ruedas; tramo inicial de 1 km accesible para todos.</span>
+          </div>
+        </div>
+
+        <div class="sheet-body">
+          <section class="section-block">
+            <h2 class="section-title"><span class="section-title-icon">📖</span> Descripción</h2>
+            <p class="text-prose">Recorrido panorámico al borde del litoral agreste que une históricas torres vigía del siglo XVI levantadas para la alerta temprana frente a incursiones berberiscas. El trazado atraviesa calas fósiles, acantilados de roca volcánica y plataformas de abrasión marina con una rica avifauna litoral.</p>
+            <div class="audience-box" style="margin-top: 0.75rem;">
+              <strong>👥 Público Destinatario:</strong>
+              <p class="text-prose" style="font-size: 0.95rem;">Senderistas, fotógrafos, amantes del mar, observadores de aves y geólogos aficionados.</p>
+            </div>
+          </section>
+
+          <section class="section-block">
+            <h2 class="section-title"><span class="section-title-icon">🗺️</span> Mapa del Recorrido</h2>
+            <div class="map-container">
+              <div class="map-toolbar">
+                <span>Plano Vectorial de Alta Definición</span>
+                <span class="map-mobile-hint">👉 Desliza el mapa para explorar</span>
+              </div>
+              <div class="map-svg-wrap">
+                <svg class="map-svg" viewBox="0 0 800 350" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M 80,180 Q 220,260 360,150 T 550,220 T 720,110" fill="none" stroke="var(--border-subtle)" stroke-width="12" stroke-linecap="round" />
+                  <path d="M 80,180 Q 220,260 360,150 T 550,220 T 720,110" fill="none" stroke="var(--primary)" stroke-width="6" stroke-linecap="round" stroke-dasharray="10 5" />
+                  
+      <g class="map-stop-pin active" id="svg-pin-1" onclick="window.RutasApp ? window.RutasApp.selectStop(1, true) : null" tabindex="0" role="button" aria-label="Parada 1: Faro del Cabo y Balcón">
+        <circle cx="85" cy="175" r="34" fill="transparent" class="pin-hitbox" />
+        <circle cx="85" cy="175" r="22" fill="var(--bg-surface)" stroke="var(--primary)" stroke-width="4" class="pin-ring" />
+        <circle cx="85" cy="175" r="15" fill="var(--primary)" class="pin-core" />
+        <text x="85" y="180" font-size="14" font-weight="900" fill="#ffffff" text-anchor="middle" class="pin-num">1</text>
+        <text x="85" y="135" font-size="14" font-weight="700" text-anchor="middle" class="pin-label">Faro del Cabo y Balcón</text>
+      </g>
+      <g class="map-stop-pin " id="svg-pin-2" onclick="window.RutasApp ? window.RutasApp.selectStop(2, true) : null" tabindex="0" role="button" aria-label="Parada 2: Torre Vigía de la Cala">
+        <circle cx="220" cy="225" r="34" fill="transparent" class="pin-hitbox" />
+        <circle cx="220" cy="225" r="22" fill="var(--bg-surface)" stroke="var(--primary)" stroke-width="4" class="pin-ring" />
+        <circle cx="220" cy="225" r="15" fill="var(--primary)" class="pin-core" />
+        <text x="220" y="230" font-size="14" font-weight="900" fill="#ffffff" text-anchor="middle" class="pin-num">2</text>
+        <text x="220" y="270" font-size="14" font-weight="700" text-anchor="middle" class="pin-label">Torre Vigía de la Cala</text>
+      </g>
+      <g class="map-stop-pin " id="svg-pin-3" onclick="window.RutasApp ? window.RutasApp.selectStop(3, true) : null" tabindex="0" role="button" aria-label="Parada 3: Plataforma de Fósiles">
+        <circle cx="360" cy="145" r="34" fill="transparent" class="pin-hitbox" />
+        <circle cx="360" cy="145" r="22" fill="var(--bg-surface)" stroke="var(--primary)" stroke-width="4" class="pin-ring" />
+        <circle cx="360" cy="145" r="15" fill="var(--primary)" class="pin-core" />
+        <text x="360" y="150" font-size="14" font-weight="900" fill="#ffffff" text-anchor="middle" class="pin-num">3</text>
+        <text x="360" y="105" font-size="14" font-weight="700" text-anchor="middle" class="pin-label">Plataforma de Fósiles</text>
+      </g>
+      <g class="map-stop-pin " id="svg-pin-4" onclick="window.RutasApp ? window.RutasApp.selectStop(4, true) : null" tabindex="0" role="button" aria-label="Parada 4: Cala Secreta y Ensenada">
+        <circle cx="480" cy="185" r="34" fill="transparent" class="pin-hitbox" />
+        <circle cx="480" cy="185" r="22" fill="var(--bg-surface)" stroke="var(--primary)" stroke-width="4" class="pin-ring" />
+        <circle cx="480" cy="185" r="15" fill="var(--primary)" class="pin-core" />
+        <text x="480" y="190" font-size="14" font-weight="900" fill="#ffffff" text-anchor="middle" class="pin-num">4</text>
+        <text x="480" y="230" font-size="14" font-weight="700" text-anchor="middle" class="pin-label">Cala Secreta y Ensenada</text>
+      </g>
+      <g class="map-stop-pin " id="svg-pin-5" onclick="window.RutasApp ? window.RutasApp.selectStop(5, true) : null" tabindex="0" role="button" aria-label="Parada 5: Dunas Fósiles y Arrecife">
+        <circle cx="600" cy="205" r="34" fill="transparent" class="pin-hitbox" />
+        <circle cx="600" cy="205" r="22" fill="var(--bg-surface)" stroke="var(--primary)" stroke-width="4" class="pin-ring" />
+        <circle cx="600" cy="205" r="15" fill="var(--primary)" class="pin-core" />
+        <text x="600" y="210" font-size="14" font-weight="900" fill="#ffffff" text-anchor="middle" class="pin-num">5</text>
+        <text x="600" y="250" font-size="14" font-weight="700" text-anchor="middle" class="pin-label">Dunas Fósiles y Arrecife</text>
+      </g>
+      <g class="map-stop-pin " id="svg-pin-6" onclick="window.RutasApp ? window.RutasApp.selectStop(6, true) : null" tabindex="0" role="button" aria-label="Parada 6: Torre Vigía Alta del Cantil">
+        <circle cx="715" cy="105" r="34" fill="transparent" class="pin-hitbox" />
+        <circle cx="715" cy="105" r="22" fill="var(--bg-surface)" stroke="var(--primary)" stroke-width="4" class="pin-ring" />
+        <circle cx="715" cy="105" r="15" fill="var(--primary)" class="pin-core" />
+        <text x="715" y="110" font-size="14" font-weight="900" fill="#ffffff" text-anchor="middle" class="pin-num">6</text>
+        <text x="715" y="65" font-size="14" font-weight="700" text-anchor="middle" class="pin-label">Torre Vigía Alta del Cantil</text>
+      </g>
+                </svg>
+              </div>
+              <div class="map-stops-quickbar">
+                <span class="quickbar-title">Hitos:</span>
+                <div class="quickbar-scroll">
+                  
+      <button class="stop-chip-btn active" id="chip-btn-1" onclick="window.RutasApp ? window.RutasApp.selectStop(1, true) : null">
+        <span class="chip-num-badge">1</span>
+        <span>Faro del Cabo</span>
+      </button>
+      <button class="stop-chip-btn " id="chip-btn-2" onclick="window.RutasApp ? window.RutasApp.selectStop(2, true) : null">
+        <span class="chip-num-badge">2</span>
+        <span>Torre Vigía de la Cala Baja</span>
+      </button>
+      <button class="stop-chip-btn " id="chip-btn-3" onclick="window.RutasApp ? window.RutasApp.selectStop(3, true) : null">
+        <span class="chip-num-badge">3</span>
+        <span>Plataforma de Fósiles Marinos</span>
+      </button>
+      <button class="stop-chip-btn " id="chip-btn-4" onclick="window.RutasApp ? window.RutasApp.selectStop(4, true) : null">
+        <span class="chip-num-badge">4</span>
+        <span>Cala Secreta y Ensenada de Pescadores</span>
+      </button>
+      <button class="stop-chip-btn " id="chip-btn-5" onclick="window.RutasApp ? window.RutasApp.selectStop(5, true) : null">
+        <span class="chip-num-badge">5</span>
+        <span>Dunas Fósiles y Arrecife</span>
+      </button>
+      <button class="stop-chip-btn " id="chip-btn-6" onclick="window.RutasApp ? window.RutasApp.selectStop(6, true) : null">
+        <span class="chip-num-badge">6</span>
+        <span>Torre Vigía Alta del Cantil</span>
+      </button>
+                </div>
+              </div>
+              <div class="selected-stop-banner" id="map-selected-banner">
+                <div class="selected-stop-info">
+                  <span class="chip-num-badge" id="banner-stop-num">1</span>
+                  <div>
+                    <strong class="selected-stop-title" id="banner-stop-title">Faro del Cabo</strong>
+                    <span style="font-size: 0.8rem; color: var(--text-muted); display: block;" id="banner-stop-time">Estancia: 25 min</span>
+                  </div>
+                </div>
+                <button class="btn-open-route" onclick="window.RutasApp ? window.RutasApp.scrollToActiveStop() : null">
+                  Ver Ficha de Interpretación ➔
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <section class="section-block">
+            <h2 class="section-title"><span class="section-title-icon">⏱️</span> Itinerario Detallado</h2>
+            <div class="timeline">
+              
+      <div class="timeline-step">
+        <div class="timeline-node">1</div>
+        <div class="timeline-header">
+          <h3 class="timeline-title">1. Faro del Cabo y Balcón Oceánico</h3>
+          <span class="timeline-meta">00:00 - 00:25 | 0,0 km (Inicio)</span>
+        </div>
+        <p class="timeline-desc">Señal marítima activa con linterna giratoria y centro de interpretación del litoral.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-node">2</div>
+        <div class="timeline-header">
+          <h3 class="timeline-title">2. Torre Vigía de la Cala Baja</h3>
+          <span class="timeline-meta">00:35 - 01:05 | 1,1 km</span>
+        </div>
+        <p class="timeline-desc">Estructura cónica de mampostería con acceso elevado por escala de cuerda.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-node">3</div>
+        <div class="timeline-header">
+          <h3 class="timeline-title">3. Plataforma de Fósiles Marinos del Mioceno</h3>
+          <span class="timeline-meta">01:15 - 01:45 | 1,2 km</span>
+        </div>
+        <p class="timeline-desc">Estrato geológico con restos fosilizados de bivalvos gigantes y corales de mares cálidos.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-node">4</div>
+        <div class="timeline-header">
+          <h3 class="timeline-title">4. Cala Secreta y Casetas de Barcas</h3>
+          <span class="timeline-meta">01:55 - 02:25 | 1,0 km</span>
+        </div>
+        <p class="timeline-desc">Refugio natural de pesca artesanal con varaderos de madera y aguas transparentes.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-node">5</div>
+        <div class="timeline-header">
+          <h3 class="timeline-title">5. Dunas Fósiles y Ecosistema de Limonium</h3>
+          <span class="timeline-meta">02:35 - 02:55 | 1,1 km</span>
+        </div>
+        <p class="timeline-desc">Formaciones eólicas petrificadas y plantas halófilas adaptadas al salitre extremo.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-node">6</div>
+        <div class="timeline-header">
+          <h3 class="timeline-title">6. Torre Vigía Alta del Cantil y Puesta de Sol Marina</h3>
+          <span class="timeline-meta">03:00 - 03:15 | 1,2 km (Final)</span>
+        </div>
+        <p class="timeline-desc">Cumbre del acantilado a 95 metros sobre el nivel del mar con horizonte infinito.</p>
+      </div>
+            </div>
+          </section>
+
+          <section class="section-block">
+            <h2 class="section-title"><span class="section-title-icon">🎙️</span> Fichas de Interpretación de cada Parada</h2>
+            <div class="stops-interpretation-list">
+              
+      <article class="stop-card" id="stop-card-1">
+        <div class="stop-card-header" onclick="window.RutasApp ? window.RutasApp.toggleStopCard(1) : null" tabindex="0" role="button" aria-expanded="true">
+          <div class="stop-card-header-left">
+            <span class="stop-badge-num">1</span>
+            <div>
+              <h3 class="stop-card-title">Faro del Cabo</h3>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Estancia estimada: 25 min</span>
+            </div>
+          </div>
+          <span class="stop-collapse-icon" id="stop-icon-1">▼</span>
+        </div>
+        <div class="stop-card-body" id="stop-body-1">
+          <div class="stop-interpretation-keys">
+            <span class="stop-key-title">Claves de Interpretación:</span>
+            <p class="text-prose" style="font-size: 0.95rem;">Óptica catadióptrica de Fresnel; alcance luminoso de 22 millas náuticas.</p>
+          </div>
+          <div style="background: var(--bg-surface); padding: 0.85rem; border-radius: var(--radius-sm); border-left: 3px solid var(--accent);">
+            <strong style="font-size: 0.85rem; color: var(--text-primary);">💡 Dato de Interés:</strong>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.2rem;">El farero de guardia enviaba avisos meteorológicos mediante telegrafía de banderas antes de la radio.</p>
+          </div>
+          <div class="stop-actions" style="margin-top: 0.5rem;">
+            <button class="btn-audio-guide" onclick="window.RutasApp ? window.RutasApp.playStopAudio(1) : null">
+              🔊 Escuchar Audioguía
+            </button>
+            <button class="btn-audio-guide" style="background: var(--bg-surface-subtle); color: var(--text-secondary);" onclick="window.RutasApp ? window.RutasApp.stopAudio() : null">
+              ⏹ Detener
+            </button>
+          </div>
+        </div>
+      </article>
+      <article class="stop-card" id="stop-card-2">
+        <div class="stop-card-header" onclick="window.RutasApp ? window.RutasApp.toggleStopCard(2) : null" tabindex="0" role="button" aria-expanded="true">
+          <div class="stop-card-header-left">
+            <span class="stop-badge-num">2</span>
+            <div>
+              <h3 class="stop-card-title">Torre Vigía de la Cala Baja</h3>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Estancia estimada: 30 min</span>
+            </div>
+          </div>
+          <span class="stop-collapse-icon" id="stop-icon-2">▼</span>
+        </div>
+        <div class="stop-card-body" id="stop-body-2">
+          <div class="stop-interpretation-keys">
+            <span class="stop-key-title">Claves de Interpretación:</span>
+            <p class="text-prose" style="font-size: 0.95rem;">Sistema de señales de humo de día y fuego de noche que recorría 200 km de costa en 40 minutos.</p>
+          </div>
+          <div style="background: var(--bg-surface); padding: 0.85rem; border-radius: var(--radius-sm); border-left: 3px solid var(--accent);">
+            <strong style="font-size: 0.85rem; color: var(--text-primary);">💡 Dato de Interés:</strong>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.2rem;">La puerta de entrada estaba situada a 6 metros de altura y solo se accedía retirando una escala de cuerda.</p>
+          </div>
+          <div class="stop-actions" style="margin-top: 0.5rem;">
+            <button class="btn-audio-guide" onclick="window.RutasApp ? window.RutasApp.playStopAudio(2) : null">
+              🔊 Escuchar Audioguía
+            </button>
+            <button class="btn-audio-guide" style="background: var(--bg-surface-subtle); color: var(--text-secondary);" onclick="window.RutasApp ? window.RutasApp.stopAudio() : null">
+              ⏹ Detener
+            </button>
+          </div>
+        </div>
+      </article>
+      <article class="stop-card" id="stop-card-3">
+        <div class="stop-card-header" onclick="window.RutasApp ? window.RutasApp.toggleStopCard(3) : null" tabindex="0" role="button" aria-expanded="true">
+          <div class="stop-card-header-left">
+            <span class="stop-badge-num">3</span>
+            <div>
+              <h3 class="stop-card-title">Plataforma de Fósiles Marinos</h3>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Estancia estimada: 30 min</span>
+            </div>
+          </div>
+          <span class="stop-collapse-icon" id="stop-icon-3">▼</span>
+        </div>
+        <div class="stop-card-body" id="stop-body-3">
+          <div class="stop-interpretation-keys">
+            <span class="stop-key-title">Claves de Interpretación:</span>
+            <p class="text-prose" style="font-size: 0.95rem;">Rocas calcarenitas con icnofósiles y restos de arrecifes coralinos de hace 6 millones de años.</p>
+          </div>
+          <div style="background: var(--bg-surface); padding: 0.85rem; border-radius: var(--radius-sm); border-left: 3px solid var(--accent);">
+            <strong style="font-size: 0.85rem; color: var(--text-primary);">💡 Dato de Interés:</strong>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.2rem;">Se pueden apreciar moldes perfectos de pectínidos y dientes de tiburón fósil integrados en la matriz rocosa.</p>
+          </div>
+          <div class="stop-actions" style="margin-top: 0.5rem;">
+            <button class="btn-audio-guide" onclick="window.RutasApp ? window.RutasApp.playStopAudio(3) : null">
+              🔊 Escuchar Audioguía
+            </button>
+            <button class="btn-audio-guide" style="background: var(--bg-surface-subtle); color: var(--text-secondary);" onclick="window.RutasApp ? window.RutasApp.stopAudio() : null">
+              ⏹ Detener
+            </button>
+          </div>
+        </div>
+      </article>
+      <article class="stop-card" id="stop-card-4">
+        <div class="stop-card-header" onclick="window.RutasApp ? window.RutasApp.toggleStopCard(4) : null" tabindex="0" role="button" aria-expanded="true">
+          <div class="stop-card-header-left">
+            <span class="stop-badge-num">4</span>
+            <div>
+              <h3 class="stop-card-title">Cala Secreta y Ensenada de Pescadores</h3>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Estancia estimada: 30 min</span>
+            </div>
+          </div>
+          <span class="stop-collapse-icon" id="stop-icon-4">▼</span>
+        </div>
+        <div class="stop-card-body" id="stop-body-4">
+          <div class="stop-interpretation-keys">
+            <span class="stop-key-title">Claves de Interpretación:</span>
+            <p class="text-prose" style="font-size: 0.95rem;">Pesca de bajura con trasmallo selectivo; hábitat de praderas de Posidonia oceanica.</p>
+          </div>
+          <div style="background: var(--bg-surface); padding: 0.85rem; border-radius: var(--radius-sm); border-left: 3px solid var(--accent);">
+            <strong style="font-size: 0.85rem; color: var(--text-primary);">💡 Dato de Interés:</strong>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.2rem;">Las praderas de Posidonia sumergidas frente a la cala son responsables de la asombrosa transparencia del agua.</p>
+          </div>
+          <div class="stop-actions" style="margin-top: 0.5rem;">
+            <button class="btn-audio-guide" onclick="window.RutasApp ? window.RutasApp.playStopAudio(4) : null">
+              🔊 Escuchar Audioguía
+            </button>
+            <button class="btn-audio-guide" style="background: var(--bg-surface-subtle); color: var(--text-secondary);" onclick="window.RutasApp ? window.RutasApp.stopAudio() : null">
+              ⏹ Detener
+            </button>
+          </div>
+        </div>
+      </article>
+      <article class="stop-card" id="stop-card-5">
+        <div class="stop-card-header" onclick="window.RutasApp ? window.RutasApp.toggleStopCard(5) : null" tabindex="0" role="button" aria-expanded="true">
+          <div class="stop-card-header-left">
+            <span class="stop-badge-num">5</span>
+            <div>
+              <h3 class="stop-card-title">Dunas Fósiles y Arrecife</h3>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Estancia estimada: 20 min</span>
+            </div>
+          </div>
+          <span class="stop-collapse-icon" id="stop-icon-5">▼</span>
+        </div>
+        <div class="stop-card-body" id="stop-body-5">
+          <div class="stop-interpretation-keys">
+            <span class="stop-key-title">Claves de Interpretación:</span>
+            <p class="text-prose" style="font-size: 0.95rem;">Endemismo vegetal: Siempreviva marítima (Limonium) y azucena de mar protegida.</p>
+          </div>
+          <div style="background: var(--bg-surface); padding: 0.85rem; border-radius: var(--radius-sm); border-left: 3px solid var(--accent);">
+            <strong style="font-size: 0.85rem; color: var(--text-primary);">💡 Dato de Interés:</strong>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.2rem;">Estas plantas son capaces de expulsar el exceso de sal marina a través de microscópicas glándulas en sus hojas.</p>
+          </div>
+          <div class="stop-actions" style="margin-top: 0.5rem;">
+            <button class="btn-audio-guide" onclick="window.RutasApp ? window.RutasApp.playStopAudio(5) : null">
+              🔊 Escuchar Audioguía
+            </button>
+            <button class="btn-audio-guide" style="background: var(--bg-surface-subtle); color: var(--text-secondary);" onclick="window.RutasApp ? window.RutasApp.stopAudio() : null">
+              ⏹ Detener
+            </button>
+          </div>
+        </div>
+      </article>
+      <article class="stop-card" id="stop-card-6">
+        <div class="stop-card-header" onclick="window.RutasApp ? window.RutasApp.toggleStopCard(6) : null" tabindex="0" role="button" aria-expanded="true">
+          <div class="stop-card-header-left">
+            <span class="stop-badge-num">6</span>
+            <div>
+              <h3 class="stop-card-title">Torre Vigía Alta del Cantil</h3>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Estancia estimada: 15 min</span>
+            </div>
+          </div>
+          <span class="stop-collapse-icon" id="stop-icon-6">▼</span>
+        </div>
+        <div class="stop-card-body" id="stop-body-6">
+          <div class="stop-interpretation-keys">
+            <span class="stop-key-title">Claves de Interpretación:</span>
+            <p class="text-prose" style="font-size: 0.95rem;">Vértice geodésico de primer orden; avistamiento habitual de delfines mulares en paso.</p>
+          </div>
+          <div style="background: var(--bg-surface); padding: 0.85rem; border-radius: var(--radius-sm); border-left: 3px solid var(--accent);">
+            <strong style="font-size: 0.85rem; color: var(--text-primary);">💡 Dato de Interés:</strong>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.2rem;">En días despejados de invierno es posible divisar la silueta de las montañas del norte de África en el horizonte.</p>
+          </div>
+          <div class="stop-actions" style="margin-top: 0.5rem;">
+            <button class="btn-audio-guide" onclick="window.RutasApp ? window.RutasApp.playStopAudio(6) : null">
+              🔊 Escuchar Audioguía
+            </button>
+            <button class="btn-audio-guide" style="background: var(--bg-surface-subtle); color: var(--text-secondary);" onclick="window.RutasApp ? window.RutasApp.stopAudio() : null">
+              ⏹ Detener
+            </button>
+          </div>
+        </div>
+      </article>
+            </div>
+          </section>
+
+          <section class="section-block">
+            <h2 class="section-title"><span class="section-title-icon">🛠️</span> Recursos y Servicios Asociados</h2>
+            <div class="services-grid">
+              
+      <div class="service-card">
+        <span class="service-icon">🚗</span>
+        <div class="service-content">
+          <h4>Punto de acceso y transporte</h4>
+          <p>Aparcamiento regulado en Faro del Cabo y parada de bus interurbano costero.</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🛟</span>
+        <div class="service-content">
+          <h4>Seguridad marítima y socorrismo</h4>
+          <p>Puesto de socorrismo de Cruz Roja en Cala Secreta durante temporada estival.</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🕶️</span>
+        <div class="service-content">
+          <h4>Miradores con catalejos</h4>
+          <p>Telescopios panorámicos gratuitos de largo alcance en Paradas 1 y 6.</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🚤</span>
+        <div class="service-content">
+          <h4>Paseos en barco ecológico</h4>
+          <p>Servicio de retorno náutico con propulsión eléctrica desde Cala Secreta al puerto.</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🧴</span>
+        <div class="service-content">
+          <h4>Protección y avituallamiento</h4>
+          <p>Dispensador solar gratuito de crema protectora biodegradable en el inicio.</p>
+        </div>
+      </div>
+            </div>
+          </section>
+
+          <section class="section-block">
+            <h2 class="section-title"><span class="section-title-icon">📋</span> Recomendaciones Prácticas</h2>
+            <div class="recommendations-box">
+              <ul class="checklist">
+                <li>Protegerse del sol: usar sombrero, gafas con filtro UV y aplicar crema solar biodegradable.</li><li>Llevar suficiente agua potable (mínimo 1,5 litros por persona); en el cantil no hay fuentes continuas.</li><li>Mantenerse siempre a más de 3 metros del borde de los acantilados por riesgo de ráfagas repentinas de viento.</li><li>Respetar las dunas fósiles y no pisar la vegetación litoral protegida.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="section-block">
+            <h2 class="section-title"><span class="section-title-icon">🌱</span> Medidas de Sostenibilidad</h2>
+            <div class="sustainability-box">
+              <ul class="checklist sustainability-checklist">
+                <li>Protección activa de las praderas submarinas de Posidonia oceanica (sumidero de CO2).</li><li>Campaña 'Playa Sin Humo y Sin Plásticos': prohibición estricta de plásticos desechables.</li><li>Paneles informativos fabricados con plásticos marinos reciclados recogidos en limpiezas de costas.</li><li>Monitoreo constante de nidificación del cormorán moñudo y gaviota de Audouin.</li>
+              </ul>
+            </div>
+          </section>
+
+          <div class="sheet-author-box">
+            <div class="sheet-author-content">
+              <span class="sheet-author-title">Documento Técnico y Guía Oficial</span>
+              <span class="sheet-author-name">Autoría y diseño: Francisco José Bermejo Tarifa - DIseño Gráfico - Olimpo II</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="author-card">
+          <span class="author-label">Créditos de Diseño y Autoría</span>
+          <span class="author-name">Francisco José Bermejo Tarifa</span>
+          <span class="author-sub">Diseño Gráfico — Olimpo II</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../js/routes-data.js"></script>
+  <script src="../js/app.js"></script>
+</body>
+</html>
