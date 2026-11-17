@@ -395,8 +395,79 @@ function initLaunchFrame() {
 }
 
 /* --------------------------------------------------------------------------
-   4. KEYBOARD SHORTCUTS
+   4. CAMPAIGN CAROUSEL
    -------------------------------------------------------------------------- */
+function initCampaignCarousel() {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll('[data-carousel]').forEach((root) => {
+    const track = root.querySelector('[data-carousel-track]');
+    const slides = [...root.querySelectorAll('.campaign-slide')];
+    const dots = [...root.querySelectorAll('[data-carousel-dots] button')];
+    if (!track || slides.length === 0) return;
+
+    let index = 0;
+    let timer = 0;
+
+    function show(next) {
+      index = (next + slides.length) % slides.length;
+      track.style.transform = `translate3d(${-index * 100}%, 0, 0)`;
+      slides.forEach((slide, i) => {
+        slide.setAttribute('aria-hidden', i === index ? 'false' : 'true');
+      });
+      dots.forEach((dot, i) => {
+        if (i === index) dot.setAttribute('aria-current', 'true');
+        else dot.removeAttribute('aria-current');
+      });
+    }
+
+    function stop() {
+      window.clearInterval(timer);
+      timer = 0;
+    }
+
+    function start() {
+      if (reduceMotion || timer) return;
+      timer = window.setInterval(() => show(index + 1), 6000);
+    }
+
+    root.querySelector('[data-carousel-prev]')?.addEventListener('click', () => show(index - 1));
+    root.querySelector('[data-carousel-next]')?.addEventListener('click', () => show(index + 1));
+    dots.forEach((dot, i) => dot.addEventListener('click', () => show(i)));
+
+    root.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight') show(index + 1);
+      if (event.key === 'ArrowLeft') show(index - 1);
+    });
+
+    let startX = 0;
+    let dragging = false;
+    root.addEventListener('pointerdown', (event) => {
+      if (event.target.closest('button')) return;
+      dragging = true;
+      startX = event.clientX;
+    });
+    root.addEventListener('pointerup', (event) => {
+      if (!dragging) return;
+      dragging = false;
+      const delta = event.clientX - startX;
+      if (delta > 40) show(index - 1);
+      else if (delta < -40) show(index + 1);
+    });
+    root.addEventListener('pointercancel', () => { dragging = false; });
+
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', start);
+    root.addEventListener('focusin', stop);
+    root.addEventListener('focusout', (event) => {
+      if (!root.contains(event.relatedTarget)) start();
+    });
+
+    show(0);
+    start();
+  });
+}
+
 function initShortcuts() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
@@ -413,6 +484,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initHtmxHooks();
   initLaunchFrame();
+  initCampaignCarousel();
   initShortcuts();
   initAllThreeContainers(document);
 });

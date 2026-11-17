@@ -216,6 +216,58 @@ button {
   width: 100%;
 }
 
+/* On a desktop browser the image frame alone fills the header-to-footer band.
+   The title sits under that frame. */
+@media (min-width: 1024px) {
+  .center-viewer {
+    scroll-snap-type: y proximity;
+  }
+
+  .viewer-inner {
+    position: relative;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .viewer-inner > .filter-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    width: min(72rem, calc(0.88 * (100% - 2 * var(--page-gutter))));
+    height: 2.75rem;
+    margin-inline: auto;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border-bottom: none;
+    pointer-events: none;
+  }
+
+  #work-target {
+    gap: 0;
+  }
+
+  #work-target > .stage {
+    width: min(72rem, 88%);
+    margin-inline: auto;
+    height: auto;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    border: none;
+    background: transparent;
+  }
+
+  #work-target > .stage:hover {
+    background: transparent;
+  }
+}
+
 /* --------------------------------------------------------------------------
    VIEWER GRIDS (Balanced Lineout Structure)
    -------------------------------------------------------------------------- */
