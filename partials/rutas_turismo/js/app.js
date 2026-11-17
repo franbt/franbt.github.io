@@ -36,7 +36,6 @@
   // --- Inicialización ---
   document.addEventListener('DOMContentLoaded', () => {
     initTheme();
-    initSimulator();
     initFilters();
     initSearch();
     renderCatalog();
@@ -64,8 +63,8 @@
       themeBtn.innerHTML = isDark 
         ? '<span class="icon">☀️</span><span class="theme-btn-text">Modo Claro</span>'
         : '<span class="icon">🌙</span><span class="theme-btn-text">Modo Oscuro</span>';
-      themeBtn.setAttribute('aria-label', isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro OLED');
-      themeBtn.setAttribute('title', isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro OLED');
+      themeBtn.setAttribute('aria-label', isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+      themeBtn.setAttribute('title', isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
     }
   }
 
@@ -74,28 +73,7 @@
     applyTheme(newTheme);
   }
 
-  // --- 2. Simulador de Dispositivo (PC / Tablet / Móvil) ---
-  function initSimulator() {
-    const simBtns = document.querySelectorAll('.sim-btn');
-    const wrapper = document.getElementById('main-content-wrapper');
-
-    simBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        simBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const mode = btn.dataset.device;
-
-        if (wrapper) {
-          wrapper.classList.remove('sim-mobile', 'sim-tablet', 'sim-pc');
-          if (mode === 'mobile') wrapper.classList.add('sim-mobile');
-          if (mode === 'tablet') wrapper.classList.add('sim-tablet');
-          if (mode === 'pc') wrapper.classList.add('sim-pc');
-        }
-      });
-    });
-  }
-
-  // --- 3. Renderizado del Catálogo de Rutas ---
+  // --- 2. Renderizado del Catálogo de Rutas ---
   function renderCatalog() {
     const grid = document.getElementById('routes-catalog-grid');
     if (!grid || typeof ROUTES_DATA === 'undefined') return;

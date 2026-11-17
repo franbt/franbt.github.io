@@ -115,7 +115,7 @@ function init() {
 
     const loader = new GLTFLoader();
     const dracoLoader = new DRACOLoader();
-    dracoLoader.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.164/examples/jsm/libs/draco/');
+    dracoLoader.setDecoderPath('../../vendor/three/0.164/examples/jsm/libs/draco/');
     loader.setDRACOLoader(dracoLoader);
 
     const loadingElem = document.getElementById('loading');

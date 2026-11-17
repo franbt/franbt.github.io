@@ -6,9 +6,7 @@
   <meta name="description" content="Studio Archetype — Spatial architecture, interactive objects, and client studies.">
   <title>STUDIO ARCHETYPE</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="vendor/fonts/inter.css">
 
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/layout.css">
@@ -17,13 +15,12 @@
   <script type="importmap">
   {
     "imports": {
-      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      "three": "./vendor/three/0.160/build/three.module.js"
     }
   }
   </script>
 
-  <script src="https://unpkg.com/htmx.org@1.9.10" defer></script>
+  <script src="vendor/htmx/htmx.min.js" defer></script>
 </head>
 <body>
 
@@ -174,15 +171,21 @@
   </aside>
 
   <div id="launch-frame" class="launch-frame" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Project">
-    <iframe class="launch-frame-view" title="Project"></iframe>
-    <div class="launch-orient" hidden>
-      <div class="launch-orient-card">
-        <p class="type-headline">Rotate to landscape</p>
-        <p class="launch-orient-copy">This project is meant to be viewed horizontally. Turn your phone or tablet sideways for the intended experience.</p>
-        <button type="button" class="btn-line" data-launch-continue>Continue in portrait</button>
+    <div class="launch-frame-bar">
+      <button type="button" class="btn-line launch-frame-close" data-launch-close>Close</button>
+    </div>
+    <div class="launch-frame-slot">
+      <div class="launch-frame-stage">
+        <iframe class="launch-frame-view" title="Project"></iframe>
+        <div class="launch-orient" hidden>
+          <div class="launch-orient-card">
+            <p class="type-headline">Rotate to landscape</p>
+            <p class="launch-orient-copy">This project is meant to be viewed horizontally. Turn your phone or tablet sideways for the intended experience.</p>
+            <button type="button" class="btn-line" data-launch-continue>Continue in portrait</button>
+          </div>
+        </div>
       </div>
     </div>
-    <button type="button" class="btn-line launch-frame-close" data-launch-close>Close</button>
   </div>
 
   <script type="module" src="js/main.js"></script>

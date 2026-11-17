@@ -301,66 +301,13 @@ img, svg {
   display: inline;
 }
 
-/* Simulador de Vista (PC / Tablet / Móvil) */
-.simulator-bar {
-  background-color: var(--bg-surface-subtle);
-  border-bottom: 1px solid var(--border-color);
-  padding: 0.4rem 1rem;
-}
-
-.simulator-inner {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-.simulator-controls {
-  display: inline-flex;
-  gap: 0.25rem;
-  background-color: var(--bg-surface);
-  padding: 0.2rem;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-color);
-}
-
-.sim-btn {
-  padding: 0.2rem 0.55rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  border-radius: var(--radius-sm);
-  color: var(--text-muted);
-}
-
-.sim-btn.active {
-  background-color: var(--primary);
-  color: #ffffff;
-}
-
-/* Contenedor Principal Adaptable */
+/* Contenedor Principal */
 .content-wrapper {
   flex: 1;
   width: 100%;
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 1.5rem 1rem;
-  transition: max-width var(--transition-normal);
-}
-
-.content-wrapper.sim-mobile {
-  max-width: 414px !important;
-  border-left: 2px dashed var(--border-color);
-  border-right: 2px dashed var(--border-color);
-  padding: 1rem 0.75rem;
-}
-
-.content-wrapper.sim-tablet {
-  max-width: 768px !important;
-  border-left: 2px dashed var(--border-color);
-  border-right: 2px dashed var(--border-color);
 }
 
 /* Footer con Autoría Oficial */
@@ -417,53 +364,6 @@ img, svg {
   color: var(--text-muted);
 }
 
-/* Barra de Navegación Rápida Móvil */
-.mobile-nav-bar {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 56px;
-  background-color: var(--bg-surface);
-  border-top: 1px solid var(--border-color);
-  z-index: 99;
-}
-
-.mobile-nav-grid {
-  display: flex;
-  height: 100%;
-}
-
-.mobile-nav-link {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  gap: 0.15rem;
-}
-
-.mobile-nav-link.active {
-  color: var(--primary);
-}
-
-/* Responsividad para Tablet y Móvil */
-@media (max-width: 768px) {
-  body {
-    padding-bottom: 56px;
-  }
-  .mobile-nav-bar {
-    display: block;
-  }
-  .simulator-bar {
-    display: none;
-  }
-}
-
 @media (max-width: 640px) {
   .header-inner {
     padding: 0.45rem 0.6rem;
@@ -511,7 +411,7 @@ img, svg {
 }
 
 @media print {
-  .site-header, .simulator-bar, .mobile-nav-bar, .controls-no-print, .catalog-section {
+  .site-header, .controls-no-print, .catalog-section {
     display: none !important;
   }
   body {

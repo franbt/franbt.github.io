@@ -124,9 +124,13 @@ function syncOrientNotice() {
   const layer = document.getElementById('launch-frame');
   const notice = layer?.querySelector('.launch-orient');
   if (!notice) return;
-  const turned = layer.classList.contains('is-turned');
+  const turned = layer.querySelector('.launch-frame-stage')?.classList.contains('is-turned');
   const show = isLaunchOpen() && launchWantsLandscape && isHandheld() && isPortrait() && !portraitDismissed && !turned;
   notice.hidden = !show;
+}
+
+function framedPageScrolls(frame) {
+  return /rutas_turismo/.test(frame.getAttribute('src') || '');
 }
 
 function restorePageScroll() {
@@ -168,23 +172,42 @@ function requestLandscape(layer) {
 
 function layoutLaunchFrame() {
   const layer = document.getElementById('launch-frame');
+  const stage = layer?.querySelector('.launch-frame-stage');
   const frame = layer?.querySelector('.launch-frame-view');
-  if (!layer || !frame || !layer.classList.contains('is-open')) return;
+  const bar = layer?.querySelector('.launch-frame-bar');
+  if (!layer || !stage || !frame || !layer.classList.contains('is-open')) return;
 
   const box = visualBox();
-  const turn = launchWantsLandscape && isIOS() && isHandheld() && box.height > box.width && !portraitDismissed;
-  layer.classList.toggle('is-turned', turn);
-
-  const width = turn ? box.height : box.width;
-  const height = turn ? box.width : box.height;
   layer.style.top = box.top + 'px';
-  layer.style.left = (turn ? box.left + box.width : box.left) + 'px';
-  layer.style.width = width + 'px';
-  layer.style.height = height + 'px';
-  layer.style.transformOrigin = 'top left';
-  layer.style.transform = turn ? 'rotate(90deg)' : 'none';
-  frame.style.width = width + 'px';
-  frame.style.height = height + 'px';
+  layer.style.left = box.left + 'px';
+  layer.style.width = box.width + 'px';
+  layer.style.height = box.height + 'px';
+  layer.style.transform = 'none';
+
+  const barH = bar ? bar.offsetHeight : 0;
+  const slotW = box.width;
+  const slotH = Math.max(0, box.height - barH);
+  const turn = launchWantsLandscape && isIOS() && isHandheld() && box.height > box.width && !portraitDismissed;
+  stage.classList.toggle('is-turned', turn);
+
+  if (turn) {
+    stage.style.top = '0px';
+    stage.style.left = slotW + 'px';
+    stage.style.width = slotH + 'px';
+    stage.style.height = slotW + 'px';
+    stage.style.transformOrigin = 'top left';
+    stage.style.transform = 'rotate(90deg)';
+    frame.style.width = slotH + 'px';
+    frame.style.height = slotW + 'px';
+  } else {
+    stage.style.top = '0px';
+    stage.style.left = '0px';
+    stage.style.width = '100%';
+    stage.style.height = '100%';
+    stage.style.transform = 'none';
+    frame.style.width = slotW + 'px';
+    frame.style.height = slotH + 'px';
+  }
   syncOrientNotice();
   fitFramedDocument(frame);
 }
@@ -199,11 +222,14 @@ function fitFramedDocument(frame) {
   const h = frame.clientHeight;
   if (!w || !h) return;
 
+  const scrolls = framedPageScrolls(frame);
   const meta = doc.querySelector('meta[name="viewport"]');
   if (meta) {
     meta.setAttribute(
       'content',
-      `width=${w}, height=${h}, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, shrink-to-fit=no`,
+      scrolls
+        ? `width=${w}, initial-scale=1, viewport-fit=cover, shrink-to-fit=no`
+        : `width=${w}, height=${h}, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, shrink-to-fit=no`,
     );
   }
 
@@ -214,7 +240,30 @@ function fitFramedDocument(frame) {
     doc.head.appendChild(style);
   }
   const slides = doc.querySelectorAll('.slide').length || 6;
-  style.textContent = `
+  style.textContent = scrolls
+    ? `
+    html {
+      height: auto !important;
+      max-height: none !important;
+      overflow: visible !important;
+    }
+    body {
+      width: auto !important;
+      height: auto !important;
+      min-height: 100% !important;
+      max-width: none !important;
+      max-height: none !important;
+      overflow: visible !important;
+    }
+    .app-wrapper {
+      width: 100% !important;
+      max-width: none !important;
+      height: auto !important;
+      min-height: 100% !important;
+      max-height: none !important;
+    }
+  `
+    : `
     html, body {
       width: ${w}px !important;
       height: ${h}px !important;
@@ -224,7 +273,7 @@ function fitFramedDocument(frame) {
       max-height: ${h}px !important;
       overflow: hidden !important;
     }
-    #canvas-container, #ui-layer, #pdf-modal, .app-wrapper, .presentation-container, .slide {
+    #canvas-container, #ui-layer, #pdf-modal, .presentation-container, .slide {
       width: ${w}px !important;
       max-width: ${w}px !important;
     }
@@ -252,10 +301,16 @@ function fitFramedDocument(frame) {
 }
 
 function clearLaunchLayout(layer, frame) {
-  layer.classList.remove('is-turned');
-  ['top', 'left', 'width', 'height', 'transform', 'transformOrigin'].forEach((prop) => {
+  const stage = layer.querySelector('.launch-frame-stage');
+  ['top', 'left', 'width', 'height', 'transform'].forEach((prop) => {
     layer.style[prop] = '';
   });
+  if (stage) {
+    stage.classList.remove('is-turned');
+    ['top', 'left', 'width', 'height', 'transform', 'transformOrigin'].forEach((prop) => {
+      stage.style[prop] = '';
+    });
+  }
   if (frame) {
     frame.style.width = '';
     frame.style.height = '';

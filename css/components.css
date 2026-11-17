@@ -352,7 +352,8 @@
 }
 
 .launch-frame.is-open {
-  display: block;
+  display: flex;
+  flex-direction: column;
 }
 
 html.launch-open,
@@ -361,30 +362,47 @@ html.launch-open body {
   overscroll-behavior: none;
 }
 
-.launch-frame-view {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  border: 0;
-  background: var(--bg-primary);
+.launch-frame-bar {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0.65rem 1rem;
+  padding-top: max(0.65rem, env(safe-area-inset-top));
+  padding-right: max(1rem, env(safe-area-inset-right));
+  background: var(--bg-canvas);
+  border-bottom: 1px solid var(--line-strong);
+  z-index: 3;
 }
 
 .launch-frame-close {
-  position: absolute;
-  z-index: 3;
-  top: max(0.75rem, env(safe-area-inset-top));
-  right: max(0.75rem, env(safe-area-inset-right));
+  position: static;
   background: var(--bg-primary);
 }
 
-/* After a 90° turn, the layer's top-left sits on the phone's top-right. */
-.launch-frame.is-turned .launch-frame-close {
-  right: auto;
-  left: max(0.75rem, env(safe-area-inset-left));
+.launch-frame-slot {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.launch-frame-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.launch-frame-view {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: var(--bg-primary);
 }
 
 .launch-orient {
@@ -394,7 +412,7 @@ html.launch-open body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: calc(var(--space-6) + env(safe-area-inset-top)) var(--space-4) var(--space-5);
+  padding: var(--space-4);
   background: rgba(17, 17, 19, 0.45);
 }
 
