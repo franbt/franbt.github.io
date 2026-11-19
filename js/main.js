@@ -33,9 +33,9 @@ function initTheme() {
 
 function updateThemeLabel() {
   const current = document.documentElement.getAttribute('data-theme') || 'light';
-  const label = document.querySelector('[data-theme-label]');
-  if (label) {
-    label.textContent = current === 'light' ? 'DARK' : 'LIGHT';
+  const button = document.querySelector('[data-action="toggle-theme"]');
+  if (button) {
+    button.setAttribute('aria-label', current === 'light' ? 'Switch to dark' : 'Switch to light');
   }
 }
 
@@ -135,8 +135,51 @@ function framedPageScrolls(frame) {
 
 function restorePageScroll() {
   const drawer = document.getElementById('case-study-drawer');
-  const drawerOpen = drawer && drawer.classList.contains('is-open');
-  document.body.style.overflow = drawerOpen ? 'hidden' : '';
+  const cv = document.getElementById('cv-frame');
+  const locked = (drawer && drawer.classList.contains('is-open'))
+    || (cv && cv.classList.contains('is-open'));
+  document.body.style.overflow = locked ? 'hidden' : '';
+}
+
+const CV_SRC = 'partials/Curriculum_Vitae_Escala_OlimpO_II_Francisco_Jose_Bermejo_Tarifa.pdf';
+
+function isCvOpen() {
+  const layer = document.getElementById('cv-frame');
+  return Boolean(layer && layer.classList.contains('is-open'));
+}
+
+function openCv() {
+  const layer = document.getElementById('cv-frame');
+  const frame = layer?.querySelector('.cv-view');
+  if (!layer || !frame) return;
+  if (!frame.getAttribute('src')) frame.src = CV_SRC;
+  layer.classList.add('is-open');
+  layer.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  layer.querySelector('[data-cv-close]')?.focus({ preventScroll: true });
+}
+
+function closeCv() {
+  const layer = document.getElementById('cv-frame');
+  if (!layer || !layer.classList.contains('is-open')) return;
+  layer.classList.remove('is-open');
+  layer.setAttribute('aria-hidden', 'true');
+  restorePageScroll();
+}
+
+function initCv() {
+  document.addEventListener('click', (event) => {
+    if (event.target.closest('[data-open-cv]')) {
+      openCv();
+      return;
+    }
+    if (
+      event.target.closest('[data-cv-close]') ||
+      event.target.classList.contains('cv-frame')
+    ) {
+      closeCv();
+    }
+  });
 }
 
 async function leaveFullscreen() {
@@ -472,6 +515,7 @@ function initShortcuts() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       if (isLaunchOpen()) closeLaunch();
+      else if (isCvOpen()) closeCv();
       else closeDrawer();
     }
   });
@@ -484,6 +528,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initHtmxHooks();
   initLaunchFrame();
+  initCv();
   initCampaignCarousel();
   initShortcuts();
   initAllThreeContainers(document);

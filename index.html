@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, shrink-to-fit=no">
-  <meta name="description" content="Studio Archetype — Spatial architecture, interactive objects, and client studies.">
-  <title>STUDIO ARCHETYPE</title>
+  <meta name="description" content="Francisco José Bermejo Tarifa — Portfolio productos gráficos">
+  <title>Francisco José Bermejo Tarifa - Portfoliio Gráfico</title>
 
   <link rel="stylesheet" href="vendor/fonts/inter.css">
 
@@ -27,20 +27,22 @@
   <!-- 1. TOP BANNER (Always visible, carries studio info) -->
   <header class="top-banner">
     <div class="banner-inner">
-      <a href="#top" class="banner-brand">
-        <span class="brand-name">Studio Archetype</span>
-        <span class="brand-tagline">Spatial &amp; Interactive Practice</span>
-      </a>
+      <div class="banner-brand">
+        <button type="button" class="brand-name" data-open-cv>Francisco José Bermejo Tarifa</button>
+        <a href="#top" class="brand-tagline">Portfolio productos gráficos</a>
+      </div>
 
       <div class="banner-info">
-        <span>Zurich, CH</span>
-        <span>Edition 2026</span>
-        <span>studio@archetype.ch</span>
+        <span>Cáceres, ES</span>
+        <span>Edición 2026</span>
+        <span>franciscojosebermejotarifa@gmail.com</span>
       </div>
 
       <div class="banner-actions">
-        <button class="btn-line" data-action="toggle-theme" aria-label="Toggle Theme">
-          <span data-theme-label>DARK</span>
+        <button class="btn-line theme-toggle" data-action="toggle-theme" aria-label="Toggle theme">
+          <span data-theme-label>
+            <img src="vendor/icons/zondicons-adjust.svg" alt="" width="16" height="16">
+          </span>
         </button>
       </div>
     </div>
@@ -49,10 +51,6 @@
   <!-- 2. CENTER SCROLLABLE VIEWER (Dedicated scroll area for containers) -->
   <main class="center-viewer" id="top">
     <div class="viewer-inner">
-
-      <div class="filter-bar">
-        <span class="type-eyebrow">Selected Works</span>
-      </div>
 
       <!-- Scrollable Container Feed -->
       <div id="work-target">
@@ -91,10 +89,18 @@
                 <span class="meta-sep">&sol;</span>
                 <span class="meta-year">2026</span>
               </div>
-              <span class="meta-status status-completed">Completed</span>
+              <span class="meta-status status-Completado">Completado</span>
             </div>
             <h3 class="stage-title">Campaña Turismo Cáceres ES+QTurismo</h3>
             <p class="stage-desc">Cuatro piezas de la campaña: muñecas, escaleras, pasacalles y Jarramplas.</p>
+            <div style="display: flex; gap: var(--space-4); align-items: center; flex-wrap: wrap;">
+              <button class="btn-link"
+                      hx-get="partials/case-study-campana.html"
+                      hx-target="#drawer-content"
+                      data-open-drawer>
+                Descripción del Estudio &rarr;
+              </button>
+            </div>
           </div>
         </article>
 
@@ -110,7 +116,7 @@
                 <span class="meta-sep">&sol;</span>
                 <span class="meta-year">2026</span>
               </div>
-              <span class="meta-status status-completed">Completed</span>
+              <span class="meta-status status-Completado">Completado</span>
             </div>
             <h3 class="stage-title">Jato 2026 — Análisis Gráfico ESCÁCERES</h3>
             <p class="stage-desc">Presentación institucional interactiva y análisis de identidad visual, stands temáticos y propuesta gráfica para la I Feria Nacional del Folklore (#es+QTurismo).</p>
@@ -119,10 +125,10 @@
                       hx-get="partials/case-study-jato.html"
                       hx-target="#drawer-content"
                       data-open-drawer>
-                View Study &rarr;
+                Descripción del Estudio &rarr;
               </button>
               <a href="partials/jato/index.html" class="btn-link" style="color: var(--text-muted); text-decoration: none;" data-launch-frame data-launch-title="Jato 2026 — Análisis Gráfico">
-                Launch Interactive Presentation &nearr;
+                Lanzar Presentación &nearr;
               </a>
             </div>
           </div>
@@ -140,7 +146,7 @@
                   <span class="meta-sep">&sol;</span>
                   <span class="meta-year">2026</span>
                 </div>
-                <span class="meta-status status-completed">Completed</span>
+                <span class="meta-status status-Completado">Completado</span>
               </div>
               <h3 class="stage-title">Ribera del Marco — Cartografía 3D</h3>
               <p class="stage-desc">Modelo tridimensional interactivo GLTF de Cáceres con navegación orbital, hitos patrimoniales georreferenciados y visor documental.</p>
@@ -149,10 +155,10 @@
                         hx-get="partials/case-study-ribera.html"
                         hx-target="#drawer-content"
                         data-open-drawer>
-                  View Study &rarr;
+                  Descripción del Estudio &rarr;
                 </button>
                 <a href="partials/ribera_marco/index.html" class="btn-link" style="color: var(--text-muted); text-decoration: none;" data-launch-frame data-launch-orient="landscape" data-launch-title="Ribera del Marco — Cartografía 3D">
-                  Launch 3D Map &nearr;
+                  Lanzar Presentación 3D &nearr;
                 </a>
               </div>
             </div>
@@ -170,7 +176,7 @@
                   <span class="meta-sep">&sol;</span>
                   <span class="meta-year">2026</span>
                 </div>
-                <span class="meta-status status-completed">Completed</span>
+                <span class="meta-status status-Completado">Completado</span>
               </div>
               <h3 class="stage-title">Rutas Turísticas ESCÁCERES</h3>
               <p class="stage-desc">Aplicación web responsiva con simulador de dispositivos (PC/Tablet/Móvil), modo oscuro OLED, cartografía y fichas técnicas oficiales.</p>
@@ -179,10 +185,10 @@
                         hx-get="partials/case-study-rutas.html"
                         hx-target="#drawer-content"
                         data-open-drawer>
-                  View Study &rarr;
+                  Descripción del Estudio &rarr;
                 </button>
                 <a href="partials/rutas_turismo/index.html" class="btn-link" style="color: var(--text-muted); text-decoration: none;" data-launch-frame data-launch-title="Rutas Turísticas ESCÁCERES">
-                  Launch Web App &nearr;
+                  Lanzar Presentación &nearr;
                 </a>
               </div>
             </div>
@@ -238,10 +244,18 @@
                 <span class="meta-sep">&sol;</span>
                 <span class="meta-year">2026</span>
               </div>
-              <span class="meta-status status-completed">Completed</span>
+              <span class="meta-status status-Completado">Completado</span>
             </div>
             <h3 class="stage-title">Aplicación Rutas de Turismo Olimpo II</h3>
             <p class="stage-desc">Ocho láminas del recorrido: mapa, selección de ruta, ficha, puntos de interés y adaptación a móvil.</p>
+            <div style="display: flex; gap: var(--space-4); align-items: center; flex-wrap: wrap;">
+              <button class="btn-link"
+                      hx-get="partials/case-study-olimpo.html"
+                      hx-target="#drawer-content"
+                      data-open-drawer>
+                Descripción del Estudio &rarr;
+              </button>
+            </div>
           </div>
         </article>
 
@@ -262,13 +276,21 @@
                 <span class="meta-sep">&sol;</span>
                 <span class="meta-year">2026</span>
               </div>
-              <span class="meta-status status-completed">Completed</span>
+              <span class="meta-status status-Completado">En Curso</span>
             </div>
             <h3 class="stage-title">Senderos UP — Aula de Naturaleza</h3>
             <p class="stage-desc">Prueba de concepto en vídeo de la aplicación educativa del aula de naturaleza.</p>
-            <a href="https://www.youtube.com/watch?v=NrvueTvugm0" class="btn-link" style="color: var(--text-muted); text-decoration: none;" target="_blank" rel="noopener noreferrer">
-              Watch on YouTube &nearr;
-            </a>
+            <div style="display: flex; gap: var(--space-4); align-items: center; flex-wrap: wrap;">
+              <button class="btn-link"
+                      hx-get="partials/case-study-senderos.html"
+                      hx-target="#drawer-content"
+                      data-open-drawer>
+                Descripción del Estudio &rarr;
+              </button>
+              <a href="https://www.youtube.com/watch?v=NrvueTvugm0" class="btn-link" style="color: var(--text-muted); text-decoration: none;" target="_blank" rel="noopener noreferrer">
+                Ver en YouTube &nearr;
+              </a>
+            </div>
           </div>
         </article>
       </div>
@@ -280,11 +302,11 @@
   <footer class="bottom-footer">
     <div class="footer-inner">
       <div class="footer-group">
-        <span>Studio Archetype</span>
-        <span class="footer-hide-sm">Client Presentation Archive</span>
+        <button type="button" class="footer-cv" data-open-cv>Francisco José Bermejo Tarifa</button>
+        <span class="footer-hide-sm">Archivo Material Gráfico</span>
       </div>
       <div class="footer-group">
-        <span class="footer-hide-sm">Zurich, CH</span>
+        <span class="footer-hide-sm">Cáceres, ES</span>
         <span>&copy; 2026</span>
       </div>
     </div>
@@ -304,12 +326,25 @@
         <iframe class="launch-frame-view" title="Project"></iframe>
         <div class="launch-orient" hidden>
           <div class="launch-orient-card">
-            <p class="type-headline">Rotate to landscape</p>
-            <p class="launch-orient-copy">This project is meant to be viewed horizontally. Turn your phone or tablet sideways for the intended experience.</p>
-            <button type="button" class="btn-line" data-launch-continue>Continue in portrait</button>
+            <p class="type-headline">Rotar Horizontal</p>
+            <p class="launch-orient-copy">Este proyecto está realizado para utilizarse en un formato horizontal.</p>
+            <button type="button" class="btn-line" data-launch-continue>Continuar en vertical</button>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div id="cv-frame" class="cv-frame" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Curriculum Vitae">
+    <div class="cv-panel">
+      <div class="cv-bar">
+        <p class="cv-title">Curriculum Vitae</p>
+        <div class="cv-actions">
+          <a class="btn-line" href="partials/Curriculum_Vitae_Escala_OlimpO_II_Francisco_Jose_Bermejo_Tarifa.pdf" download="Curriculum_Vitae_Escala_OlimpO_II_Francisco_Jose_Bermejo_Tarifa.pdf">Descarga</a>
+          <button type="button" class="btn-line" data-cv-close>Cerrar</button>
+        </div>
+      </div>
+      <iframe class="cv-view" title="Curriculum Vitae"></iframe>
     </div>
   </div>
 

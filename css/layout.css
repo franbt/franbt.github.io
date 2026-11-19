@@ -97,6 +97,19 @@ button {
   color: var(--text-secondary);
   letter-spacing: -0.02em;
   white-space: nowrap;
+  text-decoration: none;
+}
+
+button.brand-name {
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+}
+
+button.brand-name:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
 }
 
 .banner-info {
@@ -166,6 +179,20 @@ button {
   align-items: center;
   gap: var(--space-4);
   white-space: nowrap;
+}
+
+.footer-cv {
+  border: 0;
+  padding: 0;
+  background: none;
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.footer-cv:hover {
+  color: var(--text-primary);
 }
 
 /* --------------------------------------------------------------------------

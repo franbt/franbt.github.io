@@ -308,12 +308,18 @@
 }
 
 .prose-clean {
-  font-size: var(--text-base);
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+  max-height: 9.3em;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  font-size: var(--text-sm);
   font-weight: 300;
   letter-spacing: -0.02em;
   line-height: 1.55;
   color: var(--text-secondary);
-  max-width: 62ch;
 }
 
 .prose-clean p + p {
@@ -331,10 +337,10 @@
 
 .stat-item {
   background-color: var(--bg-primary);
-  padding: var(--space-3);
+  padding: 0.4rem 0.7rem;
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
+  gap: 0.12rem;
   min-width: 0; /* Prevents overflow in CSS Grid */
   overflow: hidden;
 }
@@ -349,7 +355,7 @@
 }
 
 .stat-value {
-  font-size: clamp(0.92rem, 0.86rem + 0.35vw, 1.2rem);
+  font-size: 0.95rem;
   font-weight: 500;
   letter-spacing: -0.025em;
   line-height: 1.25;
@@ -405,6 +411,25 @@
 .btn-line:hover {
   border-color: var(--line-strong);
   background: var(--bg-hover);
+}
+
+.theme-toggle {
+  padding: 0.35rem;
+  line-height: 0;
+}
+
+.theme-toggle [data-theme-label] {
+  display: block;
+}
+
+.theme-toggle img {
+  display: block;
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+[data-theme="dark"] .theme-toggle img {
+  filter: invert(1);
 }
 
 .btn-link {
@@ -481,8 +506,16 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--space-3);
   padding-bottom: var(--space-3);
   border-bottom: 1px solid var(--line);
+}
+
+.drawer-top .type-headline {
+  font-size: 1.35rem;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
 }
 
 /* --------------------------------------------------------------------------
@@ -582,4 +615,70 @@ html.launch-open body {
   font-weight: 300;
   line-height: 1.45;
   color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   CURRICULUM VITAE POPUP
+   -------------------------------------------------------------------------- */
+.cv-frame {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 180;
+  padding: var(--space-4);
+  background: rgba(17, 17, 19, 0.35);
+}
+
+[data-theme="dark"] .cv-frame {
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.cv-frame.is-open {
+  display: flex;
+}
+
+.cv-panel {
+  display: flex;
+  flex-direction: column;
+  width: min(960px, 100%);
+  height: 100%;
+  min-height: 0;
+  margin-inline: auto;
+  background: var(--bg-primary);
+  border: 1px solid var(--line);
+}
+
+.cv-bar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.cv-title {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.cv-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.cv-actions .btn-line {
+  text-decoration: none;
+}
+
+.cv-view {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  border: 0;
+  background: var(--bg-canvas);
 }
