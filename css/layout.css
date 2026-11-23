@@ -20,6 +20,8 @@ body {
   font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
   font-variant-numeric: tabular-nums;
   background-color: var(--bg-primary);
+  background-image: var(--bg-texture);
+  background-repeat: repeat;
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -32,7 +34,7 @@ body {
   font-size: var(--text-base);
   line-height: 1.42;
   letter-spacing: -0.02em;
-  transition: background-color var(--transition-base), color var(--transition-base);
+  transition: background-color var(--transition-base);
 }
 
 :focus-visible {
@@ -60,9 +62,10 @@ button {
   flex: 0 0 var(--banner-height);
   height: var(--banner-height);
   width: 100%;
-  border-bottom: 1px solid var(--line);
-  background-color: var(--bg-primary);
+  border-bottom: 1.5px solid var(--line);
+  background-color: var(--bg-card);
   z-index: 20;
+  transition: background-color var(--transition-base), border-color var(--transition-base);
 }
 
 .banner-inner {
@@ -85,10 +88,16 @@ button {
 
 .brand-name {
   font-size: var(--text-sm);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.035em;
   text-transform: uppercase;
   white-space: nowrap;
+  color: var(--text-title);
+  transition: color var(--transition-fast);
+}
+
+.brand-name:hover {
+  color: var(--palette-accent);
 }
 
 .brand-tagline {
@@ -137,9 +146,9 @@ button.brand-name:hover {
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: var(--line-strong) transparent;
+  background: transparent;
 }
 
 .viewer-inner {
@@ -155,9 +164,10 @@ button.brand-name:hover {
   flex: 0 0 var(--footer-height);
   height: var(--footer-height);
   width: 100%;
-  border-top: 1px solid var(--line);
-  background-color: var(--bg-primary);
+  border-top: 1.5px solid var(--line);
+  background-color: var(--bg-card);
   z-index: 20;
+  transition: background-color var(--transition-base), border-color var(--transition-base);
 }
 
 .footer-inner {
@@ -244,12 +254,9 @@ button.brand-name:hover {
 }
 
 /* On a desktop browser the image frame alone fills the header-to-footer band.
-   The title sits under that frame. */
+   The title sits under that frame. Scrolling stays native. Each work only
+   fades in as it enters, and only with opacity. */
 @media (min-width: 1024px) {
-  .center-viewer {
-    scroll-snap-type: y proximity;
-  }
-
   .viewer-inner {
     position: relative;
     padding-top: 0;
@@ -282,7 +289,6 @@ button.brand-name:hover {
     width: min(72rem, 88%);
     margin-inline: auto;
     height: auto;
-    scroll-snap-align: start;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -292,6 +298,24 @@ button.brand-name:hover {
 
   #work-target > .stage:hover {
     background: transparent;
+  }
+}
+
+@keyframes work-enter {
+  from { opacity: 0.64; }
+  to { opacity: 1; }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    #work-target > .stage {
+      animation-name: work-enter;
+      animation-duration: auto;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: view(block);
+      animation-range: entry 0% entry 12%;
+    }
   }
 }
 
@@ -315,7 +339,7 @@ button.brand-name:hover {
    -------------------------------------------------------------------------- */
 
 /* Tablet & Compact Laptop */
-@media (max-width: 1080px) {
+@media (max-width: 1200px) {
   .grid-trio {
     grid-template-columns: repeat(2, 1fr);
   }

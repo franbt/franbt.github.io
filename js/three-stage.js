@@ -22,21 +22,14 @@ function computeAdaptiveFov(baseFovDeg, aspect) {
   return THREE.MathUtils.clamp(THREE.MathUtils.radToDeg(adjustedRad), baseFovDeg, 80);
 }
 
+const MINERAL_PALETTE = {
+  light: { bg: 0x9bb2c8, primary: 0x06121f, secondary: 0x3f5469, accent: 0x135999 },
+  dark:  { bg: 0x151e2a, primary: 0xf1f6fb, secondary: 0x8ea3b8, accent: 0x60a5fa },
+};
+
 function getThemePalette() {
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  return isDark
-    ? {
-        bg: 0x0e0e12,
-        primary: 0xe4e4e7,
-        secondary: 0x71717a,
-        accent: 0x3f3f46,
-      }
-    : {
-        bg: 0xf5f4f0,
-        primary: 0x27272a,
-        secondary: 0x71717a,
-        accent: 0xa1a1aa,
-      };
+  return MINERAL_PALETTE[isDark ? 'dark' : 'light'];
 }
 
 const SCENE_BUILDERS = {

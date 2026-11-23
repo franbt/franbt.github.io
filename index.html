@@ -6,6 +6,15 @@
   <meta name="description" content="Francisco José Bermejo Tarifa — Portfolio productos gráficos">
   <title>Francisco José Bermejo Tarifa - Portfoliio Gráfico</title>
 
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('site-theme') || 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+
   <link rel="stylesheet" href="vendor/fonts/inter.css">
 
   <link rel="stylesheet" href="css/tokens.css">
@@ -59,7 +68,7 @@
           <div class="stage-media campaign-carousel" data-carousel role="region" aria-roledescription="carousel" aria-label="Campaña Turismo Cáceres ES+QTurismo">
             <div class="campaign-viewport">
               <div class="campaign-track" data-carousel-track>
-                <figure class="campaign-slide">
+                <figure class="campaign-slide is-on">
                   <img src="partials/producto_grafico/es_mas_turismo/1_munecas.png" alt="Muñecas florales con la marca Cáceres ES+QTurismo">
                 </figure>
                 <figure class="campaign-slide">
@@ -198,7 +207,7 @@
           <div class="stage-media campaign-carousel" data-carousel role="region" aria-roledescription="carousel" aria-label="Aplicación Rutas de Turismo Olimpo II">
             <div class="campaign-viewport">
               <div class="campaign-track" data-carousel-track>
-                <figure class="campaign-slide">
+                <figure class="campaign-slide is-on">
                   <img src="partials/rutas_turismo_dinamico/0slides_APP_Rutas_Turismo.png" alt="Portada: Aplicación Rutas de Turismo Olimpo II, septiembre 2026">
                 </figure>
                 <figure class="campaign-slide">

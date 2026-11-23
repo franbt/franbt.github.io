@@ -454,9 +454,10 @@ function initCampaignCarousel() {
 
     function show(next) {
       index = (next + slides.length) % slides.length;
-      track.style.transform = `translate3d(${-index * 100}%, 0, 0)`;
       slides.forEach((slide, i) => {
-        slide.setAttribute('aria-hidden', i === index ? 'false' : 'true');
+        const on = i === index;
+        slide.classList.toggle('is-on', on);
+        slide.setAttribute('aria-hidden', on ? 'false' : 'true');
       });
       dots.forEach((dot, i) => {
         if (i === index) dot.setAttribute('aria-current', 'true');

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   DESIGN TOKENS — LIGHT DEFAULT, LINEOUT & INTER TYPOGRAPHY
+   DESIGN TOKENS — PIZARRA MINERAL (DEFINITIVE THEME), LINEOUT & INTER
    ========================================================================== */
 
 :root {
@@ -35,30 +35,70 @@
   --transition-fast: 160ms var(--ease-out);
   --transition-base: 280ms var(--ease-out);
 
-  /* Light Theme (Default) — Pure Paper & Crisp Lineout */
-  --bg-primary: #fafaf8;
-  --bg-canvas: #f3f2ee;
-  --bg-hover: rgba(17, 17, 19, 0.03);
+  /* SVG Noise for Paper / Tactile Rugoso Effect */
+  --svg-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.052'/%3E%3C/svg%3E");
+  --svg-noise-dark: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.038'/%3E%3C/svg%3E");
 
-  --text-primary: #111113;
-  --text-secondary: #52525b;
-  --text-muted: #8a8a93;
+  /* Satin Specular Bevel Highlights */
+  --card-satin-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 0 0 1px rgba(255, 255, 255, 0.4), var(--card-shadow);
 
-  /* Lineout is the sole decoration */
-  --line: rgba(17, 17, 19, 0.13);
-  --line-strong: rgba(17, 17, 19, 0.36);
+  /* ==========================================================================
+     COLOR SYSTEM: PIZARRA MINERAL (Light Theme Default)
+     Fondo: Textura mineral de pizarra (#bfd0e0 a #a8bed2) con grano rugoso
+     Contenedor: Blanco satinado pulido (#ffffff a #ebf2f8) con bisel de luz
+     Borde: Línea de pizarra azulada firme (#658aa6) y remate cobalto de 4px
+     ========================================================================== */
+  --palette-accent: #135999;
+  --bg-primary: #9bb2c8;
+  --bg-texture: var(--svg-noise), linear-gradient(175deg, #a8bdd1 0%, #8da6bc 100%);
+  --bg-card: #f5f8fb;
+  --card-satin-bg: linear-gradient(180deg, #f8fafe 0%, #e8eff6 100%);
+  --card-media-bg: linear-gradient(180deg, #f5f9fc 0%, #e2ebf3 100%);
+  --bg-canvas: #dce6ef;
+  --bg-hover: rgba(19, 89, 153, 0.07);
+
+  --line: #658aa6;
+  --line-strong: #23557e;
+  --card-shadow: 0 8px 28px rgba(12, 32, 54, 0.12);
+  --stage-border-accent-height: 4px;
+
+  --text-title: #06121f;
+  --text-primary: #101e2c;
+  --text-secondary: #3f5469;
+  --text-muted: #6b8092;
+
+  --font-title-weight: 700;
+  --font-title-spacing: -0.04em;
+  --font-meta-weight: 700;
+  --font-meta-spacing: 0.06em;
 }
 
-/* Dark Theme Override */
+/* ==========================================================================
+   DARK THEME OVERRIDE: PIZARRA MINERAL NOCHE
+   ========================================================================== */
 [data-theme="dark"] {
-  --bg-primary: #0b0b0c;
-  --bg-canvas: #111114;
-  --bg-hover: rgba(255, 255, 255, 0.035);
+  --palette-accent: #60a5fa;
+  --bg-primary: #070d14;
+  --bg-texture: var(--svg-noise-dark), linear-gradient(175deg, #0e1620 0%, #05090d 100%);
+  --bg-card: #151e2a;
+  --card-satin-bg: linear-gradient(180deg, #192534 0%, #111a24 100%);
+  --card-media-bg: linear-gradient(180deg, #1c2a3b 0%, #131c27 100%);
+  --bg-canvas: #151e2a;
+  --bg-hover: rgba(96, 165, 250, 0.07);
 
-  --text-primary: #f4f4f2;
-  --text-secondary: #a1a1aa;
-  --text-muted: #63636b;
+  --card-satin-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.07), var(--card-shadow);
+  --line: #38516d;
+  --line-strong: #5c85b3;
+  --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.65);
+  --stage-border-accent-height: 4px;
 
-  --line: rgba(255, 255, 255, 0.14);
-  --line-strong: rgba(255, 255, 255, 0.4);
+  --text-title: #f1f6fb;
+  --text-primary: #e0e9f2;
+  --text-secondary: #8ea3b8;
+  --text-muted: #5a6e82;
+
+  --font-title-weight: 700;
+  --font-title-spacing: -0.04em;
+  --font-meta-weight: 700;
+  --font-meta-spacing: 0.06em;
 }
