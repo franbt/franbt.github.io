@@ -51,7 +51,6 @@ function applyMood(mood, { announceChange = false } = {}) {
   document.documentElement.setAttribute('data-mood', validMood);
   document.documentElement.setAttribute('data-theme', isNight ? 'dark' : 'light');
   updateThemeButton();
-  updateDevMoodButtons(validMood);
   refreshThreeThemes();
   if (announceChange) {
     announce(`Paleta de ${MOOD_LABELS[validMood]} activada.`);
@@ -66,34 +65,17 @@ function updateThemeButton() {
   btn.setAttribute('aria-label', isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
 }
 
-/* DEV ONLY: Sync temporary 4-button mood switcher */
-function updateDevMoodButtons(activeMood) {
-  document.querySelectorAll('[data-mood-btn]').forEach((btn) => {
-    btn.setAttribute('aria-pressed', String(btn.dataset.moodBtn === activeMood));
-  });
-}
-
 function initTheme() {
   // Apply once on load based on current hour (no background timer)
   const initialMood = getMoodForHour();
-  let lastDayMood = initialMood === 'night' ? 'afternoon' : initialMood;
+  const dayMood = initialMood === 'night' ? 'afternoon' : initialMood;
   applyMood(initialMood, { announceChange: false });
 
   document.addEventListener('click', (e) => {
-    // DEV ONLY: Temporary 4-button mood selector
-    const moodBtn = e.target.closest('[data-mood-btn]');
-    if (moodBtn) {
-      const nextMood = moodBtn.dataset.moodBtn;
-      if (nextMood !== 'night') lastDayMood = nextMood;
-      applyMood(nextMood, { announceChange: true });
-      return;
-    }
-
-    // Header light/dark quick toggle
     const themeBtn = e.target.closest('[data-action="toggle-theme"]');
     if (!themeBtn) return;
     const isCurrentlyNight = document.documentElement.getAttribute('data-theme') === 'dark';
-    const nextMood = isCurrentlyNight ? lastDayMood : 'night';
+    const nextMood = isCurrentlyNight ? dayMood : 'night';
     applyMood(nextMood, { announceChange: true });
   });
 }
