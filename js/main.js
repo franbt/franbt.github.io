@@ -1,7 +1,7 @@
 /**
  * ==========================================================================
  * APPLICATION CONTROLLER (main.js)
- * Weightless, diaphanous interface coordination.
+ * Portfolio 2026 — Responsive across Mobile, Tablet, Laptop, PC & TV
  * ==========================================================================
  */
 
@@ -12,47 +12,318 @@ import {
 } from './three-stage.js';
 
 /* --------------------------------------------------------------------------
-   1. THEME TOGGLE (Light Default / Dark Optional)
+   0. LIVE REGION ANNOUNCER (Centralized Polite Updates)
    -------------------------------------------------------------------------- */
-function initTheme() {
-  const saved = localStorage.getItem('site-theme') || 'light';
-  document.documentElement.setAttribute('data-theme', saved);
-  updateThemeLabel();
+let announceTimer = 0;
 
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-action="toggle-theme"]');
-    if (!btn) return;
-    const current = document.documentElement.getAttribute('data-theme') || 'light';
-    const next = current === 'light' ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('site-theme', next);
-    updateThemeLabel();
-    refreshThreeThemes();
-  });
-}
-
-function updateThemeLabel() {
-  const current = document.documentElement.getAttribute('data-theme') || 'light';
-  const button = document.querySelector('[data-action="toggle-theme"]');
-  if (button) {
-    button.setAttribute('aria-label', current === 'light' ? 'Switch to dark' : 'Switch to light');
-  }
+function announce(message) {
+  const region = document.getElementById('live-announcer');
+  if (!region || !message) return;
+  window.clearTimeout(announceTimer);
+  region.textContent = '';
+  announceTimer = window.setTimeout(() => {
+    region.textContent = message;
+  }, 60);
 }
 
 /* --------------------------------------------------------------------------
-   2. HTMX DRAWER HOOKS
+   1. TIME-OF-DAY MOOD PALETTE + THEME TOGGLE
+   Evaluated once when the page opens/reloads (no background interval).
+   Morning: 07-11 | Afternoon: 12-16 | Evening: 17-19 | Night: 20-06
    -------------------------------------------------------------------------- */
-function initHtmxHooks() {
+const MOOD_LABELS = {
+  morning: 'Mañana',
+  afternoon: 'Tarde',
+  evening: 'Atardecer',
+  night: 'Noche',
+};
+
+function getMoodForHour(hour = new Date().getHours()) {
+  if (hour >= 7 && hour <= 11) return 'morning';
+  if (hour >= 12 && hour <= 16) return 'afternoon';
+  if (hour >= 17 && hour <= 19) return 'evening';
+  return 'night';
+}
+
+function applyMood(mood, { announceChange = false } = {}) {
+  const validMood = MOOD_LABELS[mood] ? mood : getMoodForHour();
+  const isNight = validMood === 'night';
+  document.documentElement.setAttribute('data-mood', validMood);
+  document.documentElement.setAttribute('data-theme', isNight ? 'dark' : 'light');
+  updateThemeButton();
+  updateDevMoodButtons(validMood);
+  refreshThreeThemes();
+  if (announceChange) {
+    announce(`Paleta de ${MOOD_LABELS[validMood]} activada.`);
+  }
+}
+
+function updateThemeButton() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const btn = document.querySelector('[data-action="toggle-theme"]');
+  if (!btn) return;
+  btn.setAttribute('aria-pressed', String(isDark));
+  btn.setAttribute('aria-label', isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+}
+
+/* DEV ONLY: Sync temporary 4-button mood switcher */
+function updateDevMoodButtons(activeMood) {
+  document.querySelectorAll('[data-mood-btn]').forEach((btn) => {
+    btn.setAttribute('aria-pressed', String(btn.dataset.moodBtn === activeMood));
+  });
+}
+
+function initTheme() {
+  // Apply once on load based on current hour (no background timer)
+  const initialMood = getMoodForHour();
+  let lastDayMood = initialMood === 'night' ? 'afternoon' : initialMood;
+  applyMood(initialMood, { announceChange: false });
+
   document.addEventListener('click', (e) => {
-    if (e.target.closest('[data-open-drawer]')) {
-      openDrawer();
+    // DEV ONLY: Temporary 4-button mood selector
+    const moodBtn = e.target.closest('[data-mood-btn]');
+    if (moodBtn) {
+      const nextMood = moodBtn.dataset.moodBtn;
+      if (nextMood !== 'night') lastDayMood = nextMood;
+      applyMood(nextMood, { announceChange: true });
+      return;
     }
 
-    if (
-      e.target.matches('[data-close-drawer]') ||
-      e.target.closest('[data-close-drawer]') ||
-      e.target.classList.contains('drawer-backdrop')
-    ) {
+    // Header light/dark quick toggle
+    const themeBtn = e.target.closest('[data-action="toggle-theme"]');
+    if (!themeBtn) return;
+    const isCurrentlyNight = document.documentElement.getAttribute('data-theme') === 'dark';
+    const nextMood = isCurrentlyNight ? lastDayMood : 'night';
+    applyMood(nextMood, { announceChange: true });
+  });
+}
+
+/* --------------------------------------------------------------------------
+   2. CATEGORY FILTER & LAPTOP INDEX RAIL SYNC
+   -------------------------------------------------------------------------- */
+function initFilters() {
+  const pills = [...document.querySelectorAll('[data-filter]')];
+  const slots = [...document.querySelectorAll('#work-target > .stage-slot')];
+  const indexLinks = [...document.querySelectorAll('[data-index-link]')];
+  if (!pills.length || !slots.length) return;
+
+  function applyFilter(category, triggerEl) {
+    let visibleCount = 0;
+
+    slots.forEach((slot) => {
+      const match = category === 'all' || slot.dataset.category === category;
+      slot.hidden = !match;
+      if (match) visibleCount += 1;
+    });
+
+    indexLinks.forEach((link) => {
+      const match = category === 'all' || link.dataset.category === category;
+      link.hidden = !match;
+      link.parentElement.hidden = !match;
+    });
+
+    // Reset roving tabindex in index rail to first visible link
+    const visibleLinks = indexLinks.filter((l) => !l.hidden);
+    visibleLinks.forEach((l, i) => {
+      l.setAttribute('tabindex', i === 0 ? '0' : '-1');
+    });
+
+    pills.forEach((pill) => {
+      pill.setAttribute('aria-pressed', String(pill.dataset.filter === category));
+    });
+
+    if (triggerEl) {
+      const label = triggerEl.childNodes[0]?.textContent?.trim() || category;
+      announce(`Mostrando ${visibleCount} ${visibleCount === 1 ? 'proyecto' : 'proyectos'} en ${label}.`);
+    }
+  }
+
+  pills.forEach((pill) => {
+    pill.addEventListener('click', () => applyFilter(pill.dataset.filter, pill));
+  });
+}
+
+/* --------------------------------------------------------------------------
+   3. LAPTOP STICKY INDEX SCROLLSPY
+   -------------------------------------------------------------------------- */
+function initScrollspy() {
+  const slots = [...document.querySelectorAll('#work-target > .stage-slot[id]')];
+  const linkMap = new Map(
+    [...document.querySelectorAll('[data-index-link]')].map((el) => [el.dataset.indexLink, el]),
+  );
+  if (!slots.length || !linkMap.size || !('IntersectionObserver' in window)) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!visible) return;
+
+      const id = visible.target.id;
+      linkMap.forEach((link, key) => {
+        const active = key === id;
+        link.classList.toggle('is-active', active);
+        if (active) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    },
+    { rootMargin: '-20% 0px -55% 0px', threshold: [0.1, 0.4, 0.7] },
+  );
+
+  slots.forEach((slot) => observer.observe(slot));
+}
+
+/* --------------------------------------------------------------------------
+   4. SPATIAL NAVIGATION (2D Edge-based Geometry for Composite Widgets)
+   Follows modern-web-guidance spatial-navigation:
+   - Edge-based direction filter
+   - Overlap-first preference, weighted fallback (w = 2)
+   - checkVisibility() filter, live getBoundingClientRect()
+   - Preserves native browser scrolling when no candidate exists
+   -------------------------------------------------------------------------- */
+function initSpatialNavigation() {
+  const grids = document.querySelectorAll('[data-spatial-grid]');
+  const DIRS = {
+    ArrowUp: 'up',
+    ArrowDown: 'down',
+    ArrowLeft: 'left',
+    ArrowRight: 'right',
+  };
+
+  function isEditableTarget(el) {
+    if (!el || !(el instanceof Element)) return false;
+    return el.matches(':read-write, select, input[type="range"], [role="slider"]');
+  }
+
+  function findBestCandidate(currentEl, candidates, dir) {
+    const cur = currentEl.getBoundingClientRect();
+    const curCx = cur.left + cur.width / 2;
+    const curCy = cur.top + cur.height / 2;
+    const tolerance = 2;
+
+    const aligned = [];
+    const fallback = [];
+
+    for (const el of candidates) {
+      if (el === currentEl) continue;
+      if (typeof el.checkVisibility === 'function' && !el.checkVisibility()) continue;
+      const r = el.getBoundingClientRect();
+      if (r.width === 0 && r.height === 0) continue;
+
+      let gap = Infinity;
+      let overlaps = false;
+      let perpOffset = 0;
+
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+
+      if (dir === 'right') {
+        if (r.left < cur.right - tolerance) continue;
+        gap = Math.max(0, r.left - cur.right);
+        overlaps = r.bottom > cur.top && r.top < cur.bottom;
+        perpOffset = Math.abs(cy - curCy);
+      } else if (dir === 'left') {
+        if (r.right > cur.left + tolerance) continue;
+        gap = Math.max(0, cur.left - r.right);
+        overlaps = r.bottom > cur.top && r.top < cur.bottom;
+        perpOffset = Math.abs(cy - curCy);
+      } else if (dir === 'down') {
+        if (r.top < cur.bottom - tolerance) continue;
+        gap = Math.max(0, r.top - cur.bottom);
+        overlaps = r.right > cur.left && r.left < cur.right;
+        perpOffset = Math.abs(cx - curCx);
+      } else if (dir === 'up') {
+        if (r.bottom > cur.top + tolerance) continue;
+        gap = Math.max(0, cur.top - r.bottom);
+        overlaps = r.right > cur.left && r.left < cur.right;
+        perpOffset = Math.abs(cx - curCx);
+      }
+
+      if (overlaps) {
+        aligned.push({ el, gap, perpOffset });
+      } else {
+        fallback.push({ el, score: gap + 2 * perpOffset });
+      }
+    }
+
+    if (aligned.length) {
+      aligned.sort((a, b) => a.gap - b.gap || a.perpOffset - b.perpOffset);
+      return aligned[0].el;
+    }
+
+    if (fallback.length) {
+      fallback.sort((a, b) => a.score - b.score);
+      return fallback[0].el;
+    }
+
+    return null;
+  }
+
+  grids.forEach((grid) => {
+    grid.addEventListener('keydown', (e) => {
+      const dir = DIRS[e.key];
+      if (!dir || e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+
+      const innerTarget = e.composedPath()[0];
+      if (isEditableTarget(innerTarget)) return;
+
+      const candidates = [...grid.querySelectorAll('[role="gridcell"]')].filter(
+        (el) => !el.hidden && (typeof el.checkVisibility !== 'function' || el.checkVisibility()),
+      );
+      if (!candidates.includes(document.activeElement)) return;
+
+      const next = findBestCandidate(document.activeElement, candidates, dir);
+      if (!next) return; // Preserve native scrolling at boundary
+
+      e.preventDefault();
+      candidates.forEach((el) => el.setAttribute('tabindex', el === next ? '0' : '-1'));
+      next.focus();
+      next.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    });
+  });
+}
+
+/* --------------------------------------------------------------------------
+   5. NATIVE <dialog> CASE STUDY DRAWER + HTMX HOOKS
+   -------------------------------------------------------------------------- */
+let lastDrawerTrigger = null;
+
+function openDrawer(triggerEl) {
+  const drawer = document.getElementById('case-study-drawer');
+  if (!drawer) return;
+  lastDrawerTrigger = triggerEl || document.activeElement;
+  if (!drawer.open) drawer.showModal();
+}
+
+function closeDrawer() {
+  const drawer = document.getElementById('case-study-drawer');
+  if (drawer && drawer.open) drawer.close();
+}
+
+function initHtmxHooks() {
+  const drawer = document.getElementById('case-study-drawer');
+
+  drawer?.addEventListener('click', (e) => {
+    // Backdrop click on native <dialog>
+    if (e.target === drawer) closeDrawer();
+  });
+
+  drawer?.addEventListener('close', () => {
+    if (lastDrawerTrigger && typeof lastDrawerTrigger.focus === 'function') {
+      lastDrawerTrigger.focus({ preventScroll: true });
+      lastDrawerTrigger = null;
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    const opener = e.target.closest('[data-open-drawer]');
+    if (opener) {
+      openDrawer(opener);
+      return;
+    }
+
+    if (e.target.closest('[data-close-drawer]')) {
       closeDrawer();
     }
   });
@@ -63,37 +334,70 @@ function initHtmxHooks() {
 
   document.body.addEventListener('htmx:afterSwap', (e) => {
     initAllThreeContainers(e.detail.target);
+    if (e.detail.target?.id === 'drawer-content') {
+      const closeBtn = e.detail.target.querySelector('[data-close-drawer]');
+      closeBtn?.focus({ preventScroll: true });
+    }
   });
 }
 
-function openDrawer() {
-  const drawer = document.getElementById('case-study-drawer');
-  if (!drawer) return;
-  drawer.classList.add('is-open');
-  drawer.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
+/* --------------------------------------------------------------------------
+   6. NATIVE <dialog> CV VIEWER
+   -------------------------------------------------------------------------- */
+const CV_SRC = 'partials/Curriculum_Vitae_Escala_OlimpO_II_Francisco_Jose_Bermejo_Tarifa.pdf';
+let lastCvTrigger = null;
+
+function openCv(triggerEl) {
+  const dialog = document.getElementById('cv-frame');
+  const frame = dialog?.querySelector('.cv-view');
+  if (!dialog || !frame) return;
+  lastCvTrigger = triggerEl || document.activeElement;
+  if (!frame.getAttribute('src')) frame.src = CV_SRC;
+  if (!dialog.open) dialog.showModal();
+  dialog.querySelector('[data-cv-close]')?.focus({ preventScroll: true });
 }
 
-function closeDrawer() {
-  const drawer = document.getElementById('case-study-drawer');
-  if (!drawer) return;
-  drawer.classList.remove('is-open');
-  drawer.setAttribute('aria-hidden', 'true');
-  if (!isLaunchOpen()) document.body.style.overflow = '';
+function closeCv() {
+  const dialog = document.getElementById('cv-frame');
+  if (dialog && dialog.open) dialog.close();
+}
+
+function initCv() {
+  const dialog = document.getElementById('cv-frame');
+
+  dialog?.addEventListener('click', (e) => {
+    if (e.target === dialog) closeCv();
+  });
+
+  dialog?.addEventListener('close', () => {
+    if (lastCvTrigger && typeof lastCvTrigger.focus === 'function') {
+      lastCvTrigger.focus({ preventScroll: true });
+      lastCvTrigger = null;
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    const opener = e.target.closest('[data-open-cv]');
+    if (opener) {
+      openCv(opener);
+      return;
+    }
+    if (e.target.closest('[data-cv-close]')) {
+      closeCv();
+    }
+  });
 }
 
 /* --------------------------------------------------------------------------
-   3. LAUNCH FRAME
-   iOS Safari and iOS Chrome cannot lock or fullscreen a page. The frame is
-   sized to the visual viewport. Only a project marked landscape is turned
-   90° on a portrait iPhone or iPad, or locked to landscape on Android.
+   7. NATIVE <dialog> LAUNCH FRAME (Interactive 3D & Presentation Embeds)
    -------------------------------------------------------------------------- */
 let portraitDismissed = false;
 let launchWantsLandscape = false;
+let lastLaunchTrigger = null;
 
 function isLaunchOpen() {
   const layer = document.getElementById('launch-frame');
-  return Boolean(layer && layer.classList.contains('is-open'));
+  return Boolean(layer && layer.open);
 }
 
 function isHandheld() {
@@ -133,62 +437,13 @@ function framedPageScrolls(frame) {
   return /rutas_turismo/.test(frame.getAttribute('src') || '');
 }
 
-function restorePageScroll() {
-  const drawer = document.getElementById('case-study-drawer');
-  const cv = document.getElementById('cv-frame');
-  const locked = (drawer && drawer.classList.contains('is-open'))
-    || (cv && cv.classList.contains('is-open'));
-  document.body.style.overflow = locked ? 'hidden' : '';
-}
-
-const CV_SRC = 'partials/Curriculum_Vitae_Escala_OlimpO_II_Francisco_Jose_Bermejo_Tarifa.pdf';
-
-function isCvOpen() {
-  const layer = document.getElementById('cv-frame');
-  return Boolean(layer && layer.classList.contains('is-open'));
-}
-
-function openCv() {
-  const layer = document.getElementById('cv-frame');
-  const frame = layer?.querySelector('.cv-view');
-  if (!layer || !frame) return;
-  if (!frame.getAttribute('src')) frame.src = CV_SRC;
-  layer.classList.add('is-open');
-  layer.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
-  layer.querySelector('[data-cv-close]')?.focus({ preventScroll: true });
-}
-
-function closeCv() {
-  const layer = document.getElementById('cv-frame');
-  if (!layer || !layer.classList.contains('is-open')) return;
-  layer.classList.remove('is-open');
-  layer.setAttribute('aria-hidden', 'true');
-  restorePageScroll();
-}
-
-function initCv() {
-  document.addEventListener('click', (event) => {
-    if (event.target.closest('[data-open-cv]')) {
-      openCv();
-      return;
-    }
-    if (
-      event.target.closest('[data-cv-close]') ||
-      event.target.classList.contains('cv-frame')
-    ) {
-      closeCv();
-    }
-  });
-}
-
 async function leaveFullscreen() {
   const exit = document.exitFullscreen || document.webkitExitFullscreen;
   if (!exit || !(document.fullscreenElement || document.webkitFullscreenElement)) return;
   try {
     await exit.call(document);
   } catch {
-    /* already left fullscreen */
+    /* ignore */
   }
 }
 
@@ -196,7 +451,7 @@ function unlockOrientation() {
   try {
     screen.orientation?.unlock?.();
   } catch {
-    /* unlock is unavailable outside a locked session */
+    /* ignore */
   }
 }
 
@@ -218,14 +473,13 @@ function layoutLaunchFrame() {
   const stage = layer?.querySelector('.launch-frame-stage');
   const frame = layer?.querySelector('.launch-frame-view');
   const bar = layer?.querySelector('.launch-frame-bar');
-  if (!layer || !stage || !frame || !layer.classList.contains('is-open')) return;
+  if (!layer || !stage || !frame || !layer.open) return;
 
   const box = visualBox();
-  layer.style.top = box.top + 'px';
-  layer.style.left = box.left + 'px';
-  layer.style.width = box.width + 'px';
-  layer.style.height = box.height + 'px';
-  layer.style.transform = 'none';
+  layer.style.top = `${box.top}px`;
+  layer.style.left = `${box.left}px`;
+  layer.style.width = `${box.width}px`;
+  layer.style.height = `${box.height}px`;
 
   const barH = bar ? bar.offsetHeight : 0;
   const slotW = box.width;
@@ -235,21 +489,21 @@ function layoutLaunchFrame() {
 
   if (turn) {
     stage.style.top = '0px';
-    stage.style.left = slotW + 'px';
-    stage.style.width = slotH + 'px';
-    stage.style.height = slotW + 'px';
+    stage.style.left = `${slotW}px`;
+    stage.style.width = `${slotH}px`;
+    stage.style.height = `${slotW}px`;
     stage.style.transformOrigin = 'top left';
     stage.style.transform = 'rotate(90deg)';
-    frame.style.width = slotH + 'px';
-    frame.style.height = slotW + 'px';
+    frame.style.width = `${slotH}px`;
+    frame.style.height = `${slotW}px`;
   } else {
     stage.style.top = '0px';
     stage.style.left = '0px';
     stage.style.width = '100%';
     stage.style.height = '100%';
     stage.style.transform = 'none';
-    frame.style.width = slotW + 'px';
-    frame.style.height = slotH + 'px';
+    frame.style.width = `${slotW}px`;
+    frame.style.height = `${slotH}px`;
   }
   syncOrientNotice();
   fitFramedDocument(frame);
@@ -266,16 +520,6 @@ function fitFramedDocument(frame) {
   if (!w || !h) return;
 
   const scrolls = framedPageScrolls(frame);
-  const meta = doc.querySelector('meta[name="viewport"]');
-  if (meta) {
-    meta.setAttribute(
-      'content',
-      scrolls
-        ? `width=${w}, initial-scale=1, viewport-fit=cover, shrink-to-fit=no`
-        : `width=${w}, height=${h}, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, shrink-to-fit=no`,
-    );
-  }
-
   let style = doc.getElementById('launch-fit');
   if (!style) {
     style = doc.createElement('style');
@@ -285,69 +529,23 @@ function fitFramedDocument(frame) {
   const slides = doc.querySelectorAll('.slide').length || 6;
   style.textContent = scrolls
     ? `
-    html {
-      height: auto !important;
-      max-height: none !important;
-      overflow: visible !important;
-    }
-    body {
-      width: auto !important;
-      height: auto !important;
-      min-height: 100% !important;
-      max-width: none !important;
-      max-height: none !important;
-      overflow: visible !important;
-    }
-    .app-wrapper {
-      width: 100% !important;
-      max-width: none !important;
-      height: auto !important;
-      min-height: 100% !important;
-      max-height: none !important;
-    }
-  `
+      html { height: auto !important; max-height: none !important; overflow: visible !important; }
+      body { width: auto !important; height: auto !important; min-height: 100% !important; max-width: none !important; max-height: none !important; overflow: visible !important; }
+      .app-wrapper { width: 100% !important; max-width: none !important; height: auto !important; min-height: 100% !important; max-height: none !important; }
+    `
     : `
-    html, body {
-      width: ${w}px !important;
-      height: ${h}px !important;
-      min-width: 0 !important;
-      min-height: 0 !important;
-      max-width: ${w}px !important;
-      max-height: ${h}px !important;
-      overflow: hidden !important;
-    }
-    #canvas-container, #ui-layer, #pdf-modal, .presentation-container, .slide {
-      width: ${w}px !important;
-      max-width: ${w}px !important;
-    }
-    #canvas-container, #ui-layer, #pdf-modal {
-      height: ${h}px !important;
-      max-height: ${h}px !important;
-    }
-    .slider-wrapper { width: ${w * slides}px !important; }
-  `;
+      html, body { width: ${w}px !important; height: ${h}px !important; min-width: 0 !important; min-height: 0 !important; max-width: ${w}px !important; max-height: ${h}px !important; overflow: hidden !important; }
+      #canvas-container, #ui-layer, #pdf-modal, .presentation-container, .slide { width: ${w}px !important; max-width: ${w}px !important; }
+      #canvas-container, #ui-layer, #pdf-modal { height: ${h}px !important; max-height: ${h}px !important; }
+      .slider-wrapper { width: ${w * slides}px !important; }
+    `;
 
-  const key = `${w}x${h}`;
-  const inner = win.innerWidth;
-  if (Math.abs(inner - w) > 8 && frame.dataset.fitFor !== key) {
-    frame.dataset.fitFor = key;
-    try {
-      const url = new URL(frame.src, window.location.href);
-      url.searchParams.set('frame', key);
-      frame.src = `${url.pathname}${url.search}`;
-    } catch {
-      /* keep the fitted stylesheet if the address cannot be rebuilt */
-    }
-  } else {
-    win.dispatchEvent(new Event('resize'));
-  }
+  win.dispatchEvent(new Event('resize'));
 }
 
-function clearLaunchLayout(layer, frame) {
+function cleanupLaunch(layer, frame) {
   const stage = layer.querySelector('.launch-frame-stage');
-  ['top', 'left', 'width', 'height', 'transform'].forEach((prop) => {
-    layer.style[prop] = '';
-  });
+  ['top', 'left', 'width', 'height'].forEach((prop) => { layer.style[prop] = ''; });
   if (stage) {
     stage.classList.remove('is-turned');
     ['top', 'left', 'width', 'height', 'transform', 'transformOrigin'].forEach((prop) => {
@@ -357,53 +555,52 @@ function clearLaunchLayout(layer, frame) {
   if (frame) {
     frame.style.width = '';
     frame.style.height = '';
-    delete frame.dataset.fitFor;
+    frame.src = 'about:blank';
+    frame.title = 'Visor interactivo del proyecto';
   }
+  portraitDismissed = false;
+  launchWantsLandscape = false;
+  unlockOrientation();
+  leaveFullscreen();
 }
 
-function openLaunch(src, title, orient) {
+function openLaunch(src, title, orient, triggerEl) {
   const layer = document.getElementById('launch-frame');
   const frame = layer?.querySelector('.launch-frame-view');
+  const titleEl = document.getElementById('launch-frame-title');
   if (!layer || !frame || !src) return;
+
+  // Close drawer if launch was triggered from inside case study
+  closeDrawer();
+
+  lastLaunchTrigger = triggerEl || document.activeElement;
   portraitDismissed = false;
   launchWantsLandscape = orient === 'landscape';
-  frame.title = title || 'Project';
+  frame.title = title || 'Visor interactivo del proyecto';
+  if (titleEl) titleEl.textContent = title || 'Proyecto';
+
   frame.removeAttribute('src');
-  layer.setAttribute('aria-label', frame.title);
-  layer.classList.add('is-open');
-  layer.setAttribute('aria-hidden', 'false');
-  document.documentElement.classList.add('launch-open');
-  document.body.style.overflow = 'hidden';
+  if (!layer.open) layer.showModal();
   layoutLaunchFrame();
   frame.src = src;
   requestLandscape(layer);
   layer.querySelector('[data-launch-close]')?.focus({ preventScroll: true });
 }
 
-function closeLaunch() {
+function initLaunchFrame() {
   const layer = document.getElementById('launch-frame');
   const frame = layer?.querySelector('.launch-frame-view');
-  if (!layer || !layer.classList.contains('is-open')) return;
-  layer.classList.remove('is-open');
-  layer.setAttribute('aria-hidden', 'true');
-  document.documentElement.classList.remove('launch-open');
-  portraitDismissed = false;
-  launchWantsLandscape = false;
-  clearLaunchLayout(layer, frame);
-  if (frame) {
-    frame.src = 'about:blank';
-    frame.title = 'Project';
-  }
-  unlockOrientation();
-  leaveFullscreen();
-  restorePageScroll();
-}
 
-function initLaunchFrame() {
-  const frame = document.querySelector('#launch-frame .launch-frame-view');
   frame?.addEventListener('load', () => {
-    if (!isLaunchOpen()) return;
-    fitFramedDocument(frame);
+    if (isLaunchOpen()) fitFramedDocument(frame);
+  });
+
+  layer?.addEventListener('close', () => {
+    cleanupLaunch(layer, frame);
+    if (lastLaunchTrigger && typeof lastLaunchTrigger.focus === 'function') {
+      lastLaunchTrigger.focus({ preventScroll: true });
+      lastLaunchTrigger = null;
+    }
   });
 
   document.addEventListener('click', (e) => {
@@ -414,11 +611,12 @@ function initLaunchFrame() {
         launch.getAttribute('href'),
         launch.getAttribute('data-launch-title'),
         launch.getAttribute('data-launch-orient'),
+        launch,
       );
       return;
     }
     if (e.target.closest('[data-launch-close]')) {
-      closeLaunch();
+      layer?.close();
       return;
     }
     if (e.target.closest('[data-launch-continue]')) {
@@ -432,27 +630,39 @@ function initLaunchFrame() {
   window.visualViewport?.addEventListener('scroll', onViewport);
   window.addEventListener('resize', onViewport);
   window.addEventListener('orientationchange', () => {
-    setTimeout(onViewport, 50);
+    setTimeout(onViewport, 80);
     setTimeout(onViewport, 300);
   });
 }
 
 /* --------------------------------------------------------------------------
-   4. CAMPAIGN CAROUSEL
+   8. ACCESSIBLE CAMPAIGN CAROUSEL (WCAG 2.2.2 Pause + Keyboard + Swipe)
    -------------------------------------------------------------------------- */
 function initCampaignCarousel() {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   document.querySelectorAll('[data-carousel]').forEach((root) => {
-    const track = root.querySelector('[data-carousel-track]');
     const slides = [...root.querySelectorAll('.campaign-slide')];
     const dots = [...root.querySelectorAll('[data-carousel-dots] button')];
-    if (!track || slides.length === 0) return;
+    const counter = root.querySelector('[data-carousel-counter]');
+    const pauseBtn = root.querySelector('[data-carousel-pause]');
+    if (!slides.length) return;
 
     let index = 0;
     let timer = 0;
+    let userPaused = reduceMotion;
 
-    function show(next) {
+    function syncPauseUi() {
+      if (!pauseBtn) return;
+      pauseBtn.setAttribute('aria-pressed', String(userPaused));
+      pauseBtn.textContent = userPaused ? 'Reanudar' : 'Pausar';
+      pauseBtn.setAttribute(
+        'aria-label',
+        userPaused ? 'Reanudar reproducción automática del carrusel' : 'Pausar reproducción automática del carrusel',
+      );
+    }
+
+    function show(next, fromUser = false) {
       index = (next + slides.length) % slides.length;
       slides.forEach((slide, i) => {
         const on = i === index;
@@ -463,6 +673,11 @@ function initCampaignCarousel() {
         if (i === index) dot.setAttribute('aria-current', 'true');
         else dot.removeAttribute('aria-current');
       });
+      if (counter) counter.textContent = `${index + 1} / ${slides.length}`;
+      if (fromUser) {
+        const imgAlt = slides[index].querySelector('img')?.alt || '';
+        announce(`Diapositiva ${index + 1} de ${slides.length}. ${imgAlt}`);
+      }
     }
 
     function stop() {
@@ -471,17 +686,29 @@ function initCampaignCarousel() {
     }
 
     function start() {
-      if (reduceMotion || timer) return;
-      timer = window.setInterval(() => show(index + 1), 6000);
+      if (userPaused || reduceMotion || timer) return;
+      timer = window.setInterval(() => show(index + 1, false), 6500);
     }
 
-    root.querySelector('[data-carousel-prev]')?.addEventListener('click', () => show(index - 1));
-    root.querySelector('[data-carousel-next]')?.addEventListener('click', () => show(index + 1));
-    dots.forEach((dot, i) => dot.addEventListener('click', () => show(i)));
+    root.querySelector('[data-carousel-prev]')?.addEventListener('click', () => show(index - 1, true));
+    root.querySelector('[data-carousel-next]')?.addEventListener('click', () => show(index + 1, true));
+    dots.forEach((dot, i) => dot.addEventListener('click', () => show(i, true)));
+
+    pauseBtn?.addEventListener('click', () => {
+      userPaused = !userPaused;
+      if (userPaused) stop();
+      else start();
+      syncPauseUi();
+    });
 
     root.addEventListener('keydown', (event) => {
-      if (event.key === 'ArrowRight') show(index + 1);
-      if (event.key === 'ArrowLeft') show(index - 1);
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        show(index + 1, true);
+      } else if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        show(index - 1, true);
+      }
     });
 
     let startX = 0;
@@ -495,8 +722,8 @@ function initCampaignCarousel() {
       if (!dragging) return;
       dragging = false;
       const delta = event.clientX - startX;
-      if (delta > 40) show(index - 1);
-      else if (delta < -40) show(index + 1);
+      if (delta > 40) show(index - 1, true);
+      else if (delta < -40) show(index + 1, true);
     });
     root.addEventListener('pointercancel', () => { dragging = false; });
 
@@ -507,18 +734,33 @@ function initCampaignCarousel() {
       if (!root.contains(event.relatedTarget)) start();
     });
 
-    show(0);
+    syncPauseUi();
+    show(0, false);
     start();
   });
 }
 
-function initShortcuts() {
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      if (isLaunchOpen()) closeLaunch();
-      else if (isCvOpen()) closeCv();
-      else closeDrawer();
-    }
+/* --------------------------------------------------------------------------
+   9. LOCAL VIDEO FACADE (Opt-in External Embed for Senderos UP)
+   -------------------------------------------------------------------------- */
+function initVideoFacades() {
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-load-video]');
+    if (!btn) return;
+    const facade = btn.closest('[data-video-facade]');
+    if (!facade) return;
+    const url = facade.getAttribute('data-embed-url');
+    const title = facade.getAttribute('data-embed-title') || 'Vídeo del proyecto';
+    if (!url) return;
+
+    const iframe = document.createElement('iframe');
+    iframe.src = url;
+    iframe.title = title;
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+    iframe.allowFullscreen = true;
+    facade.replaceWith(iframe);
+    iframe.focus();
   });
 }
 
@@ -527,10 +769,13 @@ function initShortcuts() {
    -------------------------------------------------------------------------- */
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
+  initFilters();
+  initScrollspy();
+  initSpatialNavigation();
   initHtmxHooks();
   initLaunchFrame();
   initCv();
   initCampaignCarousel();
-  initShortcuts();
+  initVideoFacades();
   initAllThreeContainers(document);
 });

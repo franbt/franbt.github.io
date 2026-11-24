@@ -1,6 +1,10 @@
 /* ==========================================================================
-   LAYOUT — VIEWPORT-LOCKED 3-BAND SHELL & LINEOUT ARCHITECTURE
-   Top Banner (100%) + Center Scrollable Viewer + Bottom Footer (75%)
+   LAYOUT — 5 PURPOSE-BUILT RESPONSIVE FORM FACTORS
+   1. Mobile  (< 640px)      : Single-column thumb-friendly vertical feed
+   2. Tablet  (640–1023px)   : Hero-top + balanced 2-column editorial grid
+   3. Laptop  (1024–1439px)  : Sticky left project index + showcase feed
+   4. PC      (1440–1919px)  : 12-col architectural alternating gallery
+   5. TV      (>= 1920px)    : 10-foot exhibition showcase w/ overscan safe-zone
    ========================================================================== */
 
 *,
@@ -11,34 +15,66 @@
   padding: 0;
 }
 
-html,
-body {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
+html {
+  min-block-size: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--banner-min-height) + env(safe-area-inset-top, 0px) + 1.25rem);
+  scroll-padding-bottom: calc(var(--footer-min-height) + env(safe-area-inset-bottom, 0px) + 1.25rem);
   font-family: var(--font-sans);
   font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
   font-variant-numeric: tabular-nums;
   background-color: var(--bg-primary);
-  background-image: var(--bg-texture);
-  background-repeat: repeat;
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  height: 100dvh;
+  min-block-size: 100dvh;
   display: flex;
   flex-direction: column;
+  background-color: var(--bg-primary);
+  background-image: var(--bg-texture);
+  background-repeat: repeat;
+  color: var(--text-primary);
   font-size: var(--text-base);
-  line-height: 1.42;
-  letter-spacing: -0.02em;
-  transition: background-color var(--transition-base);
+  line-height: 1.52;
+  letter-spacing: -0.012em;
+  overflow-wrap: break-word;
 }
 
+/* Accessible Typography Wrapping (never on *) */
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+p, li {
+  text-wrap: pretty;
+}
+
+img, video {
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+:where(a, code) {
+  overflow-wrap: anywhere;
+}
+
+/* Global Target Sizing (WCAG 2.5.8 / 2.5.5) */
+:where(button, select, textarea, input:not([type="checkbox"], [type="radio"]), [role="button"], nav a) {
+  min-block-size: var(--target-size);
+  min-inline-size: var(--target-size);
+}
+
+:where([role="button"], nav a) {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* High-contrast Keyboard Focus Ring (WCAG 2.4.7 / 1.4.11) */
 :focus-visible {
-  outline: 1px solid var(--line-strong);
+  outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
 }
 
@@ -55,79 +91,127 @@ button {
   cursor: pointer;
 }
 
+/* Visually Hidden Utility (keeps content in A11y tree, reveals on focus) */
+.visually-hidden:where(:not(:focus-within, :active)) {
+  position: absolute !important;
+  clip-path: inset(50%) !important;
+  overflow: hidden !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  white-space: nowrap !important;
+}
+
+/* Skip Link */
+.skip-link {
+  position: fixed;
+  top: max(0.75rem, env(safe-area-inset-top, 0px));
+  left: max(0.75rem, env(safe-area-inset-left, 0px));
+  z-index: 999;
+  padding: 0.7rem 1.15rem;
+  background: var(--bg-elevated);
+  color: var(--text-title);
+  border: 2px solid var(--focus-ring);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  box-shadow: var(--card-shadow);
+}
+
+/* Legacy WebKit Scrollbar Fallback */
+@supports not (scrollbar-color: auto) {
+  html,
+  .drawer-panel {
+    scrollbar-width: auto;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+  }
+}
+
 /* --------------------------------------------------------------------------
-   1. TOP BANNER (Always Visible, Fixed Height)
+   1. STICKY TOP HEADER (Safe-Area Aware, Never Clipped)
    -------------------------------------------------------------------------- */
 .top-banner {
-  flex: 0 0 var(--banner-height);
-  height: var(--banner-height);
+  position: sticky;
+  top: 0;
+  z-index: 40;
   width: 100%;
+  min-block-size: var(--banner-min-height);
+  padding-top: env(safe-area-inset-top, 0px);
   border-bottom: 1.5px solid var(--line);
   background-color: var(--bg-card);
-  z-index: 20;
-  transition: background-color var(--transition-base), border-color var(--transition-base);
+  box-shadow: 0 2px 14px rgba(8, 21, 35, 0.06);
 }
 
 .banner-inner {
-  height: 100%;
-  max-width: var(--viewer-max);
+  min-block-size: var(--banner-min-height);
+  max-inline-size: var(--viewer-max);
   margin-inline: auto;
-  padding-inline: var(--page-gutter);
+  padding-block: 0.55rem;
+  padding-left: max(var(--page-gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--page-gutter), env(safe-area-inset-right, 0px));
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-4);
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
 }
 
 .banner-brand {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: var(--space-3);
-  flex-shrink: 0;
+  gap: 0.25rem var(--space-3);
+  min-inline-size: 0;
 }
 
 .brand-name {
   font-size: var(--text-sm);
   font-weight: 700;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.025em;
   text-transform: uppercase;
-  white-space: nowrap;
   color: var(--text-title);
+  padding-block: 0.25rem;
   transition: color var(--transition-fast);
 }
 
 .brand-name:hover {
   color: var(--palette-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
 }
 
 .brand-tagline {
   font-size: var(--text-xs);
-  font-weight: 400;
+  font-weight: 450;
   color: var(--text-secondary);
-  letter-spacing: -0.02em;
-  white-space: nowrap;
-  text-decoration: none;
-}
-
-button.brand-name {
-  border: 0;
-  padding: 0;
-  background: none;
-  cursor: pointer;
-}
-
-button.brand-name:hover {
-  text-decoration: underline;
-  text-underline-offset: 0.18em;
 }
 
 .banner-info {
   display: flex;
   align-items: center;
-  gap: var(--space-4);
+  flex-wrap: wrap;
+  gap: var(--space-3);
   font-size: var(--text-xs);
   color: var(--text-secondary);
-  letter-spacing: -0.02em;
+}
+
+.banner-info-sep {
+  opacity: 0.45;
+  user-select: none;
 }
 
 .banner-actions {
@@ -138,240 +222,385 @@ button.brand-name:hover {
 }
 
 /* --------------------------------------------------------------------------
-   2. CENTER SCROLLABLE VIEWER (Dedicated Scroll Container)
+   2. MAIN WORKSPACE & PORTFOLIO INTRO MASTHEAD
    -------------------------------------------------------------------------- */
 .center-viewer {
-  flex: 1 1 auto;
-  min-height: 0;
+  flex: 1 0 auto;
   width: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-width: thin;
-  scrollbar-color: var(--line-strong) transparent;
-  background: transparent;
 }
 
 .viewer-inner {
-  max-width: var(--viewer-max);
+  max-inline-size: var(--viewer-max);
   margin-inline: auto;
-  padding: var(--space-5) var(--page-gutter) var(--space-6);
+  padding-top: var(--space-5);
+  padding-bottom: var(--space-6);
+  padding-left: max(var(--page-gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--page-gutter), env(safe-area-inset-right, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.portfolio-masthead {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-bottom: var(--space-4);
+  border-bottom: 1.5px solid var(--line);
+}
+
+.masthead-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-5);
+}
+
+.masthead-copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-inline-size: 62ch;
+}
+
+.masthead-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  color: var(--text-title);
+}
+
+.masthead-lead {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.masthead-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
 }
 
 /* --------------------------------------------------------------------------
-   3. BOTTOM FOOTER (Always Visible, 75% Height of Top Banner)
+   3. WORKSPACE SHELL (Adapts across Mobile / Tablet / Laptop / PC / TV)
+   -------------------------------------------------------------------------- */
+.portfolio-shell {
+  display: block;
+}
+
+/* Sticky Project Index Rail (Active specifically in Laptop layout) */
+.index-rail {
+  display: none;
+}
+
+/* Work Feed Container */
+#work-target {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+}
+
+.stage-slot {
+  container: card / inline-size;
+  min-inline-size: 0;
+  display: flex;
+}
+
+.stage-slot[hidden] {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   4. BOTTOM FOOTER (Safe-Area Aware, Natural Bottom Landmark)
    -------------------------------------------------------------------------- */
 .bottom-footer {
-  flex: 0 0 var(--footer-height);
-  height: var(--footer-height);
+  flex: 0 0 auto;
   width: 100%;
+  min-block-size: var(--footer-min-height);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
   border-top: 1.5px solid var(--line);
   background-color: var(--bg-card);
-  z-index: 20;
-  transition: background-color var(--transition-base), border-color var(--transition-base);
 }
 
 .footer-inner {
-  height: 100%;
-  max-width: var(--viewer-max);
+  min-block-size: var(--footer-min-height);
+  max-inline-size: var(--viewer-max);
   margin-inline: auto;
-  padding-inline: var(--page-gutter);
+  padding-block: 0.65rem;
+  padding-left: max(var(--page-gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--page-gutter), env(safe-area-inset-right, 0px));
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-3);
-  font-size: var(--text-2xs);
+  gap: var(--space-2) var(--space-4);
+  font-size: var(--text-xs);
   color: var(--text-secondary);
-  letter-spacing: -0.01em;
 }
 
 .footer-group {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-4);
-  white-space: nowrap;
+  gap: var(--space-2) var(--space-4);
 }
 
 .footer-cv {
-  border: 0;
-  padding: 0;
-  background: none;
-  font: inherit;
-  letter-spacing: inherit;
-  color: inherit;
-  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-title);
+  padding-block: 0.2rem;
 }
 
 .footer-cv:hover {
-  color: var(--text-primary);
+  color: var(--palette-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 /* --------------------------------------------------------------------------
-   TYPOGRAPHIC HIERARCHY (Inter as Decoration)
+   TYPOGRAPHIC HELPERS
    -------------------------------------------------------------------------- */
 .type-eyebrow {
   font-size: var(--text-2xs);
-  font-weight: 500;
+  font-weight: 650;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-muted);
-}
-
-.type-display {
-  font-size: var(--text-display);
-  font-weight: 200;
-  letter-spacing: -0.06em;
-  line-height: 0.94;
-  color: var(--text-primary);
+  letter-spacing: 0.08em;
+  color: var(--palette-accent);
 }
 
 .type-headline {
-  font-size: var(--text-2xl);
-  font-weight: 300;
-  letter-spacing: -0.045em;
-  line-height: 1.04;
-  color: var(--text-primary);
-}
-
-.type-lead {
-  font-size: var(--text-lg);
-  font-weight: 300;
+  font-size: var(--text-xl);
+  font-weight: 650;
   letter-spacing: -0.03em;
-  line-height: 1.35;
-  color: var(--text-secondary);
+  line-height: 1.18;
+  color: var(--text-title);
 }
 
-/* --------------------------------------------------------------------------
-   WORK FEED — one full-width entry per row
-   -------------------------------------------------------------------------- */
-#work-target {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
-
-#work-target > .stage {
-  width: 100%;
-}
-
-/* On a desktop browser the image frame alone fills the header-to-footer band.
-   The title sits under that frame. Scrolling stays native. Each work only
-   fades in as it enters, and only with opacity. */
-@media (min-width: 1024px) {
-  .viewer-inner {
-    position: relative;
-    padding-top: 0;
-    padding-bottom: 0;
+/* ==========================================================================
+   FORM FACTOR 1: MOBILE (< 640px)
+   Compact header, single-column thumb-friendly feed, uncluttered cards
+   ========================================================================== */
+@media (max-width: 639px) {
+  .brand-tagline,
+  .banner-info,
+  .footer-hide-sm {
+    display: none;
   }
 
-  .viewer-inner > .filter-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 5;
-    width: min(72rem, calc(0.88 * (100% - 2 * var(--page-gutter))));
-    height: 2.75rem;
-    margin-inline: auto;
-    padding: 0;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    background: transparent;
-    border-bottom: none;
-    pointer-events: none;
+  .banner-inner {
+    padding-block: 0.45rem;
+    gap: var(--space-2);
+  }
+
+  .brand-name {
+    font-size: 0.84rem;
+  }
+
+  .viewer-inner {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-5);
+    gap: var(--space-4);
+  }
+
+  .portfolio-masthead {
+    gap: var(--space-2);
+    padding-bottom: var(--space-3);
   }
 
   #work-target {
-    gap: 0;
-  }
-
-  #work-target > .stage {
-    width: min(72rem, 88%);
-    margin-inline: auto;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    border: none;
-    background: transparent;
-  }
-
-  #work-target > .stage:hover {
-    background: transparent;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
   }
 }
 
+/* ==========================================================================
+   FORM FACTOR 2: TABLET (640px – 1023px)
+   Featured full-span opening work + balanced 2-column editorial grid
+   ========================================================================== */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .banner-info {
+    display: none;
+  }
+
+  #work-target {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+
+  /* First visible item spans full width as tablet editorial hero */
+  #work-target > .stage-slot.is-featured {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ==========================================================================
+   FORM FACTOR 3: LAPTOP (1024px – 1439px)
+   Sticky Left Project Index Rail + Generous Right Showcase Column
+   Ideal for 1280x720 / 1366x768 / 1440x900 horizontal laptop viewports
+   ========================================================================== */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .banner-info .info-email {
+    display: none;
+  }
+
+  .portfolio-shell {
+    display: grid;
+    grid-template-columns: minmax(250px, 285px) minmax(0, 1fr);
+    gap: var(--space-5);
+    align-items: start;
+  }
+
+  .index-rail {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    position: sticky;
+    top: calc(var(--banner-min-height) + var(--space-4));
+    padding: var(--space-3);
+    background: var(--card-satin-bg);
+    border: 1.5px solid var(--line);
+    border-top: var(--stage-border-accent-height) solid var(--palette-accent);
+    box-shadow: var(--card-satin-shadow);
+    border-radius: var(--radius-xs);
+  }
+
+  #work-target {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-5);
+  }
+}
+
+/* ==========================================================================
+   FORM FACTOR 4: PC / DESKTOP (1440px – 1919px)
+   12-Column Architectural Gallery: Alternating full-bleed horizontal spreads
+   and spacious 2-column duos, driven by @container queries inside each slot
+   ========================================================================== */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .portfolio-shell {
+    display: block;
+  }
+
+  #work-target {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+
+  /* Architectural rhythm: 12-col hero, 6+6 duo, 6+6 duo, 12-col feature */
+  #work-target > .stage-slot {
+    grid-column: span 6;
+  }
+
+  #work-target > .stage-slot.is-featured,
+  #work-target > .stage-slot.is-wide-pc {
+    grid-column: span 12;
+  }
+}
+
+/* ==========================================================================
+   FORM FACTOR 5: TV / 4K EXHIBITION SCREEN (>= 1920px)
+   10-Foot Viewing Experience: Overscan safe-zone, high-legibility exhibition
+   typography, spacious 3-column spatial gallery with D-pad/arrow-key focus
+   ========================================================================== */
+@media (min-width: 1920px) {
+  body {
+    font-size: clamp(1.18rem, 0.95rem + 0.25vw, 1.45rem);
+    line-height: 1.56;
+  }
+
+  :focus-visible {
+    outline: 4px solid var(--focus-ring);
+    outline-offset: 5px;
+  }
+
+  .viewer-inner {
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-6);
+    gap: var(--space-5);
+  }
+
+  .portfolio-masthead {
+    padding-bottom: var(--space-4);
+  }
+
+  .masthead-title {
+    font-size: clamp(2.4rem, 1.8rem + 1vw, 3.6rem);
+  }
+
+  .masthead-lead {
+    font-size: clamp(1.15rem, 1rem + 0.22vw, 1.45rem);
+    max-inline-size: 72ch;
+  }
+
+  /* TV Exhibition Quick-Jump Strip: single spacious horizontal row above gallery */
+  .index-rail {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    background: var(--card-satin-bg);
+    border: 1.5px solid var(--line);
+    border-top: 4px solid var(--palette-accent);
+    border-radius: var(--radius-xs);
+    box-shadow: var(--card-satin-shadow);
+  }
+
+  .index-rail-list {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+
+  .index-rail-link {
+    border-left: 0;
+    border-bottom: 3px solid transparent;
+    border-radius: var(--radius-xs);
+    padding: 0.65rem 0.85rem;
+    font-size: var(--text-sm);
+  }
+
+  .index-rail-link.is-active,
+  .index-rail-link[aria-current="location"] {
+    border-left-color: transparent;
+    border-bottom-color: var(--palette-accent);
+  }
+
+  /* 3-column exhibition gallery: spacious, uncrowded, 2 rows of 3 works */
+  #work-target {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(2rem, 2.2vw, 3.25rem);
+  }
+
+  #work-target > .stage-slot {
+    grid-column: auto;
+  }
+}
+
+/* Subtle View-Timeline Entrance (Progressive Enhancement, Respects Reduced Motion) */
 @keyframes work-enter {
-  from { opacity: 0.64; }
+  from { opacity: 0.72; }
   to { opacity: 1; }
 }
 
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    #work-target > .stage {
+    #work-target > .stage-slot {
       animation-name: work-enter;
       animation-duration: auto;
       animation-timing-function: linear;
       animation-fill-mode: both;
       animation-timeline: view(block);
-      animation-range: entry 0% entry 12%;
+      animation-range: entry 0% entry 14%;
     }
   }
 }
 
-/* --------------------------------------------------------------------------
-   VIEWER GRIDS (Balanced Lineout Structure)
-   -------------------------------------------------------------------------- */
-.grid-duo {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-4);
-}
-
-.grid-trio {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-4);
-}
-
-/* --------------------------------------------------------------------------
-   RESPONSIVE BREAKPOINTS (Silent under-the-hood adaptation)
-   -------------------------------------------------------------------------- */
-
-/* Tablet & Compact Laptop */
-@media (max-width: 1200px) {
-  .grid-trio {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .banner-info {
-    display: none;
-  }
-}
-
-/* Mobile Devices */
-@media (max-width: 720px) {
-  .brand-tagline {
-    display: none;
-  }
-
-  .grid-duo,
-  .grid-trio {
-    grid-template-columns: 1fr;
-  }
-
-  .footer-hide-sm {
-    display: none;
-  }
-
-  .viewer-inner {
-    padding-block: var(--space-4);
-  }
-}
-
-/* 4K TV & Ultrawide Displays */
-@media (min-width: 2200px) {
-  :root {
-    --viewer-max: 2400px;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
