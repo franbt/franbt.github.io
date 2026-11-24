@@ -227,8 +227,7 @@
                 <p class="stage-desc">Cuatro piezas fotográficas de identidad y campaña: muñecas florales, escaleras de la feria, pasacalles y Jarramplas de Piornal.</p>
                 <div class="stage-actions">
                   <button type="button" class="btn-link"
-                          hx-get="partials/case-study-campana.html"
-                          hx-target="#drawer-content"
+                          data-case-study="partials/case-study-campana.html"
                           data-open-drawer>
                     Descripción del Estudio <span class="visually-hidden">de Campaña Turismo Cáceres ES+QTurismo</span> <span aria-hidden="true">&rarr;</span>
                   </button>
@@ -256,8 +255,7 @@
                 <p class="stage-desc">Presentación institucional interactiva y análisis de identidad visual, stands temáticos y propuesta gráfica para la I Feria Nacional del Folklore (#es+QTurismo).</p>
                 <div class="stage-actions">
                   <button type="button" class="btn-link"
-                          hx-get="partials/case-study-jato.html"
-                          hx-target="#drawer-content"
+                          data-case-study="partials/case-study-jato.html"
                           data-open-drawer>
                     Descripción del Estudio <span class="visually-hidden">de Jato 2026</span> <span aria-hidden="true">&rarr;</span>
                   </button>
@@ -288,8 +286,7 @@
                 <p class="stage-desc">Modelo tridimensional interactivo GLTF de Cáceres con navegación orbital, hitos patrimoniales georreferenciados y visor documental.</p>
                 <div class="stage-actions">
                   <button type="button" class="btn-link"
-                          hx-get="partials/case-study-ribera.html"
-                          hx-target="#drawer-content"
+                          data-case-study="partials/case-study-ribera.html"
                           data-open-drawer>
                     Descripción del Estudio <span class="visually-hidden">de Ribera del Marco</span> <span aria-hidden="true">&rarr;</span>
                   </button>
@@ -320,8 +317,7 @@
                 <p class="stage-desc">Aplicación web responsiva con simulador de dispositivos (PC, Tablet y Móvil), modo oscuro OLED, cartografía y fichas técnicas oficiales.</p>
                 <div class="stage-actions">
                   <button type="button" class="btn-link"
-                          hx-get="partials/case-study-rutas.html"
-                          hx-target="#drawer-content"
+                          data-case-study="partials/case-study-rutas.html"
                           data-open-drawer>
                     Descripción del Estudio <span class="visually-hidden">de Rutas Turísticas ESCÁCERES</span> <span aria-hidden="true">&rarr;</span>
                   </button>
@@ -395,8 +391,7 @@
                 <p class="stage-desc">Ocho láminas del recorrido: mapa interactivo, selección de ruta, ficha de detalle, puntos de interés, panel de administración y adaptación móvil.</p>
                 <div class="stage-actions">
                   <button type="button" class="btn-link"
-                          hx-get="partials/case-study-olimpo.html"
-                          hx-target="#drawer-content"
+                          data-case-study="partials/case-study-olimpo.html"
                           data-open-drawer>
                     Descripción del Estudio <span class="visually-hidden">de Aplicación Rutas de Turismo Olimpo II</span> <span aria-hidden="true">&rarr;</span>
                   </button>
@@ -435,8 +430,7 @@
                 <p class="stage-desc">Prueba de concepto en vídeo de la aplicación educativa del aula de naturaleza, planteada como recorrido interactivo con control por teclado o mando.</p>
                 <div class="stage-actions">
                   <button type="button" class="btn-link"
-                          hx-get="partials/case-study-senderos.html"
-                          hx-target="#drawer-content"
+                          data-case-study="partials/case-study-senderos.html"
                           data-open-drawer>
                     Descripción del Estudio <span class="visually-hidden">de Senderos UP</span> <span aria-hidden="true">&rarr;</span>
                   </button>
@@ -471,8 +465,8 @@
   <!-- Centralized Polite Live Region -->
   <div id="live-announcer" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
 
-  <!-- Native Modal Dialog: Case Study Sheet -->
-  <dialog id="case-study-drawer" class="app-dialog drawer-dialog" aria-labelledby="drawer-title">
+  <!-- Native Modal Dialog: Case Study Sheet (closedby="any" for native light-dismiss) -->
+  <dialog id="case-study-drawer" class="app-dialog drawer-dialog" closedby="any" aria-labelledby="drawer-title">
     <div class="drawer-panel" id="drawer-content">
       <div class="drawer-top">
         <h2 id="drawer-title" class="type-headline">Descripción del Estudio</h2>
@@ -502,7 +496,7 @@
   </dialog>
 
   <!-- Native Modal Dialog: Curriculum Vitae Viewer -->
-  <dialog id="cv-frame" class="app-dialog cv-dialog" aria-labelledby="cv-dialog-title">
+  <dialog id="cv-frame" class="app-dialog cv-dialog" closedby="any" aria-labelledby="cv-dialog-title">
     <div class="cv-panel">
       <div class="cv-bar">
         <h2 id="cv-dialog-title" class="cv-title">Curriculum Vitae — Francisco José Bermejo Tarifa</h2>

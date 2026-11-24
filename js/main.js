@@ -285,31 +285,134 @@ function initSpatialNavigation() {
 }
 
 /* --------------------------------------------------------------------------
-   5. NATIVE <dialog> CASE STUDY DRAWER + HTMX HOOKS
+   5. NATIVE <dialog> TOP-LAYER ANIMATION & LIGHT-DISMISS HELPERS
+   Includes Firefox/Safari discrete display exit fallback + Safari closedBy fallback
    -------------------------------------------------------------------------- */
-let lastDrawerTrigger = null;
+let supportsDisplayTransition;
 
-function openDrawer(triggerEl) {
+function canTransitionDisplay() {
+  if (supportsDisplayTransition !== undefined) return supportsDisplayTransition;
+  if (!window.CSS?.supports?.('transition-behavior', 'allow-discrete') || !document.body) {
+    return false;
+  }
+  const probe = document.createElement('div');
+  probe.style.cssText = 'transition: display 1s allow-discrete !important; display: block;';
+  document.body.appendChild(probe);
+  getComputedStyle(probe).display;
+  probe.style.display = 'none';
+  supportsDisplayTransition = getComputedStyle(probe).display === 'block';
+  probe.remove();
+  return supportsDisplayTransition;
+}
+
+function supportsTopLayerExit() {
+  return window.CSS?.supports?.('overlay', 'auto') && canTransitionDisplay();
+}
+
+async function closeTopLayer(dialog) {
+  if (!dialog || !dialog.open) return;
+  if (!supportsTopLayerExit()) {
+    if (dialog.hasAttribute('data-closing')) return;
+    dialog.setAttribute('data-closing', '');
+    const animations = dialog.getAnimations({ subtree: true });
+    if (animations.length > 0) {
+      await Promise.race([
+        Promise.allSettled(animations.map((a) => a.finished)),
+        new Promise((r) => setTimeout(r, 600)),
+      ]);
+    }
+    if (!dialog.hasAttribute('data-closing')) return;
+    dialog.removeAttribute('data-closing');
+  }
+  dialog.close();
+}
+
+function attachDialogFallbacks(dialog) {
+  if (!dialog) return;
+
+  // Route native cancel (Esc / closedby light-dismiss) through exit transition
+  dialog.addEventListener('cancel', (event) => {
+    if (!supportsTopLayerExit()) {
+      event.preventDefault();
+      closeTopLayer(dialog);
+    }
+  });
+
+  // Fallback for browsers without <dialog closedby="any"> support (e.g. Safari)
+  if (dialog.getAttribute('closedby') === 'any' && !('closedBy' in HTMLDialogElement.prototype)) {
+    dialog.addEventListener('click', (event) => {
+      if (event.target !== dialog) return;
+      const rect = dialog.getBoundingClientRect();
+      const insideContent = (
+        rect.top <= event.clientY &&
+        event.clientY <= rect.top + rect.height &&
+        rect.left <= event.clientX &&
+        event.clientX <= rect.left + rect.width
+      );
+      if (!insideContent) closeTopLayer(dialog);
+    });
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5b. CASE STUDY DRAWER (Cached Fetch -> Zero Stale Flash, Smooth Entry/Exit)
+   -------------------------------------------------------------------------- */
+const caseStudyCache = new Map();
+let lastDrawerTrigger = null;
+let drawerAbort = null;
+
+async function openCaseStudy(url, triggerEl) {
   const drawer = document.getElementById('case-study-drawer');
-  if (!drawer) return;
+  const content = document.getElementById('drawer-content');
+  if (!drawer || !content || !url) return;
+
+  if (drawerAbort) drawerAbort.abort();
+  drawerAbort = new AbortController();
   lastDrawerTrigger = triggerEl || document.activeElement;
+
+  let html = caseStudyCache.get(url);
+  if (!html) {
+    triggerEl?.setAttribute('aria-busy', 'true');
+    try {
+      const res = await fetch(url, { signal: drawerAbort.signal });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      html = await res.text();
+      caseStudyCache.set(url, html);
+    } catch (err) {
+      if (err.name === 'AbortError') return;
+      html = `
+        <div class="drawer-top">
+          <h2 id="drawer-title" class="type-headline">No se pudo cargar el estudio</h2>
+          <button type="button" class="btn-line" data-close-drawer>Cerrar &times;</button>
+        </div>
+        <p class="prose-clean">Comprueba que el servidor local está activo e inténtalo de nuevo.</p>
+      `;
+    } finally {
+      triggerEl?.removeAttribute('aria-busy');
+    }
+  }
+
+  cleanupThreeContainersIn(content);
+  content.innerHTML = html;
+  initAllThreeContainers(content);
+
+  drawer.removeAttribute('data-closing');
+  drawer.scrollTop = 0;
   if (!drawer.open) drawer.showModal();
+  content.querySelector('[data-close-drawer]')?.focus({ preventScroll: true });
 }
 
 function closeDrawer() {
   const drawer = document.getElementById('case-study-drawer');
-  if (drawer && drawer.open) drawer.close();
+  if (drawer && drawer.open) closeTopLayer(drawer);
 }
 
 function initHtmxHooks() {
   const drawer = document.getElementById('case-study-drawer');
-
-  drawer?.addEventListener('click', (e) => {
-    // Backdrop click on native <dialog>
-    if (e.target === drawer) closeDrawer();
-  });
+  attachDialogFallbacks(drawer);
 
   drawer?.addEventListener('close', () => {
+    drawer.removeAttribute('data-closing');
     if (lastDrawerTrigger && typeof lastDrawerTrigger.focus === 'function') {
       lastDrawerTrigger.focus({ preventScroll: true });
       lastDrawerTrigger = null;
@@ -319,24 +422,16 @@ function initHtmxHooks() {
   document.addEventListener('click', (e) => {
     const opener = e.target.closest('[data-open-drawer]');
     if (opener) {
-      openDrawer(opener);
+      const url = opener.getAttribute('data-case-study') || opener.getAttribute('hx-get');
+      if (url) {
+        e.preventDefault();
+        openCaseStudy(url, opener);
+      }
       return;
     }
 
     if (e.target.closest('[data-close-drawer]')) {
       closeDrawer();
-    }
-  });
-
-  document.body.addEventListener('htmx:beforeCleanupElement', (e) => {
-    cleanupThreeContainersIn(e.detail.elt);
-  });
-
-  document.body.addEventListener('htmx:afterSwap', (e) => {
-    initAllThreeContainers(e.detail.target);
-    if (e.detail.target?.id === 'drawer-content') {
-      const closeBtn = e.detail.target.querySelector('[data-close-drawer]');
-      closeBtn?.focus({ preventScroll: true });
     }
   });
 }
@@ -364,10 +459,7 @@ function closeCv() {
 
 function initCv() {
   const dialog = document.getElementById('cv-frame');
-
-  dialog?.addEventListener('click', (e) => {
-    if (e.target === dialog) closeCv();
-  });
+  attachDialogFallbacks(dialog);
 
   dialog?.addEventListener('close', () => {
     if (lastCvTrigger && typeof lastCvTrigger.focus === 'function') {
