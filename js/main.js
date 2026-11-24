@@ -421,7 +421,7 @@ function initHtmxHooks() {
 /* --------------------------------------------------------------------------
    6. NATIVE <dialog> CV VIEWER
    -------------------------------------------------------------------------- */
-const CV_SRC = 'partials/Curriculum_Vitae_Escala_OlimpO_II_Francisco_Jose_Bermejo_Tarifa.pdf';
+const CV_SRC = 'partials/CV_Francisco_Bermejo_PRINT_CMYK_VER_2.pdf';
 let lastCvTrigger = null;
 
 function openCv(triggerEl) {
