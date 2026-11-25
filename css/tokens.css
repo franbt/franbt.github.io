@@ -50,6 +50,20 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --transition-fast: 160ms var(--ease-out);
   --transition-base: 260ms var(--ease-out);
+  --holo-base-height: clamp(2.15rem, 3vw, 2.9rem);
+  --holo-spring-easing: linear(
+    0, 0.009, 0.035 2.1%, 0.141, 0.281 6.7%, 0.723 12.9%, 0.938 16.7%,
+    1.017, 1.077, 1.121, 1.149 24.3%, 1.159, 1.163, 1.161, 1.154 29.9%,
+    1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 0.991, 0.977 51%, 0.974 53.8%,
+    0.975 57.1%, 0.997 69.8%, 1.003 76.9%, 1.004 83.8%, 1
+  );
+
+  /* Hologram Base & Foil Defaults (Light Mineral) */
+  --holo-color-a: #38bdf8;
+  --holo-color-b: #818cf8;
+  --holo-color-c: #f472b6;
+  --holo-foil-blend: overlay;
+  --holo-foil-opacity-active: 0.44;
 
   /* Subtle Tactile Mineral Grain (local inline SVG data URI) */
   --svg-noise-light: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
@@ -170,6 +184,11 @@
     --status-progress: var(--status-progress-dark);
     --scrollbar-thumb: #6284a8;
     --scrollbar-track: #0d1520;
+    --holo-color-a: #38bdf8;
+    --holo-color-b: #a78bfa;
+    --holo-color-c: #f472b6;
+    --holo-foil-blend: color-dodge;
+    --holo-foil-opacity-active: 0.46;
   }
 }
 
@@ -230,6 +249,11 @@
   --status-progress: var(--status-progress-dark);
   --scrollbar-thumb: #6284a8;
   --scrollbar-track: #0d1520;
+  --holo-color-a: #38bdf8;
+  --holo-color-b: #a78bfa;
+  --holo-color-c: #f472b6;
+  --holo-foil-blend: color-dodge;
+  --holo-foil-opacity-active: 0.46;
 }
 
 /* ==========================================================================
@@ -265,6 +289,11 @@
   --status-progress: #4B5B81;
   --scrollbar-thumb: #4B5B81;
   --scrollbar-track: #BED2D2;
+  --holo-color-a: #5eead4;
+  --holo-color-b: #818cf8;
+  --holo-color-c: #f0abfc;
+  --holo-foil-blend: overlay;
+  --holo-foil-opacity-active: 0.44;
 }
 
 :root[data-mood="afternoon"] {
@@ -292,6 +321,11 @@
   --status-progress: #B63440;
   --scrollbar-thumb: #78856D;
   --scrollbar-track: #D1E1DE;
+  --holo-color-a: #34d399;
+  --holo-color-b: #38bdf8;
+  --holo-color-c: #f472b6;
+  --holo-foil-blend: overlay;
+  --holo-foil-opacity-active: 0.44;
 }
 
 :root[data-mood="evening"] {
@@ -319,6 +353,11 @@
   --status-progress: #A15131;
   --scrollbar-thumb: #A15131;
   --scrollbar-track: #E3E3E2;
+  --holo-color-a: #fb923c;
+  --holo-color-b: #fde047;
+  --holo-color-c: #e879f9;
+  --holo-foil-blend: overlay;
+  --holo-foil-opacity-active: 0.44;
 }
 
 :root[data-mood="night"] {
@@ -346,6 +385,11 @@
   --status-progress: #F48470;
   --scrollbar-thumb: #944382;
   --scrollbar-track: #0B0810;
+  --holo-color-a: #38bdf8;
+  --holo-color-b: #e879f9;
+  --holo-color-c: #fb7185;
+  --holo-foil-blend: color-dodge;
+  --holo-foil-opacity-active: 0.46;
 }
 
 /* More Contrast Preference */
@@ -378,6 +422,7 @@
     --text-secondary: CanvasText;
     --text-muted: GrayText;
     --focus-ring: Highlight;
+    --holo-base-height: 0px;
   }
 }
 

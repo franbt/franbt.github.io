@@ -11,6 +11,12 @@ import {
   refreshThreeThemes,
 } from './three-stage.js';
 
+import {
+  initHoloCards,
+  refreshHoloThemes,
+  setHoloPaused,
+} from './holo-cards.js';
+
 /* --------------------------------------------------------------------------
    0. LIVE REGION ANNOUNCER (Centralized Polite Updates)
    -------------------------------------------------------------------------- */
@@ -52,6 +58,7 @@ function applyMood(mood, { announceChange = false } = {}) {
   document.documentElement.setAttribute('data-theme', isNight ? 'dark' : 'light');
   updateThemeButton();
   refreshThreeThemes();
+  refreshHoloThemes();
   if (announceChange) {
     announce(`Paleta de ${MOOD_LABELS[validMood]} activada.`);
   }
@@ -788,6 +795,8 @@ function initCampaignCarousel() {
     let startX = 0;
     let dragging = false;
     root.addEventListener('pointerdown', (event) => {
+      // Reserve mouse click-and-hold for 3D card tilt; keep touch/pen swipe for carousels
+      if (event.pointerType === 'mouse') return;
       if (event.target.closest('button')) return;
       dragging = true;
       startX = event.clientX;
@@ -839,6 +848,34 @@ function initVideoFacades() {
 }
 
 /* --------------------------------------------------------------------------
+   10. HOLOGRAM AMBIENT MOTION PAUSE TOGGLE (WCAG 2.2.2)
+   -------------------------------------------------------------------------- */
+function initHoloMotionToggle() {
+  const btn = document.querySelector('[data-action="toggle-holo-motion"]');
+  if (!btn) return;
+  const label = btn.querySelector('.holo-toggle-label');
+  let paused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function syncUi() {
+    document.body.classList.toggle('holo-paused', paused);
+    setHoloPaused(paused);
+    if (label) label.textContent = paused ? 'Activar holo' : 'Pausar holo';
+    btn.setAttribute(
+      'aria-label',
+      paused ? 'Reanudar animación holográfica' : 'Pausar animación holográfica',
+    );
+  }
+
+  btn.addEventListener('click', () => {
+    paused = !paused;
+    syncUi();
+    announce(paused ? 'Animación holográfica pausada.' : 'Animación holográfica activada.');
+  });
+
+  syncUi();
+}
+
+/* --------------------------------------------------------------------------
    BOOTSTRAP
    -------------------------------------------------------------------------- */
 document.addEventListener('DOMContentLoaded', () => {
@@ -852,4 +889,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initCampaignCarousel();
   initVideoFacades();
   initAllThreeContainers(document);
+  initHoloCards();
+  initHoloMotionToggle();
 });

@@ -145,6 +145,9 @@
    3. STAGE CARD (.stage) + @container RESPONSIVE LAYOUT
    -------------------------------------------------------------------------- */
 .stage {
+  position: relative;
+  z-index: 2;
+  flex: 1 1 auto;
   width: 100%;
   border: 1.5px solid var(--line);
   border-top: var(--stage-border-accent-height, 3.5px) solid var(--stage-accent-bar, var(--palette-accent));
@@ -154,6 +157,11 @@
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto 1fr;
   box-shadow: var(--card-satin-shadow);
+  /* Identity transforms prevent stacking-context shifts when levitating or tilting */
+  translate: 0px 0px;
+  scale: 1;
+  transform: rotateX(0deg) rotateY(0deg) translateZ(0px);
+  transform-style: preserve-3d;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
 }
 
@@ -163,11 +171,196 @@
   border-top-color: var(--stage-accent-bar, var(--palette-accent));
 }
 
+/* Gentle levitation above the hologram emitter base (opt-in for no-preference) */
+@keyframes stage-levitate {
+  0%, 100% {
+    translate: 0px 0px;
+  }
+  50% {
+    translate: 0px -7px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body:not(.holo-paused) .stage-slot > .stage:not(.is-tilting) {
+    animation: stage-levitate 5.6s ease-in-out var(--holo-float-delay, 0s) infinite;
+  }
+}
+
+/* Click-and-hold 3D Pokémon-card tilt */
+.stage.is-holo-ready {
+  cursor: grab;
+}
+
+.stage.is-holo-ready img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.stage.is-holo-ready :is(a, button, iframe, input, select, textarea) {
+  cursor: pointer;
+}
+
+.stage.is-tilting {
+  z-index: 6;
+  cursor: grabbing;
+  user-select: none;
+  -webkit-user-select: none;
+  border-color: var(--line-strong);
+  border-top-color: var(--stage-accent-bar, var(--palette-accent));
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateZ(16px);
+  box-shadow:
+    var(--shadow-x, 0px) var(--shadow-y, 18px) 38px rgba(8, 17, 28, 0.24),
+    0 0 0 1px color-mix(in oklab, var(--holo-color-a, var(--palette-accent)) 36%, transparent),
+    var(--card-satin-shadow);
+  transition: border-color 120ms ease-out, box-shadow 80ms linear, transform 0ms linear;
+  will-change: transform;
+}
+
+.stage.is-springing {
+  /* Fallback for browsers without linear() easing */
+  transition:
+    border-color var(--transition-fast),
+    box-shadow 420ms var(--ease-out),
+    transform 560ms cubic-bezier(0.22, 1.4, 0.36, 1);
+  transition-timing-function: var(--ease-out), var(--ease-out), var(--holo-spring-easing);
+}
+
+/* Prismatic holographic foil glare (invisible at rest/hover, revealed on click-and-hold) */
+.stage-holo-foil {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  border-radius: inherit;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 220ms var(--ease-out);
+}
+
+.stage.is-tilting > .stage-holo-foil {
+  opacity: var(--holo-foil-opacity-active, 0.72);
+}
+
+.stage-holo-foil::before,
+.stage-holo-foil::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Prismatic multi-spectrum Pokémon-style holographic foil diffraction */
+.stage-holo-foil::before {
+  background-image:
+    repeating-linear-gradient(
+      var(--holo-angle, 128deg),
+      rgba(56, 189, 248, 0.54) 0%,
+      rgba(129, 140, 248, 0.54) 8%,
+      rgba(232, 121, 249, 0.56) 16%,
+      rgba(251, 113, 133, 0.54) 24%,
+      rgba(253, 224, 71, 0.52) 32%,
+      rgba(52, 211, 153, 0.54) 40%,
+      rgba(56, 189, 248, 0.54) 48%
+    ),
+    repeating-linear-gradient(
+      calc(var(--holo-angle, 128deg) - 52deg),
+      rgba(255, 255, 255, 0.14) 0px,
+      rgba(255, 255, 255, 0.0) 3px,
+      color-mix(in oklab, var(--holo-color-b, #818cf8) 24%, transparent) 6px,
+      rgba(255, 255, 255, 0.0) 9px
+    );
+  background-size: 260% 260%, 140% 140%;
+  background-position: var(--bg-x, 50%) var(--bg-y, 50%), var(--bg-y, 50%) var(--bg-x, 50%);
+  mix-blend-mode: var(--holo-foil-blend, overlay);
+  filter: saturate(1.38) contrast(1.06);
+  /* Focus iridescence softly around the light-catching spotlight so artwork stays crisp */
+  -webkit-mask-image: radial-gradient(
+    farthest-corner circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.72) 48%,
+    rgba(0, 0, 0, 0.34) 100%
+  );
+  mask-image: radial-gradient(
+    farthest-corner circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.72) 48%,
+    rgba(0, 0, 0, 0.34) 100%
+  );
+  opacity: 0.92;
+}
+
+/* Crisp iridescent specular spotlight + subtle holo sheen */
+.stage-holo-foil::after {
+  background-image:
+    radial-gradient(
+      circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+      rgba(255, 255, 255, 0.42) 0%,
+      rgba(165, 243, 252, 0.18) 20%,
+      rgba(240, 171, 252, 0.12) 38%,
+      transparent 62%
+    ),
+    linear-gradient(
+      calc(var(--holo-angle, 128deg) + 18deg),
+      transparent 34%,
+      rgba(255, 255, 255, 0.24) 49%,
+      rgba(103, 232, 249, 0.18) 51%,
+      rgba(232, 121, 249, 0.16) 53%,
+      transparent 68%
+    );
+  background-size: 100% 100%, 220% 220%;
+  background-position: center, var(--bg-x, 50%) var(--bg-y, 50%);
+  mix-blend-mode: screen;
+  opacity: 0.55;
+}
+
+/* Hologram Emitter Base Pedestal beneath each floating .stage card */
+.holo-base {
+  position: absolute;
+  left: 2%;
+  right: 2%;
+  bottom: -0.25rem;
+  height: calc(var(--holo-base-height, 2.5rem) + 1.4rem);
+  z-index: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: visible;
+}
+
+.holo-base-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Pure CSS fallback when WebGL is unavailable */
+.holo-base.is-fallback::before {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: 0.3rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in oklab, var(--holo-color-b, var(--palette-accent)) 65%, transparent) 0%,
+    color-mix(in oklab, var(--holo-color-a, var(--palette-accent)) 35%, transparent) 45%,
+    transparent 74%
+  );
+  filter: blur(5px);
+}
+
 /* TV focus prominence: unmistakable card lift when focused via remote/keyboard */
 @media (min-width: 1920px) {
   .stage:focus-within {
     box-shadow: 0 0 0 3px var(--focus-ring), var(--card-shadow);
-    transform: translateY(-3px);
+    translate: 0px -3px;
   }
 }
 
@@ -1071,16 +1264,39 @@ dialog.launch-dialog[open] {
 @media (prefers-reduced-motion: reduce) {
   .campaign-slide,
   .stage,
+  .stage.is-springing,
+  .stage-holo-foil,
   .btn-line,
   .btn-link,
   .filter-pill,
   .video-play-btn {
     transition: none;
   }
+
+  .stage.is-holo-ready {
+    cursor: default;
+  }
+}
+
+/* Compact hologram motion toggle label on very small screens */
+@media (max-width: 479px) {
+  .holo-toggle-label {
+    display: none;
+  }
 }
 
 /* Forced Colors Mode Structural Guarantees */
 @media (forced-colors: active) {
+  .holo-base,
+  .stage-holo-foil {
+    display: none;
+  }
+
+  .stage {
+    animation: none;
+    transform: none;
+  }
+
   .stage,
   .btn-line,
   .btn-link,

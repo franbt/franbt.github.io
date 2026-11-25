@@ -308,6 +308,11 @@ button {
   container: card / inline-size;
   min-inline-size: 0;
   display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+  perspective: 1200px;
+  padding-bottom: var(--holo-base-height, 0px);
 }
 
 .stage-slot[hidden] {
