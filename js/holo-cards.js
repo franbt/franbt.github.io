@@ -297,6 +297,59 @@ function ensureLoopRunning() {
   }
 }
 
+function applyTiltNormalized(card, nx, ny, maxDeg = MAX_TILT_DEG, energy = 1.0) {
+  const { stage } = card;
+  const clampedX = Math.min(1, Math.max(-1, nx));
+  const clampedY = Math.min(1, Math.max(-1, ny));
+  const px = (clampedX + 1) * 0.5;
+  const py = (clampedY + 1) * 0.5;
+
+  // Pokémon-card feel: pressing top edge tilts top back (positive rotateX),
+  // pressing right edge tilts right back (positive rotateY).
+  const rotateX = (-clampedY * maxDeg).toFixed(2);
+  const rotateY = (clampedX * maxDeg).toFixed(2);
+  const shadowX = (-clampedX * 16).toFixed(1);
+  const shadowY = (18 - clampedY * 10).toFixed(1);
+  const holoAngle = (128 + clampedX * 24 - clampedY * 14).toFixed(1);
+
+  stage.style.setProperty('--tilt-x', `${rotateX}deg`);
+  stage.style.setProperty('--tilt-y', `${rotateY}deg`);
+  stage.style.setProperty('--pointer-x', `${(px * 100).toFixed(1)}%`);
+  stage.style.setProperty('--pointer-y', `${(py * 100).toFixed(1)}%`);
+  stage.style.setProperty('--bg-x', `${(50 + clampedX * 35).toFixed(1)}%`);
+  stage.style.setProperty('--bg-y', `${(50 + clampedY * 35).toFixed(1)}%`);
+  stage.style.setProperty('--holo-angle', `${holoAngle}deg`);
+  stage.style.setProperty('--shadow-x', `${shadowX}px`);
+  stage.style.setProperty('--shadow-y', `${shadowY}px`);
+
+  card.targetTiltX = clampedX;
+  card.targetTiltY = clampedY;
+  card.targetEnergy = energy;
+}
+
+function releaseCardTilt(card) {
+  if (!card.isTilting) return;
+  const { stage } = card;
+  card.isTilting = false;
+  card.tiltSource = null;
+
+  stage.classList.remove('is-tilting');
+  stage.classList.add('is-springing');
+  stage.style.setProperty('--tilt-x', '0deg');
+  stage.style.setProperty('--tilt-y', '0deg');
+  stage.style.setProperty('--shadow-x', '0px');
+  stage.style.setProperty('--shadow-y', '14px');
+
+  card.targetTiltX = 0;
+  card.targetTiltY = 0;
+  card.targetEnergy = 0;
+
+  window.clearTimeout(card.springCleanupTimer);
+  card.springCleanupTimer = window.setTimeout(() => {
+    stage.classList.remove('is-springing');
+  }, 620);
+}
+
 function attachCardTilt(card) {
   const { stage } = card;
   stage.classList.add('is-holo-ready');
@@ -310,64 +363,25 @@ function attachCardTilt(card) {
   });
 
   let activePointerId = null;
-  let springCleanupTimer = 0;
+  let activeTouchId = null;
 
-  function applyTiltFromPointer(event) {
+  function applyTiltFromCoords(clientX, clientY, maxDeg = MAX_TILT_DEG) {
     const rect = stage.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
 
-    const px = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
-    const py = Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height));
-    const nx = px * 2 - 1; // -1 (left) .. +1 (right)
-    const ny = py * 2 - 1; // -1 (top)  .. +1 (bottom)
-
-    // Pokémon-card feel: pressing top edge tilts top back (positive rotateX),
-    // pressing right edge tilts right back (negative rotateY) or toward viewer.
-    const rotateX = (-ny * MAX_TILT_DEG).toFixed(2);
-    const rotateY = (nx * MAX_TILT_DEG).toFixed(2);
-    const shadowX = (-nx * 16).toFixed(1);
-    const shadowY = (18 - ny * 10).toFixed(1);
-    const holoAngle = (128 + nx * 24 - ny * 14).toFixed(1);
-
-    stage.style.setProperty('--tilt-x', `${rotateX}deg`);
-    stage.style.setProperty('--tilt-y', `${rotateY}deg`);
-    stage.style.setProperty('--pointer-x', `${(px * 100).toFixed(1)}%`);
-    stage.style.setProperty('--pointer-y', `${(py * 100).toFixed(1)}%`);
-    stage.style.setProperty('--bg-x', `${(50 + nx * 35).toFixed(1)}%`);
-    stage.style.setProperty('--bg-y', `${(50 + ny * 35).toFixed(1)}%`);
-    stage.style.setProperty('--holo-angle', `${holoAngle}deg`);
-    stage.style.setProperty('--shadow-x', `${shadowX}px`);
-    stage.style.setProperty('--shadow-y', `${shadowY}px`);
-
-    card.targetTiltX = nx;
-    card.targetTiltY = ny;
-    card.targetEnergy = 1.0;
+    const px = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+    const py = Math.min(1, Math.max(0, (clientY - rect.top) / rect.height));
+    applyTiltNormalized(card, px * 2 - 1, py * 2 - 1, maxDeg, 1.0);
   }
 
   function releaseTilt() {
-    if (!card.isTilting) return;
-    card.isTilting = false;
     activePointerId = null;
-
-    stage.classList.remove('is-tilting');
-    stage.classList.add('is-springing');
-    stage.style.setProperty('--tilt-x', '0deg');
-    stage.style.setProperty('--tilt-y', '0deg');
-    stage.style.setProperty('--shadow-x', '0px');
-    stage.style.setProperty('--shadow-y', '14px');
-
-    card.targetTiltX = 0;
-    card.targetTiltY = 0;
-    card.targetEnergy = 0;
-
-    window.clearTimeout(springCleanupTimer);
-    springCleanupTimer = window.setTimeout(() => {
-      stage.classList.remove('is-springing');
-    }, 620);
+    activeTouchId = null;
+    releaseCardTilt(card);
   }
 
+  // Desktop / fine-pointer: click-and-hold mouse tilt
   stage.addEventListener('pointerdown', (event) => {
-    // Click-and-hold mouse only; preserve touch scroll & touch carousel swipe
     if (event.pointerType !== 'mouse' || event.button !== 0) return;
     if (reduceMotionQuery?.matches) return;
     if (event.target.closest(INTERACTIVE_SELECTOR)) return;
@@ -375,8 +389,9 @@ function attachCardTilt(card) {
     // Prevent native image drag or text selection from cancelling pointer capture
     event.preventDefault();
 
-    window.clearTimeout(springCleanupTimer);
+    window.clearTimeout(card.springCleanupTimer);
     card.isTilting = true;
+    card.tiltSource = 'mouse';
     activePointerId = event.pointerId;
 
     stage.classList.remove('is-springing');
@@ -388,28 +403,121 @@ function attachCardTilt(card) {
       /* ignore if capture unsupported */
     }
 
-    applyTiltFromPointer(event);
+    applyTiltFromCoords(event.clientX, event.clientY, MAX_TILT_DEG);
     ensureLoopRunning();
   });
 
   stage.addEventListener('pointermove', (event) => {
-    if (!card.isTilting || event.pointerId !== activePointerId) return;
-    applyTiltFromPointer(event);
+    if (!card.isTilting || card.tiltSource !== 'mouse' || event.pointerId !== activePointerId) return;
+    applyTiltFromCoords(event.clientX, event.clientY, MAX_TILT_DEG);
   });
 
   stage.addEventListener('pointerup', (event) => {
-    if (event.pointerId !== activePointerId) return;
+    if (card.tiltSource !== 'mouse' || event.pointerId !== activePointerId) return;
     releaseTilt();
   });
 
   stage.addEventListener('pointercancel', (event) => {
-    if (event.pointerId !== activePointerId) return;
+    if (card.tiltSource !== 'mouse' || event.pointerId !== activePointerId) return;
     releaseTilt();
   });
 
   stage.addEventListener('lostpointercapture', () => {
-    releaseTilt();
+    if (card.tiltSource === 'mouse') releaseTilt();
   });
+
+  // Mobile / touch: passive touch listeners tilt the card simultaneously with native scrolling
+  stage.addEventListener('touchstart', (event) => {
+    if (reduceMotionQuery?.matches || isPausedByUser) return;
+    if (event.touches.length !== 1) return;
+    if (event.target.closest(INTERACTIVE_SELECTOR)) return;
+
+    const touch = event.touches[0];
+    window.clearTimeout(card.springCleanupTimer);
+    card.isTilting = true;
+    card.tiltSource = 'touch';
+    activeTouchId = touch.identifier;
+
+    stage.classList.remove('is-springing');
+    stage.classList.add('is-tilting');
+
+    applyTiltFromCoords(touch.clientX, touch.clientY, 10);
+    ensureLoopRunning();
+  }, { passive: true });
+
+  stage.addEventListener('touchmove', (event) => {
+    if (!card.isTilting || card.tiltSource !== 'touch') return;
+    const touch = [...event.touches].find((t) => t.identifier === activeTouchId) || event.touches[0];
+    if (!touch) return;
+    applyTiltFromCoords(touch.clientX, touch.clientY, 10);
+  }, { passive: true });
+
+  const endTouchTilt = (event) => {
+    if (card.tiltSource !== 'touch') return;
+    const stillActive = [...event.touches].some((t) => t.identifier === activeTouchId);
+    if (!stillActive) releaseTilt();
+  };
+
+  stage.addEventListener('touchend', endTouchTilt, { passive: true });
+  stage.addEventListener('touchcancel', endTouchTilt, { passive: true });
+}
+
+function initMobileScrollTilt() {
+  const coarseQuery = window.matchMedia('(pointer: coarse)');
+  let lastScrollY = window.scrollY;
+  let scrollRaf = 0;
+  let settleTimer = 0;
+
+  function updateScrollTilt() {
+    scrollRaf = 0;
+    if (!coarseQuery.matches || isMotionDisabled()) return;
+
+    const currentY = window.scrollY;
+    const dy = currentY - lastScrollY;
+    lastScrollY = currentY;
+
+    const vh = window.innerHeight || 1;
+    const halfVh = vh * 0.5;
+    const velBias = Math.max(-0.45, Math.min(0.45, dy * 0.015));
+
+    for (const card of cardStates) {
+      if (!card.isVisible || card.slot.hidden) continue;
+      // Direct finger touch takes priority over passive scroll tilt
+      if (card.tiltSource === 'touch' || card.tiltSource === 'mouse') continue;
+
+      const rect = card.stage.getBoundingClientRect();
+      const centerY = rect.top + rect.height * 0.5;
+      const viewportOffset = Math.max(-1, Math.min(1, (centerY - halfVh) / halfVh));
+
+      // Subtle scroll pitch + foil sweep as cards glide through the viewport
+      const ny = Math.max(-1, Math.min(1, viewportOffset * 0.65 + velBias));
+      const nx = Math.max(-0.4, Math.min(0.4, viewportOffset * 0.25));
+
+      window.clearTimeout(card.springCleanupTimer);
+      card.isTilting = true;
+      card.tiltSource = 'scroll';
+      card.stage.classList.remove('is-springing');
+      card.stage.classList.add('is-tilting');
+      applyTiltNormalized(card, nx, ny, 7.5, 0.85);
+    }
+
+    ensureLoopRunning();
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!coarseQuery.matches || isMotionDisabled()) return;
+    if (!scrollRaf) {
+      scrollRaf = requestAnimationFrame(updateScrollTilt);
+    }
+    window.clearTimeout(settleTimer);
+    settleTimer = window.setTimeout(() => {
+      for (const card of cardStates) {
+        if (card.tiltSource === 'scroll') {
+          releaseCardTilt(card);
+        }
+      }
+    }, 190);
+  }, { passive: true });
 }
 
 export function initHoloCards() {
@@ -481,6 +589,8 @@ export function initHoloCards() {
       seed: (index + 1) * 0.23,
       isVisible: true,
       isTilting: false,
+      tiltSource: null,
+      springCleanupTimer: 0,
       targetTiltX: 0,
       targetTiltY: 0,
       targetEnergy: 0,
@@ -493,6 +603,8 @@ export function initHoloCards() {
     attachCardTilt(card);
     observer?.observe(slot);
   });
+
+  initMobileScrollTilt();
 
   if (hasWebGL) {
     renderStaticFrame();
