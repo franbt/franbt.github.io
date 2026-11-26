@@ -515,7 +515,7 @@ function syncOrientNotice() {
 }
 
 function framedPageScrolls(frame) {
-  return /rutas_turismo/.test(frame.getAttribute('src') || '');
+  return /rutas_turismo\//.test(frame.getAttribute('src') || '');
 }
 
 async function leaveFullscreen() {

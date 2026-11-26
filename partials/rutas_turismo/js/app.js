@@ -35,6 +35,10 @@
 
   // --- Inicialización ---
   document.addEventListener('DOMContentLoaded', () => {
+    const bodyRouteId = document.body?.dataset?.routeId;
+    if (bodyRouteId) {
+      state.activeRouteId = bodyRouteId;
+    }
     initTheme();
     initFilters();
     initSearch();
@@ -91,7 +95,10 @@
         const matchSlogan = route.eslogan.toLowerCase().includes(q);
         const matchDesc = route.descripcion.toLowerCase().includes(q);
         const matchTheme = route.tematica.toLowerCase().includes(q);
-        if (!matchTitle && !matchSlogan && !matchDesc && !matchTheme) {
+        const matchStop = Array.isArray(route.fichas_paradas) && route.fichas_paradas.some(
+          stop => stop.nombre.toLowerCase().includes(q) || stop.claves.toLowerCase().includes(q)
+        );
+        if (!matchTitle && !matchSlogan && !matchDesc && !matchTheme && !matchStop) {
           return false;
         }
       }
@@ -239,6 +246,8 @@
 
   // --- 6. Generador de HTML de la Ficha Completa ---
   function buildRouteDetailHtml(route) {
+    const vbParts = String(route.mapa?.viewBox || '0 0 840 360').split(/\s+/);
+    const compassX = (parseInt(vbParts[2], 10) || 840) - 55;
     return `
       <div class="route-detail-view">
         <button class="btn-back-catalog" onclick="window.RutasApp.showCatalog()" aria-label="Volver al catálogo">
@@ -338,7 +347,7 @@
                     `).join('')}
 
                     <!-- Rosa de los vientos -->
-                    <g transform="translate(740, 45)" opacity="0.85">
+                    <g transform="translate(${compassX}, 45)" opacity="0.85">
                       <circle cx="0" cy="0" r="20" fill="var(--bg-surface)" stroke="var(--border-color)" stroke-width="1.5"/>
                       <path d="M 0,-15 L 4,-2 L 0,0 L -4,-2 Z" fill="var(--danger)"/>
                       <path d="M 0,15 L 4,2 L 0,0 L -4,2 Z" fill="var(--text-muted)"/>
@@ -488,7 +497,8 @@
                 <span class="sheet-author-title">Documento Técnico y Guía Oficial</span>
                 <span class="sheet-author-name">Autoría y diseño: ${escapeHtml(route.autoria)}</span>
               </div>
-              <div class="controls-no-print">
+              <div class="controls-no-print" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                ${route.pdf ? `<a class="header-btn" href="${escapeHtml(route.pdf)}" target="_blank" rel="noopener noreferrer">📄 Folleto SIG PDF</a>` : ''}
                 <button class="header-btn" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
               </div>
             </div>

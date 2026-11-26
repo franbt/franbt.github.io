@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <title>Campaña Turismo Cáceres ES+QTurismo — Presentación</title>
+  <link rel="stylesheet" href="../../vendor/fonts/inter.css">
+  <link rel="stylesheet" href="../../css/tokens.css">
+  <link rel="stylesheet" href="../../css/carousel-viewer.css">
+</head>
+<body>
+  <section class="carousel" aria-roledescription="carrusel" aria-label="Campaña Turismo Cáceres ES+QTurismo">
+    <div class="carousel-controls">
+      <button type="button" data-direction="previous" aria-label="Pieza anterior">
+        <span aria-hidden="true">&#8249;</span>
+      </button>
+      <button type="button" data-direction="next" aria-label="Siguiente pieza">
+        <span aria-hidden="true">&#8250;</span>
+      </button>
+    </div>
+
+    <div class="carousel-track" tabindex="0" role="group" aria-label="Piezas de la campaña">
+      <figure class="carousel-slide" role="group" aria-roledescription="diapositiva" aria-label="1 de 4" data-marker-name="Ir a la pieza 1: Muñecas">
+        <img src="es_mas_turismo/1_munecas.png" alt="Muñecas florales con la marca Cáceres ES+QTurismo" decoding="async">
+      </figure>
+      <figure class="carousel-slide" role="group" aria-roledescription="diapositiva" aria-label="2 de 4" data-marker-name="Ir a la pieza 2: Escaleras">
+        <img src="es_mas_turismo/2_escaleras.png" alt="Músicos tradicionales subiendo las escaleras, marca Cáceres ES+QTurismo" decoding="async">
+      </figure>
+      <figure class="carousel-slide" role="group" aria-roledescription="diapositiva" aria-label="3 de 4" data-marker-name="Ir a la pieza 3: Pasacalles">
+        <img src="es_mas_turismo/3_pasacalles.png" alt="Pasacalles con trajes bordados y la marca Cáceres ES+QTurismo" decoding="async">
+      </figure>
+      <figure class="carousel-slide" role="group" aria-roledescription="diapositiva" aria-label="4 de 4" data-marker-name="Ir a la pieza 4: Jarramplas">
+        <img src="es_mas_turismo/4_jarramplas.png" alt="Jarramplas con máscaras y trajes de tiras, marca Cáceres ES+QTurismo" decoding="async">
+      </figure>
+    </div>
+
+    <p class="visually-hidden" role="status" aria-live="polite"></p>
+
+    <div class="carousel-hud">
+      <div class="carousel-meta">
+        <span class="carousel-counter" data-carousel-counter aria-hidden="true">1 / 4</span>
+        <span class="carousel-caption" data-carousel-caption>Muñecas florales con la marca Cáceres ES+QTurismo</span>
+      </div>
+      <nav class="carousel-markers" aria-label="Elegir pieza"></nav>
+    </div>
+  </section>
+
+  <script type="module" src="../../js/carousel-viewer.js"></script>
+</body>
+</html>
