@@ -426,7 +426,11 @@ function attachCardTilt(card) {
     if (card.tiltSource === 'mouse') releaseTilt();
   });
 
-  // Mobile / touch: passive touch listeners tilt the card simultaneously with native scrolling
+  // Mobile / touch: passive touch listeners tilt ONLY the pressed card while scrolling natively
+  let touchRaf = 0;
+  let pendingTouchX = 0;
+  let pendingTouchY = 0;
+
   stage.addEventListener('touchstart', (event) => {
     if (reduceMotionQuery?.matches || isPausedByUser) return;
     if (event.touches.length !== 1) return;
@@ -437,11 +441,13 @@ function attachCardTilt(card) {
     card.isTilting = true;
     card.tiltSource = 'touch';
     activeTouchId = touch.identifier;
+    pendingTouchX = touch.clientX;
+    pendingTouchY = touch.clientY;
 
     stage.classList.remove('is-springing');
     stage.classList.add('is-tilting');
 
-    applyTiltFromCoords(touch.clientX, touch.clientY, 10);
+    applyTiltFromCoords(pendingTouchX, pendingTouchY, 10);
     ensureLoopRunning();
   }, { passive: true });
 
@@ -449,75 +455,32 @@ function attachCardTilt(card) {
     if (!card.isTilting || card.tiltSource !== 'touch') return;
     const touch = [...event.touches].find((t) => t.identifier === activeTouchId) || event.touches[0];
     if (!touch) return;
-    applyTiltFromCoords(touch.clientX, touch.clientY, 10);
+    pendingTouchX = touch.clientX;
+    pendingTouchY = touch.clientY;
+    if (!touchRaf) {
+      touchRaf = requestAnimationFrame(() => {
+        touchRaf = 0;
+        if (card.isTilting && card.tiltSource === 'touch') {
+          applyTiltFromCoords(pendingTouchX, pendingTouchY, 10);
+        }
+      });
+    }
   }, { passive: true });
 
   const endTouchTilt = (event) => {
     if (card.tiltSource !== 'touch') return;
     const stillActive = [...event.touches].some((t) => t.identifier === activeTouchId);
-    if (!stillActive) releaseTilt();
+    if (!stillActive) {
+      if (touchRaf) {
+        cancelAnimationFrame(touchRaf);
+        touchRaf = 0;
+      }
+      releaseTilt();
+    }
   };
 
   stage.addEventListener('touchend', endTouchTilt, { passive: true });
   stage.addEventListener('touchcancel', endTouchTilt, { passive: true });
-}
-
-function initMobileScrollTilt() {
-  const coarseQuery = window.matchMedia('(pointer: coarse)');
-  let lastScrollY = window.scrollY;
-  let scrollRaf = 0;
-  let settleTimer = 0;
-
-  function updateScrollTilt() {
-    scrollRaf = 0;
-    if (!coarseQuery.matches || isMotionDisabled()) return;
-
-    const currentY = window.scrollY;
-    const dy = currentY - lastScrollY;
-    lastScrollY = currentY;
-
-    const vh = window.innerHeight || 1;
-    const halfVh = vh * 0.5;
-    const velBias = Math.max(-0.45, Math.min(0.45, dy * 0.015));
-
-    for (const card of cardStates) {
-      if (!card.isVisible || card.slot.hidden) continue;
-      // Direct finger touch takes priority over passive scroll tilt
-      if (card.tiltSource === 'touch' || card.tiltSource === 'mouse') continue;
-
-      const rect = card.stage.getBoundingClientRect();
-      const centerY = rect.top + rect.height * 0.5;
-      const viewportOffset = Math.max(-1, Math.min(1, (centerY - halfVh) / halfVh));
-
-      // Subtle scroll pitch + foil sweep as cards glide through the viewport
-      const ny = Math.max(-1, Math.min(1, viewportOffset * 0.65 + velBias));
-      const nx = Math.max(-0.4, Math.min(0.4, viewportOffset * 0.25));
-
-      window.clearTimeout(card.springCleanupTimer);
-      card.isTilting = true;
-      card.tiltSource = 'scroll';
-      card.stage.classList.remove('is-springing');
-      card.stage.classList.add('is-tilting');
-      applyTiltNormalized(card, nx, ny, 7.5, 0.85);
-    }
-
-    ensureLoopRunning();
-  }
-
-  window.addEventListener('scroll', () => {
-    if (!coarseQuery.matches || isMotionDisabled()) return;
-    if (!scrollRaf) {
-      scrollRaf = requestAnimationFrame(updateScrollTilt);
-    }
-    window.clearTimeout(settleTimer);
-    settleTimer = window.setTimeout(() => {
-      for (const card of cardStates) {
-        if (card.tiltSource === 'scroll') {
-          releaseCardTilt(card);
-        }
-      }
-    }, 190);
-  }, { passive: true });
 }
 
 export function initHoloCards() {
@@ -603,8 +566,6 @@ export function initHoloCards() {
     attachCardTilt(card);
     observer?.observe(slot);
   });
-
-  initMobileScrollTilt();
 
   if (hasWebGL) {
     renderStaticFrame();

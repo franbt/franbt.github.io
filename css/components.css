@@ -219,6 +219,14 @@
   will-change: transform;
 }
 
+/* Keep mobile touch tilt purely compositor-driven (avoid per-frame box-shadow repaints during scroll) */
+@media (pointer: coarse) {
+  .stage.is-tilting {
+    box-shadow: var(--card-satin-shadow);
+    transition: transform 60ms linear;
+  }
+}
+
 .stage.is-springing {
   /* Fallback for browsers without linear() easing */
   transition:
